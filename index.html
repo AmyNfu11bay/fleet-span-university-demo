@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light}body{margin:0;font-size:14px;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Fleet Span University</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: app shell — top bar with demo switcher, left nav (tabs on phones), working area of tables and panels */
+:root{
+  --bg:#f2f4f6; --surface:#ffffff; --sunk:#e9edf1; --ink:#1b232c; --muted:#5a6672; --line:#d9dfe5;
+  --accent:#1d5f8c; --accent-ink:#ffffff; --accent-soft:#e2edf5;
+  --good:#2b7a4b; --good-soft:#e1f1e7; --warn:#a3670f; --warn-soft:#fbefd9;
+  --bad:#b23b2a; --bad-soft:#f8e3df; --internal:#5f4596; --internal-soft:#ece6f6;
+  --f-display:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11161b; --surface:#1a2129; --sunk:#151b22; --ink:#e5e9ed; --muted:#9aa6b2; --line:#2b343e;
+  --accent:#6aa8d6; --accent-ink:#0c1a26; --accent-soft:#1a2e3e;
+  --good:#63c08a; --good-soft:#173024; --warn:#e2b053; --warn-soft:#33281a;
+  --bad:#e57b66; --bad-soft:#3a201c; --internal:#b39be6; --internal-soft:#2a2340; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#11161b; --surface:#1a2129; --sunk:#151b22; --ink:#e5e9ed; --muted:#9aa6b2; --line:#2b343e;
+  --accent:#6aa8d6; --accent-ink:#0c1a26; --accent-soft:#1a2e3e;
+  --good:#63c08a; --good-soft:#173024; --warn:#e2b053; --warn-soft:#33281a;
+  --bad:#e57b66; --bad-soft:#3a201c; --internal:#b39be6; --internal-soft:#2a2340; color-scheme:dark }
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.5}
+*{box-sizing:border-box}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:28px} h2{font-size:21px} h3{font-size:17px}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* top bar */
+.top{background:var(--surface);border-bottom:1px solid var(--line);padding-block:12px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
+.mark{width:30px;height:30px;border-radius:6px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:15px}
+.brand b{font-family:var(--f-display);font-size:20px;font-weight:700;letter-spacing:.01em}
+.switch{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.switch label{font-size:13px;color:var(--muted)}
+select,input[type=text],input[type=date],input[type=number],textarea{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:0;max-width:100%}
+textarea{width:100%;resize:vertical}
+.demo{background:var(--warn-soft);color:var(--ink);font-size:13px;padding-block:7px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.demo b{color:var(--warn)}
+
+/* shell */
+.shell{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:calc(100vh - 110px)}
+nav.side{border-right:1px solid var(--line);background:var(--surface);padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+.navbtn{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;background:none;border:0;border-radius:6px;padding:8px 10px;cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px}
+.navbtn:hover{background:var(--sunk)}
+.navbtn[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.count{font-family:var(--f-mono);font-size:12px;background:var(--bad);color:#fff;border-radius:10px;padding:0 7px;line-height:19px}
+.navgroup{margin:14px 10px 4px}
+main{padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));min-width:0}
+.wrap{max-width:1080px;display:flex;flex-direction:column;gap:20px}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px}
+.head p{color:var(--muted);margin-top:4px}
+
+@media (max-width:760px){
+  .shell{grid-template-columns:1fr}
+  nav.side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px 12px;gap:4px}
+  .navbtn{width:auto;white-space:nowrap}
+  .navgroup{display:none}
+}
+
+/* panels, tables */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--sunk);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr.click{cursor:pointer} tr.click:hover td{background:var(--sunk)}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:12.5px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-notstarted{background:var(--sunk);color:var(--muted)}
+.s-progress{background:var(--accent-soft);color:var(--accent)}
+.s-awaiting{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.s-needsIP{background:var(--warn-soft);color:var(--warn)}
+.s-overdue{background:var(--bad-soft);color:var(--bad)}
+.s-completed{background:var(--good-soft);color:var(--good)}
+.s-late{background:var(--surface);color:var(--good);border-color:var(--good)}
+.s-final{background:var(--internal);color:var(--surface)}
+.s-contact{background:var(--sunk);color:var(--ink);border-color:var(--line)}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;background:var(--sunk);color:var(--muted)}
+.tag.verify{background:var(--warn-soft);color:var(--warn)}
+.tag.internal{background:var(--internal-soft);color:var(--internal)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:6px;padding:8px 14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:14px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.good{background:var(--good);color:var(--surface);border-color:var(--good)}
+.btn.ghost{background:none;border-color:transparent;color:var(--accent);padding-inline:6px}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi .v{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1.1}
+.kpi .v.bad{color:var(--bad)}
+.kpi .l{font-weight:600}
+.bar{height:6px;border-radius:3px;background:var(--sunk);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent)}
+
+/* cards for my training */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;text-align:left;cursor:pointer;width:100%}
+.card:hover{border-color:var(--accent)}
+.card .meta{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* player */
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.steps li{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:6px}
+.steps li:hover{background:var(--sunk)}
+.steps input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex:none}
+.steps .n{font-family:var(--f-mono);color:var(--muted);font-size:13px;width:18px;flex:none;margin-top:1px}
+.steps .done span.t{color:var(--muted);text-decoration:line-through}
+.q select{width:100%;max-width:560px;padding:9px 10px}
+.ql{padding:0!important;cursor:default!important}
+.ql:hover{background:none!important}
+.sobox{border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;background:var(--sunk)}
+ul.guide{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.q{display:flex;flex-direction:column;gap:6px;padding:12px 0;border-top:1px solid var(--line)}
+.q:first-child{border-top:0}
+.q label{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:6px;cursor:pointer}
+.q label:hover{background:var(--sunk)}
+.q input{accent-color:var(--accent);margin-top:4px}
+.callout{border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.callout.info{background:var(--accent-soft)}
+.callout.good{background:var(--good-soft)}
+.callout.warn{background:var(--warn-soft)}
+.callout.bad{background:var(--bad-soft)}
+.callout.internal{background:var(--internal-soft);border:1px dashed var(--internal)}
+.locked{opacity:.55}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px 20px}
+.facts div span{display:block}
+.facts .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.split{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.flash{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:600;font-size:14px;max-width:calc(100% - 32px);box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:5}
+.cell{background:none;border:0;padding:0;cursor:pointer}
+.empty{color:var(--muted);padding:18px;text-align:center;border:1px dashed var(--line);border-radius:8px}
+.fieldgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:13px;font-weight:600}
+.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
+.checklist label{display:flex;gap:8px;align-items:center;padding:6px 8px;border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.checklist label.off{opacity:.5;cursor:not-allowed}
+.email{font-family:var(--f-mono);font-size:13px;background:var(--sunk);border-radius:6px;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+@media (prefers-reduced-motion:no-preference){.btn,.card,.navbtn{transition:background .15s,border-color .15s}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="brand"><div class="mark" aria-hidden="true">FS</div><b>Fleet Span University</b></div>
+  <div class="switch">
+    <label for="viewer">Viewing as</label>
+    <select id="viewer"></select>
+    <button class="btn" data-act="reset" type="button">Reset demo</button>
+  </div>
+</header>
+<div class="demo"><b>Demo with sample people and data.</b> In the real app, each person's Microsoft login decides what they see. The "Viewing as" switcher exists only in this demo.</div>
+<div class="shell">
+  <nav class="side" id="nav" aria-label="Main"></nav>
+  <main id="main"></main>
+</div>
+<div class="flash" id="flash" hidden></div>
+
+<script>
+const TODAY = '2026-10-15';
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt = d => d ? MONTHS[+d.slice(5,7)-1] + ' ' + (+d.slice(8,10)) : '—';
+const addDays = (iso,n) => { const d = new Date(iso+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); };
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct = (a,b) => b ? Math.round(a/b*100) : null;
+const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+
+const SEED = {
+  people: [
+    {id:'dana', name:'Dana Ruiz', role:'Operations Director', access:'Admin', loc:'Main shop', mgr:null, active:true},
+    {id:'marcus', name:'Marcus Hale', role:'Service Manager', access:'Manager', loc:'Main shop', mgr:'dana', active:true},
+    {id:'priya', name:'Priya Shah', role:'Service Manager', access:'Manager', loc:'North yard', mgr:'dana', active:true},
+    {id:'gus', name:'Gus Pruitt', role:'Tech', access:'Reviewer', loc:'Main shop', mgr:'marcus', active:true},
+    {id:'luis', name:'Luis Ortega', role:'Tech', access:'Employee', loc:'Main shop', mgr:'marcus', active:true},
+    {id:'jake', name:'Jake Turner', role:'Tech', access:'Employee', loc:'Main shop', mgr:'marcus', active:true},
+    {id:'andre', name:'Andre Wells', role:'Tech', access:'Employee', loc:'Main shop', mgr:'marcus', active:true},
+    {id:'kelly', name:'Kelly Moss', role:'Service Advisor', access:'Employee', loc:'Main shop', mgr:'marcus', active:true},
+    {id:'ray', name:'Ray Collins', role:'Parts', access:'Employee', loc:'Main shop', mgr:'marcus', active:true},
+    {id:'sam', name:'Sam Becker', role:'Tech', access:'Employee', loc:'North yard', mgr:'priya', active:true},
+    {id:'tony', name:'Tony Nguyen', role:'Tech', access:'Employee', loc:'North yard', mgr:'priya', active:true},
+    {id:'eli', name:'Eli Foster', role:'Tech', access:'Employee', loc:'North yard', mgr:'priya', active:true},
+    {id:'ben', name:'Ben Ortiz', role:'Service Advisor', access:'Employee', loc:'North yard', mgr:'priya', active:true}
+  ],
+  modules: [
+    {id:'t1', title:'Clock on and off jobs', roles:['Tech'], tier:'Module 1', status:'Published', version:2, days:7,
+      why:"Your clocked time is how the shop knows what each job really took. Wrong clocks mean wrong efficiency and wrong pay conversations.",
+      before:["You are logged into Fullbay","You have clocked in and are on your **Tech Home**.","The Service Order (SO) you are working on has been assigned to you."],
+      doneRight:"At the end of the day every hour is on the right SO and job, or on a labeled activity.",
+      wrong:["Clocked into the wrong job: clock out, clock into the right one, and leave a note on the SO for your Service Manager.","If you forgot to clock in, leave a note with your start and end time for the day for your Service Manager to correct. You will also need to have a conversation regarding what jobs you worked on that day so allocate time to them correctly."],
+      items:[
+      {type:'step', text:"Open **Tech Home**."},
+      {type:'step', text:"Find the SO and the Action Item (the job) you are about to work on."},
+      {type:'step', text:"Click the Action Item to clock into that job your red banner will turn green."},
+      {type:'step', text:"To change what you are doing (for example from the job to a break or training), use the arrow next to the clock button and pick the activity."},
+      {type:'step', text:"When you finish or repair, mark the job as complete before you leave the jobsite.."},
+      {type:'step', text:"Samsara: **[Confirm with your Service Manager how clock-ins work with Samsara at this location]**"},
+      {type:'quiz', q:"How do you clock into a job?", options:["Tell your Service Advisor","Click the Action Item","Write your start time in the SO notes","Clock in at the front desk"], answer:1},
+      {type:'quiz', q:"What happens when you clock into the job?", options:["Your red banner will turn green","You get an email","The SO moves to Review","Parts gets notified"], answer:0},
+      {type:'quiz', q:"How do you change from the job to a break or training?", options:["Clock out for the day","Use the arrow next to the clock button and pick the activity","Leave the clock running on the job","Ask Parts to change it"], answer:1},
+      {type:'quiz', q:"You clocked into the wrong job. What do you do?", options:["Leave it, the hours even out","Clock out, clock into the right one, and leave a note on the SO for your Service Manager","Delete the SO","Tell the customer"], answer:1},
+      {type:'quiz', q:"What does done right look like?", options:["At the end of the day every hour is on the right SO and job, or on a labeled activity","You clocked in and out once","Most of your hours are on jobs","Your Service Advisor has your times"], answer:0},
+      {type:'signoff', text:"You clock onto the right SO and job for a full shift with no corrections from the Service Manager."}
+    ]},
+    {id:'t2', title:'Diagnose button on the SO', roles:['Tech'], tier:'Module 2', status:'Published', version:2, days:14,
+      why:"Diagnose is where the job gets real. Until it is marked diagnosed, Parts cannot quote and the customer cannot approve.",
+      before:["The SO is in the **Diagnose** stage (the Service Advisor has created it and captured the customer signature).","You are clocked onto the job (Module 1)."],
+      doneRight:"The Action Item shows diagnosed, the findings are clear enough that someone who was not there understands them, and parts are listed.",
+      wrong:["You cannot find the button: the SO may not be past the signature step. Ask your Service Advisor.","You need to change the diagnosis after marking it: tell ask your Service Advisor to change it."],
+      items:[
+      {type:'step', text:"Open the SO from **Tech Home**."},
+      {type:'step', text:"Open the Action Item you are diagnosing."},
+      {type:'step', text:"Write what you found in the **Cause** field. Say what is wrong in clear words and use AI to clean up your story."},
+      {type:'step', text:"Add the parts you need (see Module 4). Do not enter prices."},
+      {type:'step', text:"If the screen asks for usage (mileage or hours), enter it."},
+      {type:'step', text:"Click **Diagnosed** on the Action Item. This sends any Special Order parts to Parts for a quote."},
+      {type:'step', text:"Move to your next action item and repeat the above steps until all repairs have been diagnosed."},
+      {type:'quiz', q:"What stage must the SO be in before you diagnose?", options:["Review","Diagnose","Invoiced","Closed"], answer:1},
+      {type:'quiz', q:"Where do you write what you found?", options:["In the Cause field","In a text to the Service Advisor","On a sticky note","In the customer notes"], answer:0},
+      {type:'quiz', q:"When you add the parts you need, what do you leave out?", options:["The part description","The quantity","Prices","Nothing"], answer:2},
+      {type:'quiz', q:"What happens when you click Diagnosed on the Action Item?", options:["The SO is invoiced","It sends any Special Order parts to Parts for a quote","You are clocked out","The customer is charged"], answer:1},
+      {type:'quiz', q:"You cannot find the button. What is the likely reason?", options:["Your login is broken","The SO may not be past the signature step","Parts has not quoted yet","The job is already complete"], answer:1},
+      {type:'signoff', text:"You complete Diagnose on 5 SOs with no corrections."}
+    ]},
+    {id:'t3', title:'Inspection on every SO', roles:['Tech'], tier:'Module 3', status:'Published', version:2, days:14,
+      why:"The inspection finds the extra work the customer did not ask about. It is how the shop catches problems early and adds honest revenue. This is critical in preventing failures and building trust with your customer.",
+      before:["The SO has an inspection added automatically. It appears on SOs with a complaint that is not yet diagnosed."],
+      doneRight:"Every line has a result, and every defect has its own Action Item that Parts and the Service Advisor can see.",
+      wrong:["The inspection is missing: tell your Service Advisor right away.","Do not skip lines to save time. A skipped line means missed work."],
+      items:[
+      {type:'step', text:"Open the SO and find the inspection line."},
+      {type:'step', text:"Work down the procedure list one line at a time."},
+      {type:'step', text:"For each line, mark the result honestly."},
+      {type:'step', text:"If something is bad, mark it **Defective**. Fullbay creates a new Action Item for it automatically."},
+      {type:'step', text:"Add notes or photos if the screen allows."},
+      {type:'step', text:"Finish every line before you complete the inspection."},
+      {type:'quiz', q:"Which SOs have an inspection added automatically?", options:["Only PM SOs","SOs with a complaint that is not yet diagnosed","Only when the customer asks","Only new customers"], answer:1},
+      {type:'quiz', q:"How do you work the procedure list?", options:["Skip to the lines that matter","One line at a time","Mark everything at once","Only the first page"], answer:1},
+      {type:'quiz', q:"Something is bad. What do you mark it?", options:["Defective","Passed","Skipped","Diagnosed"], answer:0},
+      {type:'quiz', q:"What does Fullbay do when you mark a line Defective?", options:["Invoices the customer","Creates a new Action Item for it automatically","Clocks you out","Closes the SO"], answer:1},
+      {type:'quiz', q:"The inspection is missing. What do you do?", options:["Skip it","Tell your Service Advisor right away","Make up your own checklist","Wait for the next visit"], answer:1},
+      {type:'signoff', text:"You complete the inspection on 10 SOs."}
+    ]},
+    {id:'t4', title:'Request parts on the SO', roles:['Tech'], tier:'Module 4', status:'Published', version:2, days:14,
+      why:"When you ask for parts on the SO, Parts can quote, order and receive without chasing you. Calls and sticky notes get lost.",
+      before:["You know the job, the unit and the part you need."],
+      doneRight:"Every part you need is on the right Action Item with the right quantity, and you never had to walk/call the parts counter to explain it.",
+      wrong:["Wrong part added: tell Parts before they order it.","Do not quote, order or receive parts yourself, even if your login allows it. Parts own that step."],
+      items:[
+      {type:'step', text:"Open the Action Item that needs the part."},
+      {type:'step', text:"Scroll to the **Parts for Service** section of the Action Item"},
+      {type:'step', text:"Enter a description of the part that you need"},
+      {type:'step', text:"If you have the part on your truck, select the part from the Inventory dropdown menu"},
+      {type:'step', text:"Enter the number of parts that you need for this repair (QTY)"},
+      {type:'step', text:"Click **Add Part**."},
+      {type:'step', text:"Leave prices alone. Parts own the quote, order and receiving."},
+      {type:'step', text:"Mark the Action Item **Diagnosed** so Parts get notified (Module 2)."},
+      {type:'quiz', q:"Where on the Action Item do you request a part?", options:["The Parts for Service section","The Cause field","The SO notes","The inspection"], answer:0},
+      {type:'quiz', q:"You have the part on your truck. What do you do?", options:["Use it and say nothing","Select the part from the Inventory dropdown menu","Call the parts counter","Ask the Service Advisor"], answer:1},
+      {type:'quiz', q:"What do you do with prices?", options:["Enter your best guess","Leave prices alone","Copy last month's price","Enter zero"], answer:1},
+      {type:'quiz', q:"Who owns the quote, order and receiving?", options:["The tech","The Service Advisor","Parts","The customer"], answer:2},
+      {type:'quiz', q:"Wrong part added. What do you do?", options:["Delete the SO","Tell Parts before they order it","Order the right one yourself","Nothing"], answer:1},
+      {type:'signoff', text:"You request parts on 5 SOs, and Parts quotes and orders them without the Service Advisor stepping in."}
+    ]},
+    {id:'t5', title:'Complete button on the SO', roles:['Tech'], tier:'Module 5', status:'Published', version:2, days:14,
+      why:"Completing the job is what lets the SO move to invoicing. A job that is finished in the bay but not in Fullbay is revenue that has not been billed.",
+      before:["The work is done and the parts are on the job.","Special Order parts have been priced, ordered and received. You cannot finish until they are."],
+      doneRight:"The cause and correction are written so the customer can understand them, and the SO is no longer waiting on you.",
+      wrong:["You cannot finish: a part may still be waiting on Parts. Ask Parts, not the Service Advisor.","The SO comes back from review: fix what the Service Manager notes and complete it again."],
+      items:[
+      {type:'step', text:"Open the Action Item."},
+      {type:'step', text:"Write the complaint, the cause and the correction in plain words and use AI to clean up your story."},
+      {type:'step', text:"Check that the parts and actual hours on the job match what you did and how long it took you."},
+      {type:'step', text:"Click **Mark Action Item # as Corrected**."},
+      {type:'step', text:"The SO moves to Review where your Service Manager takes it from here."},
+      {type:'quiz', q:"What must be true before you can finish?", options:["The customer has paid","Special Order parts have been priced, ordered and received","The SO is invoiced","Your shift is over"], answer:1},
+      {type:'quiz', q:"What do you write on the Action Item?", options:["Only the part numbers","The complaint, the cause and the correction in plain words","Your clock times","Nothing"], answer:1},
+      {type:'quiz', q:"Which button do you click?", options:["Diagnosed","Mark Action Item # as Corrected","Add Part","Defective"], answer:1},
+      {type:'quiz', q:"Where does the SO move after you complete it?", options:["Straight to the customer","Review","Back to Diagnose","Parts"], answer:1},
+      {type:'quiz', q:"You cannot finish because a part may still be waiting on Parts. Who do you ask?", options:["The Service Advisor","Parts","The customer","Nobody"], answer:1},
+      {type:'signoff', text:"You complete 10 SOs, and the SO review passes with none sent back."}
+    ]},
+    {id:'t6', title:'PM services on the SO', roles:['Tech'], tier:'Module 6', status:'Published', version:2, days:14,
+      why:"PMs keep the customer's trucks running and keep them coming back. A PM that is done but not recorded is a PM the customer is told is overdue.",
+      before:["A PM SO exists for the unit (created from the PM schedule).","You are clocked onto the job."],
+      doneRight:"The unit's PM shows done, with the right usage and date.",
+      wrong:["The unit still shows overdue: tell the Service Manager. Do not redo the service."],
+      items:[
+      {type:'step', text:"Open the PM SO from **Tech Home**."},
+      {type:'step', text:"Work each procedure line on the PM service in order."},
+      {type:'step', text:"Enter the current usage (mileage or hours)."},
+      {type:'step', text:"Mark defects the same way as in the inspection (Module 3)."},
+      {type:'step', text:"Complete the job (Module 5)."},
+      {type:'step', text:"Open the unit and look at its **Components & PMs** tab. The service should show as done."},
+      {type:'quiz', q:"Where does the PM SO come from?", options:["The tech creates it","The PM schedule","The customer calls in","Parts"], answer:1},
+      {type:'quiz', q:"How do you work the procedure lines on the PM service?", options:["In any order","In order","Only the important ones","Skip to completing it"], answer:1},
+      {type:'quiz', q:"What usage do you enter?", options:["The current usage (mileage or hours)","Last visit's usage","The customer's estimate","None"], answer:0},
+      {type:'quiz', q:"Where do you check that the service shows as done?", options:["The invoice","The unit's Components & PMs tab","Tech Home","The inspection"], answer:1},
+      {type:'quiz', q:"The unit still shows overdue. What do you do?", options:["Redo the service","Tell the Service Manager. Do not redo the service.","Ignore it","Delete the PM"], answer:1},
+      {type:'signoff', text:"You complete a PM service and the unit shows it done."}
+    ]},
+    {id:'m3', title:'Build and send an estimate', roles:['Service Advisor'], tier:'Basic', status:'Published', version:1, days:14, items:[
+      {type:'step', text:"Open the service order and review the tech's diagnosis."},
+      {type:'step', text:'Confirm Parts has priced every part line.'},
+      {type:'step', text:"Add labor using the shop's labor rate."},
+      {type:'step', text:"Send the estimate to the customer and record their authorization or PO."},
+      {type:'quiz', q:'Who prices parts on an estimate?', options:['The Service Advisor','Parts','The tech','The Service Manager'], answer:1},
+      {type:'quiz', q:'What do you record when the customer approves?', options:['Nothing','Their authorization, and a PO if they use one','Only the date','The tech name'], answer:1},
+      {type:'signoff', text:'Build and send a live estimate with authorization recorded.'}
+    ]},
+    {id:'m4', title:'Quote, order and receive parts', roles:['Parts'], tier:'Basic', status:'Published', version:1, days:14, items:[
+      {type:'step', text:'Open the parts request on the service order.'},
+      {type:'step', text:'Quote the part and price it.'},
+      {type:'step', text:'Order the part from the vendor.'},
+      {type:'step', text:'Receive the part and match it to the vendor bill.'},
+      {type:'quiz', q:'Who owns quote, order and receive on service order parts?', options:['The Service Advisor','The tech','Parts','The Service Manager'], answer:2},
+      {type:'quiz', q:'A part arrives. What happens next?', options:['Hand it to the tech','Receive it and match the vendor bill','Leave it on the shelf','Email the customer'], answer:1},
+      {type:'signoff', text:'Quote, order and receive one live part request.'}
+    ]},
+    {id:'m5', title:'Turn on PM tracking for a unit', roles:['Service Manager'], tier:'Basic', status:'Published', version:1, days:21, items:[
+      {type:'step', text:'Find units with no PM tracking.'},
+      {type:'step', text:'Turn on PM tracking and set the schedule.'},
+      {type:'step', text:'Confirm the schedule matches the customer agreement.'},
+      {type:'quiz', q:'Who owns PM schedules?', options:['The tech','Parts','The Service Manager','The Service Advisor'], answer:2},
+      {type:'quiz', q:'Where do PM schedules come from for contract customers?', options:['The partner agreement set up by sales','The tech decides','The customer calls in','They are random'], answer:0},
+      {type:'signoff', text:'Turn on PM tracking for three live units.'}
+    ]},
+    {id:'m6', title:'Close out and invoice a service order', roles:['Service Advisor'], tier:'Advanced', status:'Draft', version:1, days:14, items:[
+      {type:'step', text:'Confirm every line is marked Complete.'},
+      {type:'step', text:'Review labor and parts against the estimate.'}
+    ]}
+  ],
+  enr: [
+    {id:'e1', emp:'luis', mod:'t2', assigned:'2026-10-06', due:'2026-10-20', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e2', emp:'luis', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-26'}], ip:0, smSign:0, handsOn:true, done:'2026-09-26'},
+    {id:'e17', emp:'luis', mod:'t3', assigned:'2026-10-14', due:'2026-10-28', reviewer:'gus', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e3', so:'48213, 48227, 48240, 48251, 48266', emp:'jake', mod:'t2', assigned:'2026-10-01', due:'2026-10-18', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:80,date:'2026-10-13'}], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e4', so:'48190, 48204, 48219, 48233, 48245', emp:'andre', mod:'t2', assigned:'2026-09-26', due:'2026-10-10', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:60,date:'2026-10-08'},{phase:0,score:60,date:'2026-10-09'}], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e5', emp:'gus', mod:'t1', assigned:'2026-09-14', due:'2026-09-21', reviewer:'marcus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-16'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
+    {id:'e18', emp:'gus', mod:'t2', assigned:'2026-09-21', due:'2026-10-05', reviewer:'marcus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:100,date:'2026-09-30'}], ip:0, smSign:0, handsOn:true, done:'2026-10-01'},
+    {id:'e6', emp:'kelly', mod:'m3', assigned:'2026-09-16', due:'2026-09-30', reviewer:'marcus', stepsDone:[0,1,2,3], attempts:[{phase:0,score:50,date:'2026-09-29'},{phase:0,score:100,date:'2026-10-02'}], ip:0, smSign:0, handsOn:true, done:'2026-10-03'},
+    {id:'e7', emp:'ray', mod:'m4', assigned:'2026-10-02', due:'2026-10-16', reviewer:'marcus', stepsDone:[0,1], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e8', so:'51022, 51040, 51057, 51063, 51079', emp:'sam', mod:'t2', assigned:'2026-09-28', due:'2026-10-12', reviewer:'priya', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:100,date:'2026-10-07'}], ip:0, smSign:0, handsOn:true, done:'2026-10-08'},
+    {id:'e9', emp:'tony', mod:'t2', assigned:'2026-09-29', due:'2026-10-13', reviewer:'priya', stepsDone:[0,1], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e10', so:'50877, 50902, 50914, 50931, 50948', emp:'eli', mod:'t2', assigned:'2026-09-01', due:'2026-09-15', reviewer:'priya', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:40,date:'2026-09-10'},{phase:0,score:60,date:'2026-09-11'},{phase:1,score:60,date:'2026-09-22'},{phase:2,score:60,date:'2026-10-06'}], ip:2, smSign:0, handsOn:false, done:null},
+    {id:'e11', emp:'ben', mod:'m3', assigned:'2026-10-15', due:'2026-10-29', reviewer:'priya', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e12', emp:'marcus', mod:'m5', assigned:'2026-10-08', due:'2026-10-29', reviewer:'dana', stepsDone:[0], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e13', so:'51108', emp:'sam', mod:'t1', assigned:'2026-10-10', due:'2026-10-17', reviewer:'priya', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-10-14'}], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e14', emp:'andre', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-29'}], ip:0, smSign:0, handsOn:true, done:'2026-09-29'},
+    {id:'e15', emp:'tony', mod:'t1', assigned:'2026-10-14', due:'2026-10-21', reviewer:'priya', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e16', emp:'jake', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-28'}], ip:0, smSign:0, handsOn:true, done:'2026-09-28'}
+  ],
+  audit: [
+    {date:'2026-10-14', who:'Dana Ruiz', what:'Updated all six Tech modules to version 2 from the revised Technician step-by-step guide'},
+    {date:'2026-10-14', who:'System', what:'Overdue reminder sent to Tony Nguyen and Priya Shah: Diagnose button on the SO'},
+    {date:'2026-10-09', who:'System', what:'Andre Wells used both quiz attempts on Diagnose button on the SO (60%, 60%). Status set to Needs in-person training. Andre and Marcus Hale notified.'},
+    {date:'2026-10-06', who:'System', what:'Eli Foster failed the quiz after the second in-person training on Diagnose button on the SO (60%). Status set to Final attempt failed. Priya Shah and admins notified.', internal:true},
+    {date:'2026-10-02', who:'Dana Ruiz', what:'Changed access level for Gus Pruitt: Employee → Reviewer'},
+    {date:'2026-09-30', who:'Priya Shah', what:'Logged in-person training #2 for Eli Foster: Diagnose button on the SO'}
+  ]
+};
+
+let DB;
+const S = { viewer:'dana', view:'dashboard', enr:null, mod:null, quiz:null, ef:null, flashT:null };
+function seed(){ DB = JSON.parse(JSON.stringify(SEED)); S.ef = null; S.quiz = null; }
+seed();
+
+const P = id => DB.people.find(p => p.id === id);
+const M = id => DB.modules.find(m => m.id === id);
+const E = id => DB.enr.find(e => e.id === id);
+const me = () => P(S.viewer);
+const lvl = () => me().access;
+function teamOf(id){ const out = []; const walk = m => DB.people.filter(p => p.mgr === m).forEach(p => { out.push(p.id); walk(p.id); }); walk(id); return out; }
+function scope(){ const v = me(); if (v.access === 'Admin') return DB.people.map(p => p.id); if (v.access === 'Manager') return teamOf(v.id); return [v.id]; }
+function smOf(empId){ let p = P(empId); while (p && p.mgr){ const m = P(p.mgr); if (m.role === 'Service Manager') return m; p = m; } return null; }
+function log(what, internal){ DB.audit.unshift({date:TODAY, who:me().name, what, internal:!!internal}); }
+
+/* ---------- status rules ---------- */
+const phaseAtt = (e,ph) => e.attempts.filter(a => a.phase === ph);
+const stepsTotal = e => M(e.mod).items.filter(i => i.type === 'step').length;
+const stepsComplete = e => e.stepsDone.length >= stepsTotal(e);
+const soReady = e => !!(e.so && e.so.trim());
+const quizPassed = e => phaseAtt(e, e.ip).some(a => a.score >= 80);
+const signoffOk = e => e.ip === 0 ? e.handsOn : e.smSign >= e.ip;
+const bestScore = e => e.attempts.length ? Math.max(...e.attempts.map(a => a.score)) : null;
+function status(e){
+  if (e.done) return e.done <= e.due ? 'completed' : 'late';
+  const cur = phaseAtt(e, e.ip), limit = e.ip === 0 ? 2 : 1;
+  if (e.ip === 2 && cur.length && !quizPassed(e)) return 'final';
+  if (cur.length >= limit && !quizPassed(e)) return 'needsIP';
+  if (e.due < TODAY) return 'overdue';
+  if (quizPassed(e)) return 'awaiting';
+  if (e.stepsDone.length || e.attempts.length || e.ip) return 'progress';
+  return 'notstarted';
+}
+const canSeeFinal = e => lvl() === 'Admin' || (smOf(e.emp) && smOf(e.emp).id === S.viewer);
+function shown(e){ const s = status(e); return (s === 'final' && !canSeeFinal(e)) ? 'contact' : s; }
+const LABEL = {notstarted:'Not started', progress:'In progress', awaiting:'Awaiting sign-off', needsIP:'Needs in-person training', overdue:'Overdue', completed:'Completed', late:'Completed late', final:'Final attempt failed', contact:'See your Service Manager'};
+const RANK = {final:0, needsIP:1, overdue:2, awaiting:3, progress:4, notstarted:5, contact:6, late:7, completed:8};
+const pill = s => `<span class="pill s-${s}">${LABEL[s]}</span>`;
+function maybeComplete(e){ if (!e.done && stepsComplete(e) && quizPassed(e) && signoffOk(e)) { e.done = TODAY; return true; } return false; }
+function quizFields(qs, key, disabled){
+  return qs.map((q,qi) => `<div class="q"><label class="ql" for="q${key}_${qi}"><b>${qi + 1}. ${esc(q.q)}</b></label><select id="q${key}_${qi}" name="q${qi}" ${disabled ? 'disabled' : ''}><option value="">Choose an answer</option>${q.options.map((o,oi) => `<option value="${oi}">${esc(o)}</option>`).join('')}</select></div>`).join('');
+}
+const phaseName = (ph, i) => ph === 0 ? `Online attempt ${i}` : `After in-person training ${ph}`;
+
+/* ---------- navigation ---------- */
+const NAV = [
+  {id:'mytraining', label:'My Training', who:['Admin','Manager','Reviewer','Employee']},
+  {id:'queue', label:'Sign-off queue', who:['Admin','Manager','Reviewer']},
+  {id:'dashboard', label:'Dashboard', who:['Admin','Manager'], group:'Team'},
+  {id:'team', label:'Team progress', who:['Admin','Manager']},
+  {id:'enroll', label:'Enroll', who:['Admin','Manager']},
+  {id:'reminders', label:'Reminders', who:['Admin','Manager']},
+  {id:'modules', label:'Modules', who:['Admin'], group:'Admin'},
+  {id:'roster', label:'Roster', who:['Admin']},
+  {id:'audit', label:'Audit log', who:['Admin']}
+];
+const PARENT = {player:'mytraining', detail:'team'};
+const allowed = id => NAV.find(n => n.id === (PARENT[id] || id)).who.includes(lvl());
+function homeFor(){ return {Admin:'dashboard', Manager:'dashboard', Reviewer:'queue', Employee:'mytraining'}[lvl()]; }
+
+function queueItems(){
+  const sc = scope();
+  return DB.enr.filter(e => {
+    if (e.done) return false;
+    const st = status(e);
+    if (e.ip === 0 && st !== 'needsIP' && quizPassed(e) && !e.handsOn) {
+      return e.reviewer === S.viewer || (lvl() !== 'Reviewer' && sc.includes(e.emp));
+    }
+    if (e.ip > 0 && e.smSign < e.ip && !['final','needsIP'].includes(st)) {
+      return lvl() === 'Admin' || (smOf(e.emp) && smOf(e.emp).id === S.viewer);
+    }
+    return false;
+  });
+}
+
+function renderNav(){
+  const sc = scope();
+  const attention = DB.enr.filter(e => sc.includes(e.emp) && e.emp !== S.viewer && ['overdue','needsIP','final'].includes(status(e))).length;
+  const counts = { queue: queueItems().length, team: attention, mytraining: DB.enr.filter(e => e.emp === S.viewer && !e.done).length };
+  const cur = PARENT[S.view] || S.view;
+  let html = '';
+  NAV.filter(n => n.who.includes(lvl())).forEach(n => {
+    if (n.group) html += `<div class="navgroup eyebrow">${n.group}</div>`;
+    const c = counts[n.id];
+    const badge = c ? `<span class="count" ${n.id === 'mytraining' ? 'style="background:var(--accent);color:var(--accent-ink)"' : ''}>${c}</span>` : '';
+    html += `<button class="navbtn" type="button" data-act="go" data-v="${n.id}" ${cur === n.id ? 'aria-current="page"' : ''}><span>${n.label}</span>${badge}</button>`;
+  });
+  document.getElementById('nav').innerHTML = html;
+}
+
+/* ---------- views ---------- */
+function vMyTraining(){
+  const mine = DB.enr.filter(e => e.emp === S.viewer).sort((a,b) => (!!a.done - !!b.done) || a.due.localeCompare(b.due));
+  const v = me();
+  const open = mine.filter(e => !e.done), done = mine.filter(e => e.done);
+  const card = e => { const m = M(e.mod), s = shown(e), b = bestScore(e);
+    return `<button class="card" type="button" data-act="open" data-id="${e.id}">
+      <div class="meta"><span class="tag">${esc(m.roles.join(', '))} · ${m.tier}</span>${pill(s)}</div>
+      <h3>${esc(m.title)}</h3>
+      <div class="meta small muted"><span>${e.done ? 'Finished ' + fmt(e.done) : 'Due <span class="mono">' + fmt(e.due) + '</span>'}</span><span>${b !== null ? 'Best score <span class="mono">' + b + '%</span>' : e.stepsDone.length + ' of ' + stepsTotal(e) + ' steps'}</span></div>
+    </button>`; };
+  return `<div class="head"><div><h1>My Training</h1><p>${esc(v.name)} · ${esc(v.role)}</p></div></div>
+    ${open.length ? `<div class="cards">${open.map(card).join('')}</div>` : `<div class="empty">Nothing assigned to you right now.</div>`}
+    ${done.length ? `<h2>Finished</h2><div class="cards">${done.map(card).join('')}</div>` : ''}`;
+}
+
+function vPlayer(){
+  const e = E(S.enr); if (!e) return vMyTraining();
+  const m = M(e.mod), s = shown(e), st = status(e);
+  const steps = m.items.filter(i => i.type === 'step'), qs = m.items.filter(i => i.type === 'quiz'), so = m.items.find(i => i.type === 'signoff');
+  const mineView = e.emp === S.viewer;
+  const locked = e.done || st === 'final' || st === 'needsIP';
+  const cur = phaseAtt(e, e.ip), limit = e.ip === 0 ? 2 : 1;
+  const canQuiz = mineView && !locked && stepsComplete(e) && soReady(e) && !quizPassed(e) && cur.length < limit;
+  const rev = P(e.reviewer), sm = smOf(e.emp);
+
+  let quizBlock;
+  const qr = S.quiz && S.quiz.id === e.id ? S.quiz : null;
+  const result = qr ? `<div class="callout ${qr.pass ? 'good' : 'bad'}"><b>${qr.pass ? 'Passed' : 'Not passed'}: ${qr.score}%</b><span>${esc(qr.msg)}</span></div>` : '';
+  if (st === 'final' || s === 'contact') {
+    quizBlock = mineView ? `<div class="callout warn"><b>Please see your Service Manager.</b><span>${esc(sm ? sm.name : 'Your Service Manager')} will talk with you about next steps.</span></div>` : '';
+  } else if (st === 'needsIP') {
+    quizBlock = `<div class="callout warn"><b>In-person training is next.</b><span>${esc(sm ? sm.name : 'Your Service Manager')} will schedule ${e.ip === 0 ? 'an in-person session' : 'another in-person session'}. After it, you get a fresh quiz and a sign-off from your Service Manager.</span></div>`;
+  } else if (quizPassed(e)) {
+    const a = cur.find(x => x.score >= 80);
+    quizBlock = `<div class="callout good"><b>Quiz passed: ${a.score}%</b><span>${e.attempts.length} attempt${e.attempts.length > 1 ? 's' : ''} on record.</span></div>`;
+  } else if (!stepsComplete(e)) {
+    quizBlock = `<p class="muted">Finish every step to unlock the quiz. You need 80% to pass. You get ${e.ip === 0 ? '2 attempts' : '1 fresh attempt after in-person training'}.</p>`;
+  } else if (!soReady(e)) {
+    quizBlock = `<p class="muted">Enter the SO number you completed the steps on to unlock the quiz.</p>`;
+  } else if (canQuiz) {
+    quizBlock = `<p class="small muted">Attempt ${cur.length + 1} of ${limit}${e.ip ? ' (after in-person training)' : ''}. You need 80% to pass.</p>
+      <form id="quizForm" data-id="${e.id}">${quizFields(qs, e.id, false)}
+      <div class="row"><button class="btn primary" type="submit">Submit answers</button></div></form>`;
+  } else {
+    quizBlock = `<p class="muted">The quiz is available to the employee.</p>`;
+  }
+
+  let signBlock;
+  if (e.ip === 0) {
+    signBlock = e.handsOn ? `<div class="callout good"><b>Hands-on check passed</b><span>Signed off by ${esc(rev ? rev.name : 'reviewer')}.</span></div>`
+      : `<p>${esc(so ? so.text : '')}</p><p class="small muted">Reviewer: <b>${esc(rev ? rev.name : 'Not set')}</b>. ${quizPassed(e) ? 'Waiting for the reviewer to watch the task and sign off.' : 'Unlocks after you pass the quiz.'}</p>${e.note ? `<div class="callout warn"><b>Reviewer note</b><span>${esc(e.note)}</span></div>` : ''}`;
+  } else {
+    signBlock = e.smSign >= e.ip ? `<div class="callout good"><b>Service Manager sign-off recorded</b><span>${esc(sm ? sm.name : '')} confirmed you can complete all tasks without assistance.</span></div>`
+      : `<p>After in-person training, ${esc(sm ? sm.name : 'your Service Manager')} signs off that you can complete all tasks without assistance.</p>`;
+  }
+
+  return `<div><button class="btn ghost" type="button" data-act="go" data-v="mytraining">← My Training</button></div>
+  <div class="head"><div><span class="tag">${esc(m.roles.join(', '))} · ${m.tier}</span><h1 style="margin-top:6px">${esc(m.title)}</h1>
+    <p>Due <span class="mono">${fmt(e.due)}</span> · Assigned <span class="mono">${fmt(e.assigned)}</span></p></div>${pill(s)}</div>
+  ${e.done ? `<div class="callout good"><b>Module complete on ${fmt(e.done)}</b><span>Best quiz score ${bestScore(e)}%.</span></div>` : ''}
+  ${m.why ? `<div class="callout info"><b>Why it matters</b><span>${rich(m.why)}</span></div>` : ''}
+  <div class="split">
+    <section class="panel">
+      ${m.before ? `<div><h3>Before you start</h3><ul class="guide">${m.before.map(b => `<li>${rich(b)}</li>`).join('')}</ul></div>` : ''}
+      <div class="row" style="justify-content:space-between"><h2>1. Steps</h2><span class="mono small muted">${e.stepsDone.length}/${steps.length}</span></div>
+      <p class="small muted">Do the steps in order, and do them with your trainer watching the first time.</p>
+      <ol class="steps">${steps.map((st2,i) => { const d = e.stepsDone.includes(i); return `<li class="${d ? 'done' : ''}"><input type="checkbox" id="st_${e.id}_${i}" data-step="${i}" data-id="${e.id}" ${d ? 'checked' : ''} ${(!mineView || locked) ? 'disabled' : ''}><span class="n">${i + 1}</span><label for="st_${e.id}_${i}"><span class="t">${rich(st2.text)}</span></label></li>`; }).join('')}</ol>
+      <div class="sobox"><label for="so_${e.id}"><b>SO number</b></label><p class="small muted">Enter the SO number you completed these steps on so your reviewer can check the work. Separate more than one with commas.</p>
+        <div class="row"><input type="text" id="so_${e.id}" value="${esc(e.so || '')}" placeholder="e.g. 48213" ${(!mineView || locked) ? 'disabled' : ''} inputmode="numeric" style="flex:1;min-width:140px">${mineView && !locked ? `<button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save</button>` : ''}</div></div>
+      ${m.doneRight ? `<div class="callout good"><b>Done right looks like</b><span>${rich(m.doneRight)}</span></div>` : ''}
+      ${m.wrong ? `<div><h3>If something goes wrong</h3><ul class="guide">${m.wrong.map(w => `<li>${rich(w)}</li>`).join('')}</ul></div>` : ''}
+    </section>
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <section class="panel ${!stepsComplete(e) ? 'locked' : ''}"><h2>2. Quiz</h2>${result}${quizBlock}</section>
+      <section class="panel ${!quizPassed(e) && !e.done ? 'locked' : ''}"><h2>3. ${e.ip ? 'Service Manager sign-off' : 'Sign-off check'}</h2>${signBlock}</section>
+    </div>
+  </div>`;
+}
+
+function vQueue(){
+  const items = queueItems();
+  const card = e => { const p = P(e.emp), m = M(e.mod), so = m.items.find(i => i.type === 'signoff');
+    const smType = e.ip > 0;
+    return `<section class="panel">
+      <div class="row" style="justify-content:space-between"><div><h3>${esc(p.name)} · ${esc(m.title)}</h3><p class="small muted">${esc(p.role)} · Due <span class="mono">${fmt(e.due)}</span> · Quiz ${bestScore(e)}%</p><p class="small">SO number${(e.so || '').includes(',') ? 's' : ''}: <b class="mono">${esc(e.so || 'Not entered')}</b></p></div>${smType ? '<span class="tag">After in-person training</span>' : '<span class="tag">Hands-on check</span>'}</div>
+      <p><b>${smType ? 'Confirm the employee can complete all tasks without assistance.' : esc(so ? so.text : '')}</b></p>
+      <div class="field"><label for="note_${e.id}">Notes</label><textarea id="note_${e.id}" rows="2" placeholder="What you watched, anything to coach on"></textarea></div>
+      <div class="row"><button class="btn good" type="button" data-act="${smType ? 'smsign' : 'pass'}" data-id="${e.id}">${smType ? 'Sign off' : 'Pass'}</button>${smType ? '' : `<button class="btn" type="button" data-act="needswork" data-id="${e.id}">Needs work</button>`}</div>
+    </section>`; };
+  return `<div class="head"><div><h1>Sign-off queue</h1><p>Hands-on checks waiting for you. Watch the employee do the task live in Fullbay, then record the result.</p></div></div>
+    ${items.length ? items.map(card).join('') : '<div class="empty">No sign-offs waiting. Items appear here when an employee passes a quiz.</div>'}`;
+}
+
+function scopedEnr(){ const sc = scope(); return DB.enr.filter(e => sc.includes(e.emp) && e.emp !== S.viewer && P(e.emp).active); }
+
+function vDashboard(){
+  const en = scopedEnr();
+  const due = en.filter(e => e.due <= TODAY || e.done), done = en.filter(e => e.done);
+  const ontime = done.filter(e => e.done <= e.due);
+  const comp = pct(done.filter(e => due.includes(e)).length, due.length), on = pct(ontime.length, done.length);
+  const avg = done.length ? Math.round(done.reduce((s,e) => s + bestScore(e), 0) / done.length) : null;
+  const overdue = en.filter(e => status(e) === 'overdue').length, needs = en.filter(e => ['needsIP','final'].includes(status(e))).length;
+  const kpi = (v,l,sub,bar,bad) => `<div class="kpi"><span class="v ${bad ? 'bad' : ''}">${v}</span><span class="l">${l}</span><span class="small muted">${sub}</span>${bar !== undefined ? `<div class="bar"><i style="width:${bar}%"></i></div>` : ''}</div>`;
+  const attention = en.filter(e => ['final','needsIP','overdue','awaiting'].includes(status(e))).sort((a,b) => RANK[status(a)] - RANK[status(b)]);
+  const roles = [...new Set(en.map(e => P(e.emp).role))];
+  const roleRows = roles.map(r => { const re = en.filter(e => P(e.emp).role === r), rd = re.filter(e => e.done), rdue = re.filter(e => e.due <= TODAY || e.done);
+    const ra = rd.length ? Math.round(rd.reduce((s,e) => s + bestScore(e), 0) / rd.length) + '%' : '—';
+    return `<tr><td>${esc(r)}</td><td class="num">${re.length}</td><td class="num">${rd.length}</td><td class="num">${pct(rd.length, rdue.length) ?? '—'}${rdue.length ? '%' : ''}</td><td class="num">${re.filter(e => status(e) === 'overdue').length}</td><td class="num">${ra}</td></tr>`; }).join('');
+  const who = lvl() === 'Admin' ? 'Company-wide' : `${esc(me().name)}'s team`;
+  return `<div class="head"><div><h1>Dashboard</h1><p>${who} · as of <span class="mono">${fmt(TODAY)}, 2026</span></p></div></div>
+  <div class="kpis">
+    ${kpi(comp === null ? '—' : comp + '%', 'Completion rate', `${done.filter(e => due.includes(e)).length} of ${due.length} due modules complete`, comp ?? 0)}
+    ${kpi(on === null ? '—' : on + '%', 'On-time rate', `${ontime.length} of ${done.length} finished by the due date`, on ?? 0)}
+    ${kpi(avg === null ? '—' : avg + '%', 'Average score', 'Best quiz score, completed modules', avg ?? 0)}
+    ${kpi(overdue + needs, 'Need attention', `${overdue} overdue · ${needs} need in-person training`, undefined, overdue + needs > 0)}
+  </div>
+  <div class="split">
+    <section class="panel"><h2>Needs attention</h2>
+      ${attention.length ? `<div class="tablewrap"><table><thead><tr><th>Employee</th><th>Module</th><th>Due</th><th>Status</th></tr></thead><tbody>
+      ${attention.map(e => `<tr class="click" data-act="detail" data-id="${e.id}"><td>${esc(P(e.emp).name)}</td><td>${esc(M(e.mod).title)}</td><td class="mono">${fmt(e.due)}</td><td>${pill(shown(e))}</td></tr>`).join('')}
+      </tbody></table></div>` : '<div class="empty">Nothing needs attention.</div>'}
+    </section>
+    <section class="panel"><h2>By job role</h2>
+      <div class="tablewrap"><table><thead><tr><th>Role</th><th class="num">Enrolled</th><th class="num">Done</th><th class="num">Rate</th><th class="num">Late</th><th class="num">Avg</th></tr></thead><tbody>${roleRows}</tbody></table></div>
+      <p class="small muted">Rate = completed ÷ modules that are due. Late = overdue right now.</p>
+    </section>
+  </div>`;
+}
+
+function vTeam(){
+  const sc = scope().filter(id => id !== S.viewer && P(id).active);
+  const en = DB.enr.filter(e => sc.includes(e.emp));
+  const mods = DB.modules.filter(m => en.some(e => e.mod === m.id));
+  const worst = id => Math.min(...en.filter(e => e.emp === id).map(e => RANK[status(e)]), 99);
+  const ppl = sc.map(P).sort((a,b) => worst(a.id) - worst(b.id) || a.name.localeCompare(b.name));
+  return `<div class="head"><div><h1>Team progress</h1><p>${lvl() === 'Admin' ? 'Everyone' : 'Your team'} · people who need attention are listed first. Click a status to open it.</p></div>
+    <button class="btn primary" type="button" data-act="go" data-v="enroll">Enroll people</button></div>
+  <div class="tablewrap"><table><thead><tr><th>Employee</th><th>Role</th>${mods.map(m => `<th>${esc(m.title)}</th>`).join('')}</tr></thead><tbody>
+  ${ppl.map(p => `<tr><td><b>${esc(p.name)}</b><div class="small muted">${esc(p.loc)}</div></td><td>${esc(p.role)}</td>${mods.map(m => { const e = en.find(x => x.emp === p.id && x.mod === m.id);
+    return `<td>${e ? `<button class="cell" type="button" data-act="detail" data-id="${e.id}">${pill(shown(e))}</button><div class="small muted mono">${e.done ? fmt(e.done) : 'due ' + fmt(e.due)}</div>` : '<span class="muted">—</span>'}</td>`; }).join('')}</tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+function vDetail(){
+  const e = E(S.enr); if (!e) return vTeam();
+  const p = P(e.emp), m = M(e.mod), st = status(e), s = shown(e), sm = smOf(e.emp), rev = P(e.reviewer);
+  const isSM = sm && sm.id === S.viewer, admin = lvl() === 'Admin';
+  let n0 = 0;
+  const hist = e.attempts.map(a => { const label = a.phase === 0 ? phaseName(0, ++n0) : phaseName(a.phase); return `<tr><td>${label}</td><td class="mono">${fmt(a.date)}</td><td class="num">${a.score}%</td><td>${a.score >= 80 ? '<span class="pill s-completed">Pass</span>' : '<span class="pill s-overdue">Below 80%</span>'}</td></tr>`; }).join('');
+  const actions = [];
+  if (!e.done && st === 'needsIP') actions.push(`<button class="btn primary" type="button" data-act="logip" data-id="${e.id}">Log in-person training #${e.ip + 1} attended</button>`);
+  if (!e.done && e.ip > 0 && e.smSign < e.ip && st !== 'needsIP' && st !== 'final' && (isSM || admin)) actions.push(`<button class="btn good" type="button" data-act="smsign" data-id="${e.id}">Sign off: works without assistance</button>`);
+  const related = DB.audit.filter(a => a.what.includes(p.name) && a.what.includes(m.title) && (!a.internal || canSeeFinal(e)));
+  return `<div><button class="btn ghost" type="button" data-act="go" data-v="team">← Team progress</button></div>
+  <div class="head"><div><span class="tag">${esc(m.roles.join(', '))} · ${m.tier}</span><h1 style="margin-top:6px">${esc(p.name)} · ${esc(m.title)}</h1><p>${esc(p.role)} · ${esc(p.loc)} · Service Manager: ${esc(sm ? sm.name : '—')}</p></div>${pill(s)}</div>
+  ${st === 'final' && canSeeFinal(e) ? `<div class="callout internal"><span><span class="tag internal">Internal only</span></span><b>Failed after the second in-person training.</b><span>Per shop policy, this goes to management for a decision. The employee sees only "See your Service Manager." Admins and ${esc(sm ? sm.name : 'the Service Manager')} are the only people who can see this status.</span></div>` : ''}
+  <section class="panel"><div class="facts">
+    <div><span class="k">Assigned</span><span class="mono">${fmt(e.assigned)}</span></div>
+    <div><span class="k">Due</span><span class="mono">${fmt(e.due)}</span></div>
+    <div><span class="k">Steps</span><span class="mono">${e.stepsDone.length} of ${stepsTotal(e)}</span></div>
+    <div><span class="k">Best score</span><span class="mono">${bestScore(e) ?? '—'}${bestScore(e) !== null ? '%' : ''}</span></div>
+    <div><span class="k">In-person sessions</span><span class="mono">${e.ip} of 2</span></div>
+    <div><span class="k">Reviewer</span><span>${esc(rev ? rev.name : '—')}</span></div>
+    <div><span class="k">SO number</span><span class="mono">${esc(e.so || '—')}</span></div>
+  </div>
+  ${actions.length ? `<div class="row">${actions.join('')}</div>` : ''}</section>
+  <div class="split">
+    <section class="panel"><h2>Quiz attempts</h2>${e.attempts.length ? `<div class="tablewrap"><table><thead><tr><th>Attempt</th><th>Date</th><th class="num">Score</th><th>Result</th></tr></thead><tbody>${hist}</tbody></table></div>` : '<div class="empty">No attempts yet.</div>'}
+      <p class="small muted">Rules: 2 online attempts at 80%. Below that, in-person training, then a Service Manager sign-off and 1 fresh quiz. One more round if needed.</p>
+      ${related.length ? `<h3>History</h3><div class="tablewrap"><table><tbody>${related.map(a => `<tr><td class="mono small">${fmt(a.date)}</td><td class="small">${esc(a.what)} ${a.internal ? '<span class="tag internal">Internal</span>' : ''}</td></tr>`).join('')}</tbody></table></div>` : ''}
+    </section>
+    ${!e.done ? `<section class="panel"><h2>Extend due date</h2>
+      <div class="field"><label for="ext_days">Extend by</label><select id="ext_days"><option value="3">3 days</option><option value="7" selected>7 days</option><option value="14">14 days</option></select></div>
+      <div class="field"><label for="ext_reason">Reason</label><input type="text" id="ext_reason" placeholder="Required, e.g. out on PTO"></div>
+      <div class="row"><button class="btn" type="button" data-act="extend" data-id="${e.id}">Extend</button></div>
+      <p class="small muted">Extensions are logged with your name and reason.</p></section>` : ''}
+  </div>`;
+}
+
+function vEnroll(){
+  const sc = scope().filter(id => id !== S.viewer && P(id).active);
+  const pub = DB.modules.filter(m => m.status === 'Published');
+  if (!S.ef) S.ef = {by:'role', role:'Tech', mod:'t4', due:addDays(TODAY, 14), reviewer:'', picks:[]};
+  const f = S.ef, m = M(f.mod);
+  const roles = [...new Set(sc.map(id => P(id).role))];
+  if (!roles.includes(f.role)) f.role = roles[0];
+  const already = id => DB.enr.some(e => e.emp === id && e.mod === f.mod);
+  const pool = sc.map(P).filter(p => f.by === 'role' ? p.role === f.role : true);
+  const targets = f.by === 'role' ? pool.filter(p => !already(p.id)) : pool.filter(p => f.picks.includes(p.id) && !already(p.id));
+  const reviewers = DB.people.filter(p => (sc.includes(p.id) || p.id === S.viewer) && ['Reviewer','Manager','Admin'].includes(p.access));
+  return `<div class="head"><div><h1>Enroll</h1><p>Assign a published module by job role or to specific people${lvl() === 'Manager' ? ' on your team' : ''}.</p></div></div>
+  <section class="panel">
+    <div class="fieldgrid">
+      <div class="field"><label for="ef_mod">Module</label><select id="ef_mod" data-ef="mod">${pub.map(x => `<option value="${x.id}" ${x.id === f.mod ? 'selected' : ''}>${esc(x.title)} (${esc(x.roles.join(', '))})</option>`).join('')}</select></div>
+      <div class="field"><label for="ef_by">Enroll by</label><select id="ef_by" data-ef="by"><option value="role" ${f.by === 'role' ? 'selected' : ''}>Job role</option><option value="people" ${f.by === 'people' ? 'selected' : ''}>Pick people</option></select></div>
+      ${f.by === 'role' ? `<div class="field"><label for="ef_role">Job role</label><select id="ef_role" data-ef="role">${roles.map(r => `<option ${r === f.role ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select></div>` : ''}
+      <div class="field"><label for="ef_due">Due date</label><input type="date" id="ef_due" data-ef="due" value="${f.due}"></div>
+      <div class="field"><label for="ef_rev">Hands-on reviewer</label><select id="ef_rev" data-ef="reviewer"><option value="">Employee's Service Manager</option>${reviewers.map(r => `<option value="${r.id}" ${r.id === f.reviewer ? 'selected' : ''}>${esc(r.name)} (${r.access})</option>`).join('')}</select></div>
+    </div>
+    <p class="small muted">Default due date for this module: ${m.days} days after assignment.</p>
+    <div class="checklist">${pool.map(p => { const a = already(p.id), on = f.by === 'role' ? !a : f.picks.includes(p.id);
+      return `<label class="${a ? 'off' : ''}"><input type="checkbox" id="pk_${p.id}" data-pick="${p.id}" ${on && !a ? 'checked' : ''} ${a || f.by === 'role' ? 'disabled' : ''}><span>${esc(p.name)}<span class="small muted"> · ${a ? 'already enrolled' : esc(p.role)}</span></span></label>`; }).join('') || '<span class="muted">No one matches.</span>'}</div>
+    <div class="row"><button class="btn primary" type="button" data-act="doenroll" ${targets.length ? '' : 'disabled'}>Enroll ${targets.length} ${targets.length === 1 ? 'person' : 'people'}</button></div>
+  </section>`;
+}
+
+function reminderList(){
+  const sc = scope();
+  const out = [];
+  DB.enr.filter(e => sc.includes(e.emp) && !e.done).forEach(e => {
+    const p = P(e.emp), sm = smOf(e.emp), to = [p.name, sm && sm.id !== p.id ? sm.name : null].filter(Boolean).join(', ');
+    const pre = addDays(e.due, -1), post = addDays(e.due, 1);
+    if (pre >= e.assigned) out.push({date:pre, kind:'Due tomorrow', e, to});
+    out.push({date:post, kind:'Overdue', e, to});
+  });
+  return out.sort((a,b) => a.date.localeCompare(b.date));
+}
+function vReminders(){
+  const list = reminderList(), upcoming = list.filter(r => r.date > TODAY), sent = list.filter(r => r.date <= TODAY).reverse();
+  const row = r => `<tr class="click" data-act="detail" data-id="${r.e.id}"><td class="mono">${fmt(r.date)}</td><td>${r.kind === 'Overdue' ? '<span class="pill s-overdue">Day after due</span>' : '<span class="pill s-progress">1 day before</span>'}</td><td>${esc(M(r.e.mod).title)}</td><td>${esc(r.to)}</td></tr>`;
+  const ex = upcoming[0] || sent[0];
+  const sample = ex ? `Subject: ${ex.kind === 'Overdue' ? 'Overdue' : 'Due tomorrow'}: ${M(ex.e.mod).title}
+
+Hi ${P(ex.e.emp).name.split(' ')[0]},
+
+Your training module "${M(ex.e.mod).title}" ${ex.kind === 'Overdue' ? 'was due ' + fmt(ex.e.due) + ' and is not finished yet' : 'is due ' + fmt(ex.e.due)}.
+
+Open Fleet Span University and sign in with your Microsoft account to continue.
+
+Copy: ${smOf(ex.e.emp) ? smOf(ex.e.emp).name : 'Service Manager'} (Service Manager)` : '';
+  return `<div class="head"><div><h1>Reminders</h1><p>Emails go to the employee and their Service Manager 1 day before the due date, and the day after if the module isn't finished.</p></div></div>
+  <div class="split">
+    <section class="panel"><h2>Scheduled</h2>${upcoming.length ? `<div class="tablewrap"><table><thead><tr><th>Sends</th><th>Type</th><th>Module</th><th>To</th></tr></thead><tbody>${upcoming.map(row).join('')}</tbody></table></div>` : '<div class="empty">Nothing scheduled.</div>'}
+      <p class="small muted">A day-after reminder is cancelled automatically if the module is finished first.</p>
+      <h2>Sent</h2>${sent.length ? `<div class="tablewrap"><table><thead><tr><th>Sent</th><th>Type</th><th>Module</th><th>To</th></tr></thead><tbody>${sent.map(row).join('')}</tbody></table></div>` : '<div class="empty">None sent yet.</div>'}</section>
+    <section class="panel"><h2>Example email</h2><div class="email">${esc(sample)}</div></section>
+  </div>`;
+}
+
+function vModules(){
+  if (S.mod) {
+    const m = M(S.mod);
+    const tcount = t => m.items.filter(i => i.type === t).length;
+    return `<div><button class="btn ghost" type="button" data-act="modclose">← All modules</button></div>
+    <div class="head"><div><span class="tag">${esc(m.roles.join(', '))} · ${m.tier} · Version ${m.version}</span><h1 style="margin-top:6px">${esc(m.title)}</h1><p>${tcount('step')} steps · ${tcount('quiz')} quiz questions · ${tcount('signoff')} hands-on check · Passing score 80% · ${m.days} days to complete</p></div>
+      <button class="btn ${m.status === 'Published' ? '' : 'primary'}" type="button" data-act="togglepub" data-id="${m.id}">${m.status === 'Published' ? 'Move back to draft' : 'Publish'}</button></div>
+    ${m.why ? `<div class="callout info"><b>Why it matters</b><span>${rich(m.why)}</span></div>` : ''}
+    <section class="panel"><h2>Items</h2>
+      <div class="tablewrap"><table><thead><tr><th>#</th><th>Type</th><th>Content</th></tr></thead><tbody>
+      ${m.items.map((it,i) => `<tr><td class="mono">${i + 1}</td><td><span class="tag">${it.type === 'step' ? 'Step' : it.type === 'quiz' ? 'Quiz' : 'Hands-on'}</span></td><td>${it.type === 'quiz' ? esc(it.q) : rich(it.text)}${it.type === 'quiz' ? `<div class="small muted">Answer: ${esc(it.options[it.answer])}</div>` : ''}</td></tr>`).join('')}
+      </tbody></table></div>
+      <div class="fieldgrid">
+        <div class="field"><label for="ni_type">Add item</label><select id="ni_type"><option value="step">Step</option><option value="signoff">Hands-on check</option></select></div>
+        <div class="field" style="grid-column:span 2"><label for="ni_text">Text</label><input type="text" id="ni_text" placeholder="e.g. Attach photos to the inspection"></div>
+      </div>
+      <div class="row"><button class="btn" type="button" data-act="additem" data-id="${m.id}">Add item</button></div>
+    </section>
+    ${m.items.some(i => i.type === 'quiz') ? `<section class="panel"><h2>Quiz preview</h2><p class="small muted">What the employee sees. Each question is a dropdown; 80% to pass.</p><form>${quizFields(m.items.filter(i => i.type === 'quiz'), 'pv' + m.id, false)}</form></section>` : ''}`;
+  }
+  return `<div class="head"><div><h1>Modules</h1><p>Only admins create and edit modules. Only published modules can be assigned.</p></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Module</th><th>Job roles</th><th>Tier</th><th class="num">Items</th><th class="num">Enrolled</th><th>Status</th></tr></thead><tbody>
+  ${DB.modules.map(m => `<tr class="click" data-act="modopen" data-id="${m.id}"><td><b>${esc(m.title)}</b></td><td>${esc(m.roles.join(', '))}</td><td>${m.tier}</td><td class="num">${m.items.length}</td><td class="num">${DB.enr.filter(e => e.mod === m.id).length}</td><td>${m.status === 'Published' ? '<span class="pill s-completed">Published</span>' : '<span class="pill s-notstarted">Draft</span>'}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+function vRoster(){
+  return `<div class="head"><div><h1>Roster</h1><p>Microsoft confirms who someone is. This roster decides what they can do. People are deactivated, never deleted, so their training history stays.</p></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Name</th><th>Job role</th><th>Access level</th><th>Location</th><th>Reports to</th><th>Active</th></tr></thead><tbody>
+  ${DB.people.map(p => `<tr><td><b>${esc(p.name)}</b></td><td>${esc(p.role)}</td><td><select id="acc_${p.id}" data-access="${p.id}" aria-label="Access level for ${esc(p.name)}" ${p.id === S.viewer ? 'disabled' : ''}>${['Admin','Manager','Reviewer','Employee'].map(a => `<option ${a === p.access ? 'selected' : ''}>${a}</option>`).join('')}</select></td><td>${esc(p.loc)}</td><td>${esc(p.mgr ? P(p.mgr).name : '—')}</td><td><input type="checkbox" id="act_${p.id}" data-active="${p.id}" ${p.active ? 'checked' : ''} ${p.id === S.viewer ? 'disabled' : ''} aria-label="Active"></td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+function vAudit(){
+  return `<div class="head"><div><h1>Audit log</h1><p>Sign-offs, in-person training, due date changes, access changes and status escalations.</p></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Date</th><th>By</th><th>What changed</th></tr></thead><tbody>
+  ${DB.audit.map(a => `<tr><td class="mono">${fmt(a.date)}</td><td>${esc(a.who)}</td><td>${esc(a.what)} ${a.internal ? '<span class="tag internal">Internal</span>' : ''}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+const VIEWS = {mytraining:vMyTraining, player:vPlayer, queue:vQueue, dashboard:vDashboard, team:vTeam, detail:vDetail, enroll:vEnroll, reminders:vReminders, modules:vModules, roster:vRoster, audit:vAudit};
+
+function render(){
+  if (!allowed(S.view)) { S.view = homeFor(); }
+  const sel = document.getElementById('viewer');
+  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech']];
+  sel.innerHTML = opts.map(([id,t]) => `<option value="${id}" ${id === S.viewer ? 'selected' : ''}>${t} · ${esc(P(id).name)}</option>`).join('');
+  renderNav();
+  document.getElementById('main').innerHTML = `<div class="wrap">${VIEWS[S.view]()}</div>`;
+}
+function flash(msg){ const f = document.getElementById('flash'); f.textContent = msg; f.hidden = false; clearTimeout(S.flashT); S.flashT = setTimeout(() => { f.hidden = true; }, 3200); }
+
+/* ---------- actions ---------- */
+const ACT = {
+  go: d => { S.view = d.v; S.mod = null; window.scrollTo(0,0); },
+  open: d => { S.view = 'player'; S.enr = d.id; S.quiz = null; window.scrollTo(0,0); },
+  detail: d => { const e = E(d.id); if (e.emp === S.viewer) { S.view = 'player'; } else { S.view = 'detail'; } S.enr = d.id; window.scrollTo(0,0); },
+  reset: () => { seed(); S.view = homeFor(); S.mod = null; flash('Demo data reset.'); },
+  pass: d => { const e = E(d.id), p = P(e.emp), m = M(e.mod); const note = (document.getElementById('note_' + e.id) || {}).value || '';
+    e.handsOn = true; e.note = null; const fin = maybeComplete(e);
+    log(`Hands-on check passed for ${p.name}: ${m.title}${note ? '. Note: ' + note : ''}`);
+    flash(fin ? `${p.name} completed ${m.title}.` : `Sign-off recorded for ${p.name}.`); },
+  needswork: d => { const e = E(d.id), p = P(e.emp), m = M(e.mod); const note = (document.getElementById('note_' + e.id) || {}).value.trim();
+    if (!note) { flash('Add a note so the employee knows what to work on.'); return; }
+    e.note = note; log(`Hands-on check marked needs work for ${p.name}: ${m.title}. Note: ${note}`);
+    flash(`Marked needs work. ${p.name.split(' ')[0]} will see your note.`); },
+  smsign: d => { const e = E(d.id), p = P(e.emp), m = M(e.mod);
+    e.smSign = e.ip; const fin = maybeComplete(e);
+    log(`Service Manager sign-off for ${p.name}: ${m.title}. Can complete all tasks without assistance.`);
+    flash(fin ? `${p.name} completed ${m.title}.` : `Sign-off recorded. ${p.name.split(' ')[0]} still needs to pass the fresh quiz.`); },
+  logip: d => { const e = E(d.id), p = P(e.emp), m = M(e.mod);
+    e.ip += 1; log(`Logged in-person training #${e.ip} for ${p.name}: ${m.title}`);
+    flash(`In-person training #${e.ip} logged. ${p.name.split(' ')[0]} can now take a fresh quiz.`); },
+  extend: d => { const e = E(d.id), days = +document.getElementById('ext_days').value, reason = document.getElementById('ext_reason').value.trim();
+    if (!reason) { flash('Enter a reason for the extension.'); return; }
+    const old = e.due; e.due = addDays(e.due, days);
+    log(`Extended due date for ${P(e.emp).name}: ${M(e.mod).title}, ${fmt(old)} → ${fmt(e.due)}. Reason: ${reason}`);
+    flash(`New due date: ${fmt(e.due)}.`); },
+  doenroll: () => { const f = S.ef, sc = scope().filter(id => id !== S.viewer);
+    const already = id => DB.enr.some(e => e.emp === id && e.mod === f.mod);
+    const ids = (f.by === 'role' ? sc.filter(id => P(id).role === f.role) : f.picks).filter(id => !already(id));
+    ids.forEach(id => { const sm = smOf(id); DB.enr.push({id:'e' + (DB.enr.length + 1) + '_' + id, emp:id, mod:f.mod, assigned:TODAY, due:f.due, reviewer:f.reviewer || (sm ? sm.id : S.viewer), stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null}); });
+    log(`Enrolled ${ids.map(id => P(id).name).join(', ')} in ${M(f.mod).title}, due ${fmt(f.due)}`);
+    S.ef.picks = []; flash(`Enrolled ${ids.length} in ${M(f.mod).title}.`); },
+  saveso: d => { const e = E(d.id), v = document.getElementById('so_' + e.id).value.trim();
+    if (!v) { flash('Enter the SO number first.'); return; }
+    e.so = v; log(`${P(e.emp).name} entered SO ${v} for ${M(e.mod).title}`); flash('SO number saved. The quiz is unlocked.'); },
+  modopen: d => { S.mod = d.id; },
+  modclose: () => { S.mod = null; },
+  togglepub: d => { const m = M(d.id); m.status = m.status === 'Published' ? 'Draft' : 'Published'; log(`${m.status === 'Published' ? 'Published' : 'Moved to draft'}: ${m.title}`); flash(`${m.title} is now ${m.status.toLowerCase()}.`); },
+  additem: d => { const m = M(d.id), type = document.getElementById('ni_type').value, text = document.getElementById('ni_text').value.trim();
+    if (!text) { flash('Type the item text first.'); return; }
+    const at = type === 'step' ? m.items.filter(i => i.type === 'step').length : m.items.length;
+    m.items.splice(at, 0, {type, text}); m.version += 1; log(`Added ${type === 'step' ? 'a step' : 'a hands-on check'} to ${m.title} (now version ${m.version})`); flash('Item added.'); }
+};
+
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('[data-act]'); if (!t) return;
+  const fn = ACT[t.dataset.act]; if (!fn) return;
+  fn(t.dataset); render();
+});
+
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.id === 'viewer') { S.viewer = t.value; S.view = homeFor(); S.mod = null; S.ef = null; S.quiz = null; render(); window.scrollTo(0,0); return; }
+  if (t.dataset.step !== undefined) {
+    const e = E(t.dataset.id), i = +t.dataset.step;
+    e.stepsDone = t.checked ? [...new Set([...e.stepsDone, i])] : e.stepsDone.filter(x => x !== i);
+    render(); return;
+  }
+  if (t.dataset.ef) { S.ef[t.dataset.ef] = t.value; if (t.dataset.ef === 'mod') S.ef.due = addDays(TODAY, M(t.value).days); render(); return; }
+  if (t.dataset.pick) { const id = t.dataset.pick; S.ef.picks = t.checked ? [...S.ef.picks, id] : S.ef.picks.filter(x => x !== id); render(); return; }
+  if (t.dataset.access) { const p = P(t.dataset.access), old = p.access; p.access = t.value; log(`Changed access level for ${p.name}: ${old} → ${p.access}`); flash(`${p.name} is now ${p.access}.`); render(); return; }
+  if (t.dataset.active) { const p = P(t.dataset.active); p.active = t.checked; log(`${p.active ? 'Reactivated' : 'Deactivated'} ${p.name}. Training history kept.`); flash(`${p.name} ${p.active ? 'reactivated' : 'deactivated'}.`); render(); return; }
+});
+
+document.addEventListener('submit', ev => {
+  if (ev.target.id !== 'quizForm') return;
+  ev.preventDefault();
+  const e = E(ev.target.dataset.id), m = M(e.mod), qs = m.items.filter(i => i.type === 'quiz');
+  const fd = new FormData(ev.target);
+  if (qs.some((q,i) => !fd.get('q' + i))) { flash('Answer every question before submitting.'); return; }
+  const right = qs.filter((q,i) => +fd.get('q' + i) === q.answer).length;
+  const score = Math.round(right / qs.length * 100), pass = score >= 80;
+  e.attempts.push({phase:e.ip, score, date:TODAY});
+  const sm = smOf(e.emp), smName = sm ? sm.name : 'your Service Manager', p = P(e.emp);
+  const used = phaseAtt(e, e.ip).length, limit = e.ip === 0 ? 2 : 1;
+  let msg;
+  if (pass) {
+    const fin = maybeComplete(e);
+    msg = fin ? 'Module complete.' : e.ip === 0 ? `Next: ${P(e.reviewer) ? P(e.reviewer).name : 'your reviewer'} watches you do the task live and signs off.` : `Next: ${smName} signs off that you can do every task without help.`;
+  } else if (used < limit) {
+    msg = `You need 80% to pass. You have ${limit - used} attempt left. Review the steps, then try again.`;
+  } else if (e.ip < 2) {
+    msg = `That was your last attempt for now. ${smName} will schedule in-person training with you.`;
+    log(`${p.name} scored below 80% on ${m.title} (${phaseAtt(e, e.ip).map(a => a.score + '%').join(', ')}). Status set to Needs in-person training. ${p.name} and ${smName} notified.`);
+  } else {
+    msg = `Please see ${smName} about next steps.`;
+    log(`${p.name} failed the quiz after the second in-person training (${score}%). Status set to Final attempt failed. ${smName} and admins notified.`, true);
+  }
+  S.quiz = {id:e.id, score, pass, msg};
+  render(); window.scrollTo(0,0);
+});
+
+render();
+</script>
+
+</body>
+</html>
