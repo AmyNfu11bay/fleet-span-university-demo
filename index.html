@@ -179,6 +179,18 @@ ul.list.due li > div{flex:1}
 .card h3{font-size:16px}
 .card .meta{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
 
+/* badges */
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 16px}
+.bdg{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:none;border:0;padding:6px;cursor:pointer;font-size:12.5px;color:var(--g600);font-weight:600}
+.bdg svg{width:136px;max-width:100%;height:auto;display:block}
+.bdg:hover svg{transform:translateY(-2px)}
+.bdg .got{color:var(--good);font-weight:700}
+.bdg.big{cursor:default;padding:0}
+.bdg.big svg{width:150px}
+.earned{flex-direction:row;align-items:center;flex-wrap:wrap;gap:20px;border-left:6px solid var(--good)}
+.earnedtext{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 260px}
+@media (prefers-reduced-motion:no-preference){.bdg svg{transition:transform .15s}}
+
 /* player */
 .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 .steps li{display:flex;gap:12px;align-items:flex-start;padding:11px 4px;border-bottom:1px solid var(--g100)}
@@ -348,6 +360,22 @@ function maybeComplete(e){ if (!e.done && stepsComplete(e) && quizPassed(e) && s
 function quizFields(qs, key, disabled){
   return qs.map((q,qi) => `<div class="q"><label class="ql" for="q${key}_${qi}"><b>${qi + 1}. ${esc(q.q)}</b></label><select id="q${key}_${qi}" name="q${qi}" ${disabled ? 'disabled' : ''}><option value="">Choose an answer</option>${q.options.map((o,oi) => `<option value="${oi}">${esc(o)}</option>`).join('')}</select></div>`).join('');
 }
+function wrapWords(t, n){ const lines = ['']; t.split(' ').forEach(w => { const cur = lines[lines.length - 1]; if (cur && (cur + ' ' + w).length > n) lines.push(w); else lines[lines.length - 1] = (cur + ' ' + w).trim(); }); return lines.slice(0, 2); }
+function badgeSvg(e, earned){
+  const m = M(e.mod), id = 'arc-' + e.id, lines = wrapWords(m.title.toUpperCase(), 17);
+  const ring = earned ? '#FFC112' : '#B5B5B0', bg = earned ? '#000' : '#ECECE9', ink = earned ? '#fff' : '#6E6E69', sub = earned ? '#C9C9C4' : '#8A8A85';
+  const line2 = m.tier.startsWith('Module') ? `${m.roles[0]} · ${m.tier}` : m.roles[0];
+  return `<svg viewBox="0 0 220 220" role="img" aria-label="${earned ? 'Certified' : 'Not earned yet'}: ${esc(m.title)}">
+    <circle cx="110" cy="110" r="104" fill="${bg}"/><circle cx="110" cy="110" r="96" fill="none" stroke="${ring}" stroke-width="6"/>
+    <circle cx="110" cy="110" r="79" fill="none" stroke="${ring}" stroke-width="1.5" stroke-dasharray="3 5"/>
+    <defs><path id="${id}" d="M 28 110 A 82 82 0 0 1 192 110"/></defs>
+    <text fill="${ring}" font-family="Montserrat,Arial" font-weight="700" font-size="11" letter-spacing="2.2"><textPath href="#${id}" startOffset="50%" text-anchor="middle">FLEET SPAN UNIVERSITY</textPath></text>
+    <rect x="74" y="76" width="16" height="4" fill="${ring}"/><rect x="94" y="76" width="16" height="4" fill="${ring}"/><rect x="114" y="76" width="16" height="4" fill="${ring}"/><rect x="134" y="76" width="12" height="4" fill="${ring}"/>
+    <text x="110" y="110" text-anchor="middle" fill="${ink}" font-family="Montserrat,Arial" font-weight="800" font-size="${earned ? 22 : 17}" letter-spacing="1">${earned ? 'CERTIFIED' : 'IN TRAINING'}</text>
+    <text x="110" y="131" text-anchor="middle" fill="${ink}" font-family="Montserrat,Arial" font-weight="700" font-size="10" letter-spacing="1.4">${esc(line2.toUpperCase())}</text>
+    ${lines.map((l, i) => `<text x="110" y="${149 + i * 13}" text-anchor="middle" fill="${sub}" font-family="Montserrat,Arial" font-weight="600" font-size="9.5" letter-spacing=".6">${esc(l)}</text>`).join('')}
+  </svg>`;
+}
 const phaseName = (ph, i) => ph === 0 ? `Online attempt ${i}` : `After in-person training ${ph}`;
 
 /* ---------- navigation ---------- */
@@ -408,6 +436,9 @@ function vMyTraining(){
       <div class="meta small muted"><span>${e.done ? 'Finished ' + fmt(e.done) : 'Due <span class="mono">' + fmt(e.due) + '</span>'}</span><span>${b !== null ? 'Best score <span class="mono">' + b + '%</span>' : e.stepsDone.length + ' of ' + stepsTotal(e) + ' steps'}</span></div>
     </button>`; };
   return `<div class="head"><div><h1>My Training</h1><p>${esc(v.name)} · ${esc(v.role)}</p></div></div>
+    ${mine.length ? `<section class="panel"><div class="ptitle"><h2>My badges</h2><span class="caps">${done.length} of ${mine.length} earned</span></div>
+      <div class="badges">${[...done, ...open].map(e => `<button type="button" class="bdg ${e.done ? '' : 'off'}" data-act="open" data-id="${e.id}">${badgeSvg(e, !!e.done)}<span class="${e.done ? 'got' : ''}">${e.done ? 'Earned ' + fmt(e.done) : 'Not earned yet'}</span></button>`).join('')}</div>
+      <p class="small muted">You earn a badge when you pass the quiz and the sign-off check. Gray badges are modules you're still working on.</p></section>` : ''}
     ${open.length ? `<div class="cards">${open.map(card).join('')}</div>` : `<div class="empty">Nothing assigned to you right now.</div>`}
     ${done.length ? `<h2>Finished</h2><div class="cards">${done.map(card).join('')}</div>` : ''}`;
 }
@@ -457,7 +488,7 @@ function vPlayer(){
   <div class="hero"><div class="eyebrow"><span class="dashes"><i></i><i></i><i></i></span><span>${esc(m.roles.join(', '))}</span><span>•</span><span>${m.tier}</span><span>•</span><span class="y">Due ${fmt(e.due)}</span><span>•</span><span>Assigned ${fmt(e.assigned)}</span></div>
     <div class="herorow"><h1>${esc(m.title)}</h1>${pill(s)}</div>
     ${m.why ? `<p class="lead"><b>Why it matters:</b> ${rich(m.why)}</p>` : ''}</div>
-  ${e.done ? `<div class="callout good"><b>Module complete on ${fmt(e.done)}</b><span>Best quiz score ${bestScore(e)}%.</span></div>` : ''}
+  ${e.done ? `<section class="panel earned"><div class="bdg big">${badgeSvg(e, true)}</div><div class="earnedtext"><span class="caps" style="color:var(--good)">Badge earned</span><h2>${esc(m.title)}</h2><p>Completed ${fmt(e.done)}${e.done > e.due ? ' (after the ' + fmt(e.due) + ' due date)' : ''} · best quiz score ${bestScore(e)}%.</p><p class="small muted">${mineView ? 'This badge now shows in My badges on your My Training page.' : 'This badge shows in My badges on the employee\'s My Training page.'}</p></div></section>` : ''}
   <div class="split">
     <section class="panel">
       ${m.before ? `<div><h3>Before you start</h3><ul class="guide">${m.before.map(b => `<li>${rich(b)}</li>`).join('')}</ul></div>` : ''}
@@ -603,6 +634,7 @@ function vDetail(){
     <div><span class="k">SO number</span><span class="mono">${esc(e.so || '—')}</span></div>
   </div>
   ${actions.length ? `<div class="row">${actions.join('')}</div>` : ''}</section>
+  ${e.done ? `<section class="panel earned"><div class="bdg big">${badgeSvg(e, true)}</div><div class="earnedtext"><span class="caps" style="color:var(--good)">Badge earned</span><h2>${esc(p.name)}</h2><p>Earned ${fmt(e.done)} · best quiz score ${bestScore(e)}%.</p><p class="small muted">Shows in My badges on ${esc(p.name.split(' ')[0])}'s My Training page.</p></div></section>` : ''}
   <div class="split">
     <section class="panel"><h2>Quiz attempts</h2>${e.attempts.length ? `<div class="tablewrap"><table><thead><tr><th>Attempt</th><th>Date</th><th class="num">Score</th><th>Result</th></tr></thead><tbody>${hist}</tbody></table></div>` : '<div class="empty">No attempts yet.</div>'}
       <p class="small muted">Rules: 2 online attempts at 80%. Below that, in-person training, then a Service Manager sign-off and 1 fresh quiz. One more round if needed.</p>
