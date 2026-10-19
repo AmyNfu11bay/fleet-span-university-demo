@@ -17,7 +17,10 @@ Run `node tools/check-modules.js` from the repository root before every push.
   "version": 2,                     // bump when the content changes
   "days": 14,                       // default days to complete
   "soCount": 5,                     // SO numbers the employee hand-keys for the trainer: the count in the sign-off check; 0 = no SO box (e.g. before they've worked an SO)
-  "level": "Basic",                // Basic, Advanced or Master; finishing every module in a level earns its achievement badge and unlocks the next
+  "level": "Basic",
+  "entry": { "title": "Units checked", "help": "…", "rows": 10,            // optional, instead of soCount: rows of other entries the employee fills in before the quiz
+             "fields": [{ "label": "Unit number", "type": "text" },       // field types: text, date, select (with "options")
+                        { "label": "What you found", "type": "select", "options": ["…", "…"] }] },                // Basic, Advanced or Master; finishing every module in a level earns its achievement badge and unlocks the next
   "why": "…",                       // the guide's "Why it matters", word for word
   "before": ["…"],                  // the guide's "Before you start" bullets
   "doneRight": "…",                 // the guide's "Done right looks like"
@@ -32,6 +35,6 @@ Run `node tools/check-modules.js` from the repository root before every push.
 }
 ```
 
-- Steps, "why", "before", "done right", "wrong" and the sign-off text are copied **exactly** from the approved step-by-step guide. `**double asterisks**` mark words the guide shows in bold (buttons, tabs, fields).
+- Steps, "why", "before", "done right", "wrong" and the sign-off text are copied **exactly** from the approved step-by-step guide. `**double asterisks**` mark words the guide shows in bold (buttons, tabs, fields); `!!double exclamation marks!!` show a warning in bold red.
 - A published module has exactly 5 quiz questions (one miss still passes at 80%) and at most 1 sign-off check (only when the guide has one; without it, passing the quiz completes the module). Quiz questions are written only from the guide's own content, and `answer` is the 0-based position of the right option.
 - The SO number box, dropdown quiz, attempt limits and in-person training path are built into the app, so modules don't repeat them.

@@ -215,6 +215,10 @@ ul.guide{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap
 .q select{width:100%;max-width:600px;padding:10px 34px 10px 12px}
 .ql{display:block}
 .sobox{border:2px solid var(--black);padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--white)}
+.redtxt{color:var(--bad);font-weight:800}
+.entrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;padding:8px 0;border-top:1px solid var(--g200,#e5e5e2)}
+.entrow:first-of-type{border-top:0}
+.soin select{width:100%;font-size:14px;letter-spacing:0;text-transform:none;color:var(--ink)}
 .sobox .sohead{text-transform:uppercase;letter-spacing:.1em;font-size:12.5px}
 .sogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .devpick{display:flex;flex-direction:column;gap:8px;padding:12px;border:2px solid var(--black);background:var(--white)}
@@ -287,7 +291,7 @@ const fmt = d => d ? MONTHS[+d.slice(5,7)-1] + ' ' + (+d.slice(8,10)) : '—';
 const addDays = (iso,n) => { const d = new Date(iso+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pct = (a,b) => b ? Math.round(a/b*100) : null;
-const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const rich = s => esc(s).replace(/!!(.+?)!!/g, '<b class="redtxt">$1</b>').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 
 const SEED = {
   people: [
@@ -309,6 +313,21 @@ const SEED = {
   enr: [
     {id:'e29', emp:'luis', mod:'all1', device:'android', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], attempts:[{phase:0,score:100,date:'2026-09-03'}], ip:0, smSign:0, handsOn:true, done:'2026-09-03'},
     {id:'e30', emp:'jake', mod:'all1', device:'android', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], attempts:[{phase:0,score:100,date:'2026-09-04'}], ip:0, smSign:0, handsOn:true, done:'2026-09-04'},
+    {id:'esa2', emp:'kelly', mod:'sa2', assigned:'2026-10-19', due:'2026-10-26', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa3', emp:'kelly', mod:'sa3', assigned:'2026-10-19', due:'2026-10-26', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa4', emp:'kelly', mod:'sa4', assigned:'2026-10-19', due:'2026-10-26', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa5', emp:'kelly', mod:'sa5', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa6', emp:'kelly', mod:'sa6', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa7', emp:'kelly', mod:'sa7', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa8', emp:'kelly', mod:'sa8', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa9', emp:'kelly', mod:'sa9', assigned:'2026-10-19', due:'2026-10-26', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa10', emp:'kelly', mod:'sa10', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa11', emp:'kelly', mod:'sa11', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa12', emp:'kelly', mod:'sa12', assigned:'2026-10-19', due:'2026-10-26', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa13', emp:'kelly', mod:'sa13', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa14', emp:'kelly', mod:'sa14', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa15', emp:'kelly', mod:'sa15', assigned:'2026-10-19', due:'2026-11-02', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'esa16', emp:'kelly', mod:'sa16', assigned:'2026-10-19', due:'2026-10-26', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e31', emp:'kelly', mod:'all1', assigned:'2026-10-12', due:'2026-10-19', reviewer:'marcus', so:'', stepsDone:[0,1,2], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e19', emp:'luis', mod:'t7', assigned:'2026-09-08', due:'2026-09-15', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-09-12'}], ip:0, smSign:0, handsOn:true, done:'2026-09-12'},
     {id:'e20', emp:'luis', mod:'t8', assigned:'2026-09-15', due:'2026-09-22', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5, 6, 7], attempts:[{phase:0,score:100,date:'2026-09-17'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
@@ -329,12 +348,10 @@ const SEED = {
     {id:'e4', so:'48190, 48204, 48219, 48233, 48245', emp:'andre', mod:'t2', assigned:'2026-09-26', due:'2026-10-10', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:60,date:'2026-10-08'},{phase:0,score:60,date:'2026-10-09'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e5', emp:'gus', mod:'t1', assigned:'2026-09-14', due:'2026-09-21', reviewer:'marcus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-16'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
     {id:'e18', emp:'gus', mod:'t2', assigned:'2026-09-21', due:'2026-10-05', reviewer:'marcus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:100,date:'2026-09-30'}], ip:0, smSign:0, handsOn:true, done:'2026-10-01'},
-    {id:'e6', emp:'kelly', mod:'m3', assigned:'2026-09-16', due:'2026-09-30', reviewer:'marcus', stepsDone:[0,1,2,3], attempts:[{phase:0,score:50,date:'2026-09-29'},{phase:0,score:100,date:'2026-10-02'}], ip:0, smSign:0, handsOn:true, done:'2026-10-03'},
     {id:'e7', emp:'ray', mod:'m4', assigned:'2026-10-02', due:'2026-10-16', reviewer:'marcus', stepsDone:[0,1], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e8', so:'51022, 51040, 51057, 51063, 51079', emp:'sam', mod:'t2', assigned:'2026-09-28', due:'2026-10-12', reviewer:'priya', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:100,date:'2026-10-07'}], ip:0, smSign:0, handsOn:true, done:'2026-10-08'},
     {id:'e9', emp:'tony', mod:'t2', assigned:'2026-09-29', due:'2026-10-13', reviewer:'priya', stepsDone:[0,1], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e10', so:'50877, 50902, 50914, 50931, 50948', emp:'eli', mod:'t2', assigned:'2026-09-01', due:'2026-09-15', reviewer:'priya', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:40,date:'2026-09-10'},{phase:0,score:60,date:'2026-09-11'},{phase:1,score:60,date:'2026-09-22'},{phase:2,score:60,date:'2026-10-06'}], ip:2, smSign:0, handsOn:false, done:null},
-    {id:'e11', emp:'ben', mod:'m3', assigned:'2026-10-15', due:'2026-10-29', reviewer:'priya', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e12', emp:'marcus', mod:'m5', assigned:'2026-10-08', due:'2026-10-29', reviewer:'dana', stepsDone:[0], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e13', so:'51108', emp:'sam', mod:'t1', assigned:'2026-10-10', due:'2026-10-17', reviewer:'priya', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-10-14'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e14', emp:'andre', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-29'}], ip:0, smSign:0, handsOn:true, done:'2026-09-29'},
@@ -373,8 +390,12 @@ const stepsTotal = e => appSteps(e).length;
 const stepsDoneN = e => appSteps(e).filter(x => e.stepsDone.includes(x.i)).length;
 const stepsComplete = e => (!M(e.mod).devices || !!e.device) && stepsDoneN(e) >= stepsTotal(e);
 const soList = e => (e.so || '').split(',').map(x => x.trim()).filter(Boolean);
-const soNeed = e => M(e.mod).soCount ?? 1;
-const soReady = e => soList(e).length >= soNeed(e);
+const ENT = e => M(e.mod).entry;
+const entVals = e => e.entry || [];
+const entFilled = e => { const en = ENT(e); return en ? Array.from({length: en.rows}, (_, r) => en.fields.every((f, c) => String((entVals(e)[r] || [])[c] || '').trim())).filter(Boolean).length : 0; };
+const soNeed = e => ENT(e) ? 0 : (M(e.mod).soCount ?? 1);
+const soReady = e => ENT(e) ? entFilled(e) >= ENT(e).rows : soList(e).length >= soNeed(e);
+const recLabel = e => ENT(e) ? ENT(e).title : 'SO number' + ((e.so || '').includes(',') ? 's' : '');
 const hasSignoff = e => M(e.mod).items.some(i => i.type === 'signoff');
 const quizPassed = e => phaseAtt(e, e.ip).some(a => a.score >= 80);
 const signoffOk = e => e.ip === 0 ? (e.handsOn || !hasSignoff(e)) : e.smSign >= e.ip;
@@ -552,7 +573,7 @@ function vPlayer(){
   } else if (!stepsComplete(e)) {
     quizBlock = `<p class="muted">Finish every step to unlock the quiz. You need 80% to pass. You get ${e.ip === 0 ? '2 attempts' : '1 fresh attempt after in-person training'}.</p>`;
   } else if (!soReady(e)) {
-    quizBlock = `<p class="muted">Enter ${soNeed(e) === 1 ? 'the SO number' : 'all ' + soNeed(e) + ' SO numbers'} you completed the steps on to unlock the quiz.</p>`;
+    quizBlock = ENT(e) ? `<p class="muted">Fill in every ${esc(ENT(e).title.toLowerCase())} entry to unlock the quiz.</p>` : `<p class="muted">Enter ${soNeed(e) === 1 ? 'the SO number' : 'all ' + soNeed(e) + ' SO numbers'} you completed the steps on to unlock the quiz.</p>`;
   } else if (canQuiz) {
     quizBlock = `<p class="small muted">Attempt ${cur.length + 1} of ${limit}${e.ip ? ' (after in-person training)' : ''}. You need 80% to pass.</p>
       <form id="quizForm" data-id="${e.id}">${quizFields(qs, e.id, false)}
@@ -588,6 +609,10 @@ function vPlayer(){
       ${soNeed(e) ? `<div class="sobox"><b class="sohead">SO numbers · ${soNeed(e)} required</b><p class="small muted">Type the number of ${soNeed(e) === 1 ? 'the SO' : 'each SO'} you completed these steps on. Your trainer uses ${soNeed(e) === 1 ? 'it' : 'them'} to check your work.</p>
         <div class="sogrid">${Array.from({length: soNeed(e)}, (_, i) => `<label class="soin"><span>SO ${i + 1}</span><input type="text" id="so_${e.id}_${i}" value="${esc(soList(e)[i] || '')}" placeholder="SO number" inputmode="numeric" ${(!mineView || locked) ? 'disabled' : ''}></label>`).join('')}</div>
         ${mineView && !locked ? `<div class="row"><button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save SO numbers</button><span class="small muted">${soList(e).length} of ${soNeed(e)} entered</span></div>` : ''}</div>` : ''}
+      ${ENT(e) ? `<div class="sobox"><b class="sohead">${esc(ENT(e).title)}${ENT(e).rows > 1 ? ' · ' + ENT(e).rows + ' required' : ''}</b><p class="small muted">${esc(ENT(e).help)}</p>
+        ${Array.from({length: ENT(e).rows}, (_, r) => `<div class="entrow">${ENT(e).fields.map((f, c) => { const v = (entVals(e)[r] || [])[c] || '', id = 'en_' + e.id + '_' + r + '_' + c, dis = (!mineView || locked) ? 'disabled' : '', lab = ENT(e).rows > 1 ? f.label + ' ' + (r + 1) : f.label;
+          return `<label class="soin" for="${id}"><span>${esc(lab)}</span>${f.type === 'select' ? `<select id="${id}" ${dis}><option value="">Choose</option>${f.options.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>` : `<input type="${f.type === 'date' ? 'date' : 'text'}" id="${id}" value="${esc(v)}" ${dis}>`}</label>`; }).join('')}</div>`).join('')}
+        ${mineView && !locked ? `<div class="row"><button class="btn" type="button" data-act="saveent" data-id="${e.id}">Save entries</button><span class="small muted">${entFilled(e)} of ${ENT(e).rows} complete</span></div>` : ''}</div>` : ''}
       ${m.doneRight ? `<div class="callout good"><b>Done right looks like</b><span>${rich(m.doneRight)}</span></div>` : ''}
       ${m.wrong ? `<div><h3>If something goes wrong</h3><ul class="guide">${m.wrong.map(w => `<li>${rich(w)}</li>`).join('')}</ul></div>` : ''}
       ${m.sources ? `<p class="small muted">Full article in Fullbay Help & Training: ${m.sources.map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">${esc(x.title)}</a>`).join(' · ')}</p>` : ''}
@@ -604,7 +629,7 @@ function vQueue(){
   const card = e => { const p = P(e.emp), m = M(e.mod), so = m.items.find(i => i.type === 'signoff');
     const smType = e.ip > 0;
     return `<section class="panel">
-      <div class="row" style="justify-content:space-between"><div><h3>${esc(p.name)} · ${esc(m.title)}</h3><p class="small muted">${esc(p.role)} · Due <span class="mono">${fmt(e.due)}</span> · Quiz ${bestScore(e)}%</p><p class="small">SO number${(e.so || '').includes(',') ? 's' : ''}: <b class="mono">${esc(e.so || 'Not entered')}</b></p></div>${smType ? '<span class="tag">After in-person training</span>' : '<span class="tag">Hands-on check</span>'}</div>
+      <div class="row" style="justify-content:space-between"><div><h3>${esc(p.name)} · ${esc(m.title)}</h3><p class="small muted">${esc(p.role)} · Due <span class="mono">${fmt(e.due)}</span> · Quiz ${bestScore(e)}%</p><p class="small">${esc(recLabel(e))}: <b class="mono">${esc(e.so || 'Not entered')}</b></p></div>${smType ? '<span class="tag">After in-person training</span>' : '<span class="tag">Hands-on check</span>'}</div>
       <p><b>${smType ? 'Confirm the employee can complete all tasks without assistance.' : esc(so ? so.text : '')}</b></p>
       <div class="field"><label for="note_${e.id}">Notes</label><textarea id="note_${e.id}" rows="2" placeholder="What you watched, anything to coach on"></textarea></div>
       <div class="row"><button class="btn good" type="button" data-act="${smType ? 'smsign' : 'pass'}" data-id="${e.id}">${smType ? 'Sign off' : 'Pass'}</button>${smType ? '' : `<button class="btn" type="button" data-act="needswork" data-id="${e.id}">Needs work</button>`}</div>
@@ -723,7 +748,7 @@ function vDetail(){
     <div><span class="k">Best score</span><span class="mono">${bestScore(e) ?? '—'}${bestScore(e) !== null ? '%' : ''}</span></div>
     <div><span class="k">In-person sessions</span><span class="mono">${e.ip} of 2</span></div>
     <div><span class="k">Reviewer</span><span>${esc(rev ? rev.name : '—')}</span></div>
-    <div><span class="k">SO number</span><span class="mono">${esc(e.so || '—')}</span></div>
+    <div><span class="k">${esc(recLabel(e))}</span><span class="mono">${esc(e.so || '—')}</span></div>
   </div>
   ${actions.length ? `<div class="row">${actions.join('')}</div>` : ''}</section>
   ${e.done ? `<section class="panel earned"><div class="bdg big">${badgeSvg(e, true)}</div><div class="earnedtext"><span class="caps" style="color:var(--good)">Badge earned</span><h2>${esc(p.name)}</h2><p>Earned ${fmt(e.done)} · best quiz score ${bestScore(e)}%.</p><p class="small muted">Shows in My badges on ${esc(p.name.split(' ')[0])}'s My Training page.</p></div></section>` : ''}
@@ -877,7 +902,7 @@ const VIEWS = {mytraining:vMyTraining, player:vPlayer, queue:vQueue, dashboard:v
 function render(){
   if (!allowed(S.view)) { S.view = homeFor(); }
   const sel = document.getElementById('viewer');
-  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech'],['jake','Tech']];
+  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech'],['jake','Tech'],['kelly','Service Advisor']];
   sel.innerHTML = opts.map(([id,t]) => `<option value="${id}" ${id === S.viewer ? 'selected' : ''}>${t} · ${esc(P(id).name)}</option>`).join('');
   renderNav();
   document.getElementById('main').innerHTML = `<div class="wrap">${VIEWS[S.view]()}</div>`;
@@ -923,6 +948,13 @@ const ACT = {
     e.so = filled.join(', ');
     if (filled.length < n) { flash(`Saved ${filled.length} of ${n}. Enter all ${n} SO numbers to unlock the quiz.`); return; }
     log(`${P(e.emp).name} entered SO ${e.so} for ${M(e.mod).title}`); flash(n === 1 ? 'SO number saved. The quiz is unlocked.' : `All ${n} SO numbers saved. The quiz is unlocked.`); },
+  saveent: d => { const e = E(d.id), en = ENT(e);
+    e.entry = Array.from({length: en.rows}, (_, r) => en.fields.map((f, c) => document.getElementById('en_' + e.id + '_' + r + '_' + c).value.trim()));
+    const n = entFilled(e);
+    e.so = e.entry.filter(row => row.every(Boolean)).map(row => row.map((v, c) => en.fields[c].type === 'date' ? fmt(v) : v).join(en.fields.length === 2 && en.fields.every(f => f.type === 'date') ? ' – ' : ' · ')).join('; ');
+    if (en.fields.length === 2 && en.fields.every(f => f.type === 'date') && e.entry[0][0] && e.entry[0][1] && e.entry[0][1] < e.entry[0][0]) { e.entry = []; e.so = ''; flash('The end date must be on or after the start date.'); return; }
+    if (n < en.rows) { flash(`Saved ${n} of ${en.rows}. Fill in every entry to unlock the quiz.`); return; }
+    log(`${P(e.emp).name} entered ${en.title.toLowerCase()} for ${M(e.mod).title}: ${e.so}`); flash('Entries saved. The quiz is unlocked.'); },
   modopen: d => { S.mod = d.id; },
   modclose: () => { S.mod = null; },
   togglepub: d => { const m = M(d.id); m.status = m.status === 'Published' ? 'Draft' : 'Published'; log(`${m.status === 'Published' ? 'Published' : 'Moved to draft'}: ${m.title}`); flash(`${m.title} is now ${m.status.toLowerCase()}.`); },

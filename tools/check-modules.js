@@ -27,6 +27,18 @@ for (const m of ctx.FSU_MODULES) {
   if (!Number.isInteger(m.days) || m.days < 1) err('days must be a whole number of days to complete');
   if (!Number.isInteger(m.version) || m.version < 1) err('version must be a whole number');
   if (m.soCount !== undefined && !(Number.isInteger(m.soCount) && m.soCount >= 0 && m.soCount <= 20)) err('soCount must be a whole number from 0 to 20');
+  if (m.entry !== undefined) {
+    const en = m.entry;
+    if (!en.title || !en.help) err('entry needs a title and help text');
+    if (!(Number.isInteger(en.rows) && en.rows >= 1 && en.rows <= 20)) err('entry.rows must be a whole number from 1 to 20');
+    if (!Array.isArray(en.fields) || !en.fields.length) err('entry.fields must list at least one field');
+    else en.fields.forEach((f, k) => {
+      if (!f.label) err(`entry field ${k + 1} needs a label`);
+      if (!['text', 'date', 'select'].includes(f.type)) err(`entry field ${k + 1} type must be text, date or select`);
+      if (f.type === 'select' && !(Array.isArray(f.options) && f.options.length >= 2)) err(`entry field ${k + 1} needs at least 2 options`);
+    });
+    if (m.soCount) err('use entry or soCount, not both');
+  }
   if (m.level !== undefined && !['Basic', 'Advanced', 'Master'].includes(m.level)) err('level must be Basic, Advanced or Master');
   const items = m.items || [];
   const steps = items.filter(i => i.type === 'step');
