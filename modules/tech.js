@@ -6,7 +6,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 1",
+  "tier": "Module 2",
   "status": "Published",
   "version": 2,
   "days": 7,
@@ -16,7 +16,7 @@ FSU_MODULES.push(
   ],
   "doneRight": "You can explain in your own words what Fullbay does for the shop and for the customer.",
   "wrong": [
-    "Something in Fullbay doesn't look right: ask your Service Manager, or ask Spike (Module 8)."
+    "Something in Fullbay doesn't look right: ask your Service Manager, or ask Spike (Module 9)."
   ],
   "sources": [
     {
@@ -118,7 +118,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 2",
+  "tier": "Module 3",
   "status": "Published",
   "version": 2,
   "days": 7,
@@ -245,7 +245,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 3",
+  "tier": "Module 4",
   "status": "Published",
   "version": 2,
   "days": 7,
@@ -354,14 +354,14 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 4",
+  "tier": "Module 5",
   "status": "Published",
   "version": 3,
   "days": 14,
   "why": "Diagnose is where the job gets real. Until it is marked diagnosed, Parts cannot quote and the customer cannot approve.",
   "before": [
     "The SO is in the **Diagnose** stage (the Service Advisor has created it and captured the customer signature).",
-    "You are clocked onto the job (Module 3)."
+    "You are clocked onto the job (Module 4)."
   ],
   "doneRight": "The Action Item shows diagnosed, the findings are clear enough that someone who was not there understands them, and parts are listed.",
   "wrong": [
@@ -383,7 +383,7 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Add the parts you need (see Module 9). Do not enter prices."
+      "text": "Add the parts you need (see Module 10). Do not enter prices."
     },
     {
       "type": "step",
@@ -466,7 +466,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 5",
+  "tier": "Module 6",
   "status": "Published",
   "version": 2,
   "days": 14,
@@ -573,18 +573,18 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 6",
+  "tier": "Module 7",
   "status": "Published",
   "version": 2,
   "days": 7,
   "why": "A note on the SO is how the shop knows what happened on a job. Calls and memory get lost; a note stays on the SO for anyone who opens it later.",
   "before": [
-    "You are clocked onto the job (Module 3)."
+    "You are clocked onto the job (Module 4)."
   ],
   "doneRight": "Anyone who opens the SO later understands what you did or found without calling you.",
   "wrong": [
     "Not sure who will see the note: Action Item notes are only visible to the shop. An SO note with **Show note to customer** checked shows in the customer's Customer Portal.",
-    "Looking for your note on the invoice: notes never appear on the estimate or invoice. The cause and correction go in their own fields (Modules 4 and 10)."
+    "Looking for your note on the invoice: notes never appear on the estimate or invoice. The cause and correction go in their own fields (Modules 5 and 11)."
   ],
   "sources": [
     {
@@ -686,7 +686,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 7",
+  "tier": "Module 8",
   "status": "Published",
   "version": 3,
   "days": 7,
@@ -795,7 +795,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 8",
+  "tier": "Module 9",
   "status": "Published",
   "version": 2,
   "days": 7,
@@ -908,7 +908,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 9",
+  "tier": "Module 10",
   "status": "Published",
   "version": 2,
   "days": 14,
@@ -952,7 +952,7 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Mark the Action Item **Diagnosed** so Parts get notified (Module 4)."
+      "text": "Mark the Action Item **Diagnosed** so Parts get notified (Module 5)."
     },
     {
       "type": "quiz",
@@ -1023,7 +1023,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 10",
+  "tier": "Module 11",
   "status": "Published",
   "version": 2,
   "days": 14,
@@ -1127,7 +1127,7 @@ FSU_MODULES.push(
   "roles": [
     "Tech"
   ],
-  "tier": "Module 11",
+  "tier": "Module 12",
   "status": "Published",
   "version": 2,
   "days": 14,
@@ -1155,11 +1155,11 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Mark defects the same way as in the inspection (Module 5)."
+      "text": "Mark defects the same way as in the inspection (Module 6)."
     },
     {
       "type": "step",
-      "text": "Complete the job (Module 10)."
+      "text": "Complete the job (Module 11)."
     },
     {
       "type": "step",

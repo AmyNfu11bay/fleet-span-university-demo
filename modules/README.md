@@ -1,6 +1,6 @@
 # Modules
 
-Each file here is one role track (`tech.js`, `service-advisor.js`, `parts.js`, `service-manager.js`). A file adds its modules with `FSU_MODULES.push({...}, {...});`. `index.html` loads every track file with a `<script src="modules/<track>.js">` tag, so a new track file also needs a new tag.
+Each file here is one track: `all-employees.js` (modules every employee takes, listed first) and one file per role (`tech.js`, `service-advisor.js`, `parts.js`, `service-manager.js`). A file adds its modules with `FSU_MODULES.push({...}, {...});`. `index.html` loads every track file with a `<script src="modules/<track>.js">` tag, so a new track file also needs a new tag.
 
 Run `node tools/check-modules.js` from the repository root before every push.
 
@@ -11,6 +11,7 @@ Run `node tools/check-modules.js` from the repository root before every push.
   "id": "t2",                       // unique, lowercase; Tech uses t1, t2, …
   "title": "Diagnose button on the SO",
   "roles": ["Tech"],                // job roles this module is for
+  "allEmployees": true,             // optional: a module every role takes (lives in all-employees.js)
   "tier": "Module 2",               // order within the track
   "status": "Published",            // or "Draft" (drafts can't be assigned)
   "version": 2,                     // bump when the content changes

@@ -273,6 +273,7 @@ ul.guide{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap
 <div class="flash" id="flash" hidden></div>
 
 <script>window.FSU_MODULES = [];</script>
+<script src="modules/all-employees.js"></script>
 <script src="modules/tech.js"></script>
 <script src="modules/service-advisor.js"></script>
 <script src="modules/parts.js"></script>
@@ -304,6 +305,9 @@ const SEED = {
   ],
   modules: window.FSU_MODULES,
   enr: [
+    {id:'e29', emp:'luis', mod:'all1', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9], attempts:[{phase:0,score:100,date:'2026-09-03'}], ip:0, smSign:0, handsOn:true, done:'2026-09-03'},
+    {id:'e30', emp:'jake', mod:'all1', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9], attempts:[{phase:0,score:100,date:'2026-09-04'}], ip:0, smSign:0, handsOn:true, done:'2026-09-04'},
+    {id:'e31', emp:'kelly', mod:'all1', assigned:'2026-10-12', due:'2026-10-19', reviewer:'marcus', so:'', stepsDone:[0,1,2], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e19', emp:'luis', mod:'t7', assigned:'2026-09-08', due:'2026-09-15', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-09-12'}], ip:0, smSign:0, handsOn:true, done:'2026-09-12'},
     {id:'e20', emp:'luis', mod:'t8', assigned:'2026-09-15', due:'2026-09-22', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5, 6, 7], attempts:[{phase:0,score:100,date:'2026-09-17'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
     {id:'e2', emp:'luis', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', so:'48104', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-09-26'}], ip:0, smSign:0, handsOn:true, done:'2026-09-26'},
@@ -392,7 +396,7 @@ function wrapWords(t, n){ const lines = ['']; t.split(' ').forEach(w => { const 
 function badgeSvg(e, earned){
   const m = M(e.mod), id = 'arc-' + e.id, lines = wrapWords(m.title.toUpperCase(), 17);
   const ring = earned ? '#FFC112' : '#B5B5B0', bg = earned ? '#000' : '#ECECE9', ink = earned ? '#fff' : '#6E6E69', sub = earned ? '#C9C9C4' : '#8A8A85';
-  const line2 = m.tier.startsWith('Module') ? `${m.roles[0]} · ${m.tier}` : m.roles[0];
+  const who = m.allEmployees ? 'All employees' : m.roles[0], line2 = m.tier.startsWith('Module') ? `${who} · ${m.tier}` : who;
   return `<svg viewBox="0 0 220 220" role="img" aria-label="${earned ? 'Certified' : 'Not earned yet'}: ${esc(m.title)}">
     <circle cx="110" cy="110" r="104" fill="${bg}"/><circle cx="110" cy="110" r="96" fill="none" stroke="${ring}" stroke-width="6"/>
     <circle cx="110" cy="110" r="79" fill="none" stroke="${ring}" stroke-width="1.5" stroke-dasharray="3 5"/>
@@ -404,9 +408,10 @@ function badgeSvg(e, earned){
     ${lines.map((l, i) => `<text x="110" y="${149 + i * 13}" text-anchor="middle" fill="${sub}" font-family="Montserrat,Arial" font-weight="600" font-size="9.5" letter-spacing=".6">${esc(l)}</text>`).join('')}
   </svg>`;
 }
+const roleLabel = m => m.allEmployees ? 'All employees' : m.roles.join(', ');
 const LEVELS = ['Basic', 'Advanced', 'Master'];
 const LEVEL_NAME = {Basic:'Fullbay Basics', Advanced:'Fullbay Advanced', Master:'Fullbay Master'};
-const levelMods = (level, role) => DB.modules.filter(m => m.level === level && m.status === 'Published' && !m.sample && m.roles.includes(role));
+const levelMods = (level, role) => { const ms = DB.modules.filter(m => m.level === level && m.status === 'Published' && !m.sample && m.roles.includes(role)); return ms.some(m => !m.allEmployees) ? ms : []; };
 function levelDone(empId, level){ const mods = levelMods(level, P(empId).role); if (!mods.length) return null; const ens = mods.map(m => DB.enr.find(e => e.emp === empId && e.mod === m.id && e.done)); return ens.every(Boolean) ? ens.map(e => e.done).sort().at(-1) : null; }
 function lockedFor(e){ const i = LEVELS.indexOf(M(e.mod).level); return i > 0 && !e.done && !levelDone(e.emp, LEVELS[i - 1]); }
 const star = (cx, cy, r, fill) => { const pts = Array.from({length: 10}, (_, k) => { const a = -Math.PI / 2 + k * Math.PI / 5, rr = k % 2 ? r * 0.45 : r; return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`; }).join(' '); return `<polygon points="${pts}" fill="${fill}"/>`; };
@@ -460,7 +465,7 @@ function queueItems(){
 function renderNav(){
   const sc = scope();
   const attention = DB.enr.filter(e => sc.includes(e.emp) && e.emp !== S.viewer && ['overdue','needsIP','final'].includes(status(e))).length;
-  const counts = { queue: queueItems().length, team: attention, mytraining: DB.enr.filter(e => e.emp === S.viewer && !e.done).length };
+  const counts = { queue: queueItems().length, team: attention, mytraining: DB.enr.filter(e => e.emp === S.viewer && !e.done && !lockedFor(e)).length };
   const cur = PARENT[S.view] || S.view;
   let html = '';
   NAV.filter(n => n.who.includes(lvl())).forEach(n => {
@@ -481,6 +486,7 @@ function myBadges(v, mine){
     const mods = levelMods(l, v.role); if (!mods.length) return;
     const inLevel = mine.filter(e => M(e.mod).level === l), doneDate = levelDone(v.id, l);
     const prevOk = i === 0 || levelDone(v.id, LEVELS[i - 1]);
+    if (!prevOk) return;
     if (doneDate) {
       html += `<div class="lvl"><div class="ach">${achievementSvg(l, mods.length, v.id + l)}<div class="achtext"><span class="caps" style="color:var(--good)">Achievement earned · ${fmt(doneDate)}</span><h2>${esc(LEVEL_NAME[l])}</h2><p>You completed all ${mods.length} ${esc(LEVEL_NAME[l])} modules.${LEVELS[i + 1] && levelMods(LEVELS[i + 1], v.role).length ? ` ${esc(LEVEL_NAME[LEVELS[i + 1]])} modules are now unlocked.` : ''}</p>
         <details><summary>Show the ${mods.length} module badges</summary><div class="badges">${order(inLevel).map(bdg).join('')}</div></details></div></div></div>`;
@@ -494,15 +500,15 @@ function myBadges(v, mine){
   const other = mine.filter(e => !M(e.mod).level);
   if (other.length) html += `<div class="lvl"><div class="ptitle"><h3>Other modules</h3></div><div class="badges">${order(other).map(bdg).join('')}</div></div>`;
   return `<section class="panel"><div class="ptitle"><h2>My badges</h2><span class="caps">${mine.filter(e => e.done).length} of ${mine.length} modules earned</span></div>${html}
-    <p class="small muted">You earn a badge when you pass the quiz and the sign-off check. Finish every module in a level to earn its achievement badge and unlock the next level.</p></section>`;
+    <p class="small muted">You earn a badge when you pass the quiz and the sign-off check. Finish every module in a level to earn its achievement badge.</p></section>`;
 }
 function vMyTraining(){
-  const mine = DB.enr.filter(e => e.emp === S.viewer).sort((a,b) => (!!a.done - !!b.done) || a.due.localeCompare(b.due));
+  const mine = DB.enr.filter(e => e.emp === S.viewer && !lockedFor(e)).sort((a,b) => (!!a.done - !!b.done) || a.due.localeCompare(b.due));
   const v = me();
   const open = mine.filter(e => !e.done), done = mine.filter(e => e.done);
   const card = e => { const m = M(e.mod), s = shown(e), b = bestScore(e);
     return `<button class="card" type="button" data-act="open" data-id="${e.id}">
-      <div class="meta"><span class="tag">${esc(m.roles.join(', '))} · ${m.tier}</span>${pill(s)}</div>
+      <div class="meta"><span class="tag">${esc(roleLabel(m))} · ${m.tier}</span>${pill(s)}</div>
       <h3>${esc(m.title)}</h3>
       <div class="meta small muted"><span>${e.done ? 'Finished ' + fmt(e.done) : 'Due <span class="mono">' + fmt(e.due) + '</span>'}</span><span>${b !== null ? 'Best score <span class="mono">' + b + '%</span>' : e.stepsDone.length + ' of ' + stepsTotal(e) + ' steps'}</span></div>
     </button>`; };
@@ -560,7 +566,7 @@ function vPlayer(){
   }
 
   return `<div><button class="btn ghost" type="button" data-act="go" data-v="mytraining">← My Training</button></div>
-  <div class="hero"><div class="eyebrow"><span class="dashes"><i></i><i></i><i></i></span><span>${esc(m.roles.join(', '))}</span><span>•</span><span>${m.tier}</span><span>•</span><span class="y">Due ${fmt(e.due)}</span><span>•</span><span>Assigned ${fmt(e.assigned)}</span></div>
+  <div class="hero"><div class="eyebrow"><span class="dashes"><i></i><i></i><i></i></span><span>${esc(roleLabel(m))}</span><span>•</span><span>${m.tier}</span><span>•</span><span class="y">Due ${fmt(e.due)}</span><span>•</span><span>Assigned ${fmt(e.assigned)}</span></div>
     <div class="herorow"><h1>${esc(m.title)}</h1>${pill(s)}</div>
     ${m.why ? `<p class="lead"><b>Why it matters:</b> ${rich(m.why)}</p>` : ''}</div>
   ${lk ? `<div class="callout warn"><b>Locked</b><span>This is a ${esc(LEVEL_NAME[m.level])} module. It unlocks when you finish every ${esc(prevName)} module.</span></div>` : ''}
@@ -622,7 +628,7 @@ function vDashboard(){
   const max = Math.max(1, ...mods.map(m => en.filter(e => e.mod === m.id).length));
   const modRows = mods.map(m => { const me2 = en.filter(e => e.mod === m.id);
     const segs = CAT.map(([k,lab,col]) => { const v = me2.filter(e => catOf(e) === k).length; return v ? `<i style="width:${(v/max*100).toFixed(2)}%;background:${col}" title="${lab}: ${v}"></i>` : ''; }).join('');
-    return `<div class="mrow"><div class="mname"><b>${esc(m.title)}</b><span>${esc(m.roles.join(', '))}${m.roles[0] === 'Tech' ? ' · ' + m.tier : ''}</span></div><div class="mbar" role="img" aria-label="${esc(m.title)}: ${CAT.map(([k,lab]) => lab + ' ' + me2.filter(e => catOf(e) === k).length).join(', ')}">${segs}</div><div class="mval mono">${me2.filter(e => e.done).length} of ${me2.length} done</div></div>`; }).join('');
+    return `<div class="mrow"><div class="mname"><b>${esc(m.title)}</b><span>${esc(roleLabel(m))}${m.roles[0] === 'Tech' ? ' · ' + m.tier : ''}</span></div><div class="mbar" role="img" aria-label="${esc(m.title)}: ${CAT.map(([k,lab]) => lab + ' ' + me2.filter(e => catOf(e) === k).length).join(', ')}">${segs}</div><div class="mval mono">${me2.filter(e => e.done).length} of ${me2.length} done</div></div>`; }).join('');
   const legend = CAT.map(([k,lab,col]) => `<span><i style="background:${col}"></i>${lab}</span>`).join('');
 
   // by location
@@ -700,7 +706,7 @@ function vDetail(){
   if (!e.done && e.ip > 0 && e.smSign < e.ip && st !== 'needsIP' && st !== 'final' && (isSM || admin)) actions.push(`<button class="btn good" type="button" data-act="smsign" data-id="${e.id}">Sign off: works without assistance</button>`);
   const related = DB.audit.filter(a => a.what.includes(p.name) && a.what.includes(m.title) && (!a.internal || canSeeFinal(e)));
   return `<div><button class="btn ghost" type="button" data-act="go" data-v="team">← Team progress</button></div>
-  <div class="head"><div><span class="tag">${esc(m.roles.join(', '))} · ${m.tier}</span><h1 style="margin-top:6px">${esc(p.name)} · ${esc(m.title)}</h1><p>${esc(p.role)} · ${esc(p.loc)} · Service Manager: ${esc(sm ? sm.name : '—')}</p></div>${pill(s)}</div>
+  <div class="head"><div><span class="tag">${esc(roleLabel(m))} · ${m.tier}</span><h1 style="margin-top:6px">${esc(p.name)} · ${esc(m.title)}</h1><p>${esc(p.role)} · ${esc(p.loc)} · Service Manager: ${esc(sm ? sm.name : '—')}</p></div>${pill(s)}</div>
   ${st === 'final' && canSeeFinal(e) ? `<div class="callout internal"><span><span class="tag internal">Internal only</span></span><b>Failed after the second in-person training.</b><span>Per shop policy, this goes to management for a decision. The employee sees only "See your Service Manager." Admins and ${esc(sm ? sm.name : 'the Service Manager')} are the only people who can see this status.</span></div>` : ''}
   <section class="panel"><div class="facts">
     <div><span class="k">Assigned</span><span class="mono">${fmt(e.assigned)}</span></div>
@@ -791,7 +797,7 @@ function vModules(){
     const m = M(S.mod);
     const tcount = t => m.items.filter(i => i.type === t).length;
     return `<div><button class="btn ghost" type="button" data-act="modclose">← All modules</button></div>
-    <div class="head"><div><span class="tag">${esc(m.roles.join(', '))} · ${m.tier} · Version ${m.version}</span><h1 style="margin-top:6px">${esc(m.title)}</h1><p>${tcount('step')} steps · ${tcount('quiz')} quiz questions · ${tcount('signoff')} hands-on check · Passing score 80% · ${m.days} days to complete</p></div>
+    <div class="head"><div><span class="tag">${esc(roleLabel(m))} · ${m.tier} · Version ${m.version}</span><h1 style="margin-top:6px">${esc(m.title)}</h1><p>${tcount('step')} steps · ${tcount('quiz')} quiz questions · ${tcount('signoff')} hands-on check · Passing score 80% · ${m.days} days to complete</p></div>
       <button class="btn ${m.status === 'Published' ? '' : 'primary'}" type="button" data-act="togglepub" data-id="${m.id}">${m.status === 'Published' ? 'Move back to draft' : 'Publish'}</button></div>
     ${m.why ? `<div class="callout info"><b>Why it matters</b><span>${rich(m.why)}</span></div>` : ''}
     <section class="panel"><h2>Items</h2>
@@ -808,7 +814,7 @@ function vModules(){
   }
   return `<div class="head"><div><h1>Modules</h1><p>Only admins create and edit modules. Only published modules can be assigned.</p></div></div>
   <div class="tablewrap"><table><thead><tr><th>Module</th><th>Job roles</th><th>Tier</th><th class="num">Items</th><th class="num">Enrolled</th><th>Status</th></tr></thead><tbody>
-  ${DB.modules.map(m => `<tr class="click" data-act="modopen" data-id="${m.id}"><td><b>${esc(m.title)}</b></td><td>${esc(m.roles.join(', '))}</td><td>${m.tier}</td><td class="num">${m.items.length}</td><td class="num">${DB.enr.filter(e => e.mod === m.id).length}</td><td>${m.status === 'Published' ? '<span class="pill s-completed">Published</span>' : '<span class="pill s-notstarted">Draft</span>'}</td></tr>`).join('')}
+  ${DB.modules.map(m => `<tr class="click" data-act="modopen" data-id="${m.id}"><td><b>${esc(m.title)}</b></td><td>${esc(roleLabel(m))}</td><td>${m.tier}</td><td class="num">${m.items.length}</td><td class="num">${DB.enr.filter(e => e.mod === m.id).length}</td><td>${m.status === 'Published' ? '<span class="pill s-completed">Published</span>' : '<span class="pill s-notstarted">Draft</span>'}</td></tr>`).join('')}
   </tbody></table></div>`;
 }
 
