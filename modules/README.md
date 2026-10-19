@@ -19,6 +19,7 @@ Run `node tools/check-modules.js` from the repository root before every push.
   "before": ["…"],                  // the guide's "Before you start" bullets
   "doneRight": "…",                 // the guide's "Done right looks like"
   "wrong": ["…"],                   // the guide's "If something goes wrong" bullets
+  "sources": [{ "title": "…", "url": "https://help.fullbay.com/…" }],  // optional: Help Center articles a module was written from
   "items": [
     { "type": "step", "text": "Click **Diagnosed** on the Action Item. …" },
     { "type": "quiz", "q": "…?", "options": ["…", "…", "…", "…"], "answer": 1 },

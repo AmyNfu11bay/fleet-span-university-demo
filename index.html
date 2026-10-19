@@ -292,6 +292,11 @@ const SEED = {
     {id:'e1', emp:'luis', mod:'t2', assigned:'2026-10-06', due:'2026-10-20', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e2', emp:'luis', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-26'}], ip:0, smSign:0, handsOn:true, done:'2026-09-26'},
     {id:'e17', emp:'luis', mod:'t3', assigned:'2026-10-14', due:'2026-10-28', reviewer:'gus', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e19', emp:'luis', mod:'t7', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e20', emp:'luis', mod:'t8', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e21', emp:'luis', mod:'t9', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e22', emp:'luis', mod:'t10', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e23', emp:'luis', mod:'t11', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e3', so:'48213, 48227, 48240, 48251, 48266', emp:'jake', mod:'t2', assigned:'2026-10-01', due:'2026-10-18', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:80,date:'2026-10-13'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e4', so:'48190, 48204, 48219, 48233, 48245', emp:'andre', mod:'t2', assigned:'2026-09-26', due:'2026-10-10', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:60,date:'2026-10-08'},{phase:0,score:60,date:'2026-10-09'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e5', emp:'gus', mod:'t1', assigned:'2026-09-14', due:'2026-09-21', reviewer:'marcus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-16'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
@@ -499,6 +504,7 @@ function vPlayer(){
         <div class="row"><input type="text" id="so_${e.id}" value="${esc(e.so || '')}" placeholder="e.g. 48213" ${(!mineView || locked) ? 'disabled' : ''} inputmode="numeric" style="flex:1;min-width:140px">${mineView && !locked ? `<button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save</button>` : ''}</div></div>
       ${m.doneRight ? `<div class="callout good"><b>Done right looks like</b><span>${rich(m.doneRight)}</span></div>` : ''}
       ${m.wrong ? `<div><h3>If something goes wrong</h3><ul class="guide">${m.wrong.map(w => `<li>${rich(w)}</li>`).join('')}</ul></div>` : ''}
+      ${m.sources ? `<p class="small muted">Full article in Fullbay Help & Training: ${m.sources.map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">${esc(x.title)}</a>`).join(' · ')}</p>` : ''}
     </section>
     <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
       <section class="panel ${!stepsComplete(e) ? 'locked' : ''}"><h2>2. Quiz</h2>${result}${quizBlock}</section>

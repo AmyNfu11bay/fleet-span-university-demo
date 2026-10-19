@@ -641,5 +641,577 @@ FSU_MODULES.push(
       "text": "You complete a PM service and the unit shows it done."
     }
   ]
+},
+{
+  "id": "t7",
+  "title": "What is Fullbay",
+  "roles": [
+    "Tech"
+  ],
+  "tier": "Module 7",
+  "status": "Published",
+  "version": 1,
+  "days": 7,
+  "why": "Fullbay is the system the whole shop runs on. When you know what it does, and what it doesn't, you see why every click you make matters.",
+  "before": [
+    "You have your own Fullbay login."
+  ],
+  "doneRight": "You can explain in your own words what Fullbay does for the shop and for the customer.",
+  "wrong": [
+    "Something in Fullbay doesn't look right: ask your Service Manager, or ask Spike (Module 11)."
+  ],
+  "sources": [
+    {
+      "title": "What is Fullbay",
+      "url": "https://help.fullbay.com/en/articles/11626773-what-is-fullbay"
+    }
+  ],
+  "items": [
+    {
+      "type": "step",
+      "text": "Fullbay is repair shop software built for the heavy-duty industry. It runs in the cloud, so you can use it on a computer, phone or tablet."
+    },
+    {
+      "type": "step",
+      "text": "Everything about the customer lives in Fullbay: customers, units, contacts, service history and PM programs."
+    },
+    {
+      "type": "step",
+      "text": "Work moves one way: a service request comes in, becomes a Service Order, and comes out the other end as an accurate invoice."
+    },
+    {
+      "type": "step",
+      "text": "Every tech has their own login. You clock in and document your work on a phone or tablet, and the shop sees productivity in real time."
+    },
+    {
+      "type": "step",
+      "text": "Customers have their own portal. They can create service requests, watch repairs in real time, see service history, authorize repairs and pay invoices."
+    },
+    {
+      "type": "step",
+      "text": "Fullbay is not an accounting or payroll system. It tracks your working hours on a timesheet; payroll is done in a separate system."
+    },
+    {
+      "type": "quiz",
+      "q": "What is Fullbay?",
+      "options": [
+        "Accounting software",
+        "Repair shop software built for the heavy-duty industry",
+        "A payroll system",
+        "A parts catalog"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "Where can you use Fullbay?",
+      "options": [
+        "Only on the shop computer",
+        "Only at the front desk",
+        "On a computer, phone or tablet",
+        "Only on a laptop"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "A service request goes into Fullbay. What comes out the other end?",
+      "options": [
+        "An invoice",
+        "A paycheck",
+        "A parts order",
+        "A warranty claim"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "quiz",
+      "q": "What can customers do in their portal?",
+      "options": [
+        "Change your clocked hours",
+        "Assign techs",
+        "Edit inspection results",
+        "Authorize repairs and pay invoices"
+      ],
+      "answer": 3
+    },
+    {
+      "type": "quiz",
+      "q": "Fullbay is NOT which of these?",
+      "options": [
+        "Repair shop software",
+        "A payroll system",
+        "Cloud-based",
+        "A place to clock in"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "signoff",
+      "text": "You explain to your Service Manager how a job moves through Fullbay, from service request to invoice."
+    }
+  ]
+},
+{
+  "id": "t8",
+  "title": "Tech Home and your Details",
+  "roles": [
+    "Tech"
+  ],
+  "tier": "Module 8",
+  "status": "Published",
+  "version": 1,
+  "days": 7,
+  "why": "Tech Home is where your work lives. Your Details tab keeps your phone, address and notifications right so the shop can reach you.",
+  "before": [
+    "You are logged in to Fullbay."
+  ],
+  "doneRight": "Your phone number, address and notifications are current, and you can find your assigned work by status.",
+  "wrong": [
+    "You need to change your email: you can't do it yourself, because it is your login name. Ask an administrator.",
+    "You can't change your notifications: your role may not allow it. Ask your Service Manager.",
+    "You forgot your password: use **Forgot Password** on the login page.",
+    "You can't clock into an Action Item: it may still be in **Waiting On Parts Pricing & Authorization**. You can only clock in once it is in **Diagnose** or **Repair**."
+  ],
+  "sources": [
+    {
+      "title": "Tech Home",
+      "url": "https://help.fullbay.com/en/articles/11832838-tech-home"
+    },
+    {
+      "title": "Update My Password and Profile",
+      "url": "https://help.fullbay.com/en/articles/12036332-update-my-password-and-profile"
+    }
+  ],
+  "items": [
+    {
+      "type": "step",
+      "text": "Open **Tech Home**. Every Fullbay user has one."
+    },
+    {
+      "type": "step",
+      "text": "Look at the header at the top. It shows your **Efficiency** and **Utilization** for today."
+    },
+    {
+      "type": "step",
+      "text": "Find the tabs: **SOs**, **Returns**, **Stats** and **Details**. Some techs also see **Open SOs**."
+    },
+    {
+      "type": "step",
+      "text": "On the **SOs** tab, pick a view from the drop-down. **By SO Status** sorts your work into **Diagnose**, **Waiting On Parts Pricing & Authorization** and **Repair**."
+    },
+    {
+      "type": "step",
+      "text": "Open the **Details** tab and click **Edit**. The **Employee Information** window opens on the right."
+    },
+    {
+      "type": "step",
+      "text": "Update your home and cell phone numbers, preferred method of contact, address, password or profile picture."
+    },
+    {
+      "type": "step",
+      "text": "Click **Save**."
+    },
+    {
+      "type": "step",
+      "text": "Under **Notification Preferences**, set your pop-up, email and text notifications and your **Do Not Disturb Hours**."
+    },
+    {
+      "type": "quiz",
+      "q": "Where do you update your phone number and address?",
+      "options": [
+        "The SOs tab",
+        "The Details tab of Tech Home",
+        "The Stats tab",
+        "Spike"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "You made changes in Employee Information. What do you click?",
+      "options": [
+        "Save",
+        "Close",
+        "Diagnosed",
+        "Edit"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "quiz",
+      "q": "You need to change your email address. What do you do?",
+      "options": [
+        "Change it on the Details tab",
+        "Ask Spike to change it",
+        "Ask an administrator, because it is your login name",
+        "Create a new login"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "In which section can you NOT clock into an Action Item?",
+      "options": [
+        "Diagnose",
+        "Repair",
+        "Access Items",
+        "Waiting On Parts Pricing & Authorization"
+      ],
+      "answer": 3
+    },
+    {
+      "type": "quiz",
+      "q": "Where do you set Do Not Disturb Hours?",
+      "options": [
+        "The Stats tab",
+        "Notification Preferences on the Details tab",
+        "The Returns tab",
+        "The Schedule"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "signoff",
+      "text": "You show your Service Manager your updated Details tab and find one SO in each status on your SOs tab."
+    }
+  ]
+},
+{
+  "id": "t9",
+  "title": "Leave a note on an SO",
+  "roles": [
+    "Tech"
+  ],
+  "tier": "Module 9",
+  "status": "Published",
+  "version": 1,
+  "days": 7,
+  "why": "A note on the SO is how the shop knows what happened on a job. Calls and memory get lost; a note stays on the SO for anyone who opens it later.",
+  "before": [
+    "You are clocked onto the job (Module 1)."
+  ],
+  "doneRight": "Anyone who opens the SO later understands what you did or found without calling you.",
+  "wrong": [
+    "Not sure who will see the note: Action Item notes are only visible to the shop. An SO note with **Show note to customer** checked shows in the customer's Customer Portal.",
+    "Looking for your note on the invoice: notes never appear on the estimate or invoice. The cause and correction go in their own fields (Modules 2 and 5)."
+  ],
+  "sources": [
+    {
+      "title": "Create a New Service Order (Notes sections)",
+      "url": "https://help.fullbay.com/en/articles/12061994-1-create-a-new-service-order"
+    }
+  ],
+  "items": [
+    {
+      "type": "step",
+      "text": "Open the SO from **Tech Home**."
+    },
+    {
+      "type": "step",
+      "text": "Open the Action Item the note is about."
+    },
+    {
+      "type": "step",
+      "text": "Click the **Notes** icon on the Action Item."
+    },
+    {
+      "type": "step",
+      "text": "Write the note in plain words: what you found, what you did, and what is still open."
+    },
+    {
+      "type": "step",
+      "text": "Save the note."
+    },
+    {
+      "type": "step",
+      "text": "For a note about the whole SO, open the **(...)** menu to the right of the SO number and choose **Notes**."
+    },
+    {
+      "type": "step",
+      "text": "Leave **Show note to customer** unchecked unless your Service Manager says the customer should see it."
+    },
+    {
+      "type": "quiz",
+      "q": "Where do you add a note about one Action Item?",
+      "options": [
+        "The Stats tab",
+        "The Notes icon on the Action Item",
+        "Spike",
+        "Global Search"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "Who can see an Action Item note?",
+      "options": [
+        "The customer",
+        "The vendor",
+        "Only the shop",
+        "Anyone online"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "Where is the menu with Notes for the whole SO?",
+      "options": [
+        "The (...) menu to the right of the SO number",
+        "The Returns tab",
+        "The Details tab",
+        "Notification Preferences"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "quiz",
+      "q": "What does checking Show note to customer do?",
+      "options": [
+        "Puts the note on the invoice",
+        "Emails the vendor",
+        "Deletes the note",
+        "Lets the customer see the note in their Customer Portal"
+      ],
+      "answer": 3
+    },
+    {
+      "type": "quiz",
+      "q": "Do SO notes appear on the estimate or invoice?",
+      "options": [
+        "Yes, always",
+        "No",
+        "Only on the invoice",
+        "Only when printed"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "signoff",
+      "text": "You leave clear Action Item notes on 3 SOs that your Service Manager can act on without asking you."
+    }
+  ]
+},
+{
+  "id": "t10",
+  "title": "Global Search",
+  "roles": [
+    "Tech"
+  ],
+  "tier": "Module 10",
+  "status": "Published",
+  "version": 1,
+  "days": 7,
+  "why": "Global Search is the fastest way to open any SO by its number, without scrolling through lists.",
+  "before": [
+    "You know the number of the SO you are looking for."
+  ],
+  "doneRight": "You open any SO in a few seconds using its number.",
+  "wrong": [
+    "Too many results: filter to Service Orders only.",
+    "The SO doesn't come up: check the number with your Service Advisor."
+  ],
+  "sources": [
+    {
+      "title": "Service Order Edit Tab",
+      "url": "https://help.fullbay.com/en/articles/12062010-service-order-edit-tab"
+    },
+    {
+      "title": "Service Requests",
+      "url": "https://help.fullbay.com/en/articles/12036602-service-requests"
+    }
+  ],
+  "items": [
+    {
+      "type": "step",
+      "text": "Click into the **Global Search** field at the top of Fullbay."
+    },
+    {
+      "type": "step",
+      "text": "Type the SO number."
+    },
+    {
+      "type": "step",
+      "text": "Refine the search by filtering to Service Orders only."
+    },
+    {
+      "type": "step",
+      "text": "Select the SO from the drop-down to open it."
+    },
+    {
+      "type": "step",
+      "text": "Use the same field to find a Quick SO or a Service Request by its number."
+    },
+    {
+      "type": "quiz",
+      "q": "You know the SO number. What is the fastest way to open it?",
+      "options": [
+        "Scroll through Tech Home",
+        "Global Search",
+        "Ask the customer",
+        "Ask Parts"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "What do you type into Global Search to find an SO?",
+      "options": [
+        "The customer's phone number",
+        "Your password",
+        "The SO number",
+        "A part price"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "You get too many results. What do you do?",
+      "options": [
+        "Filter to Service Orders only",
+        "Log out",
+        "Close Fullbay",
+        "Ask Parts"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "quiz",
+      "q": "How do you open the SO after searching?",
+      "options": [
+        "Print the results",
+        "Select it from the drop-down",
+        "Email it",
+        "Clock out"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "What else can you find by number in Global Search?",
+      "options": [
+        "Your paycheck",
+        "Vendor prices only",
+        "Your schedule",
+        "Quick SOs and Service Requests"
+      ],
+      "answer": 3
+    },
+    {
+      "type": "signoff",
+      "text": "You find and open 5 SOs by number with Global Search, with no help."
+    }
+  ]
+},
+{
+  "id": "t11",
+  "title": "Get help with Spike",
+  "roles": [
+    "Tech"
+  ],
+  "tier": "Module 11",
+  "status": "Published",
+  "version": 1,
+  "days": 7,
+  "why": "Spike is your 24/7 help inside Fullbay. When you're stuck, Spike gets you an answer without stopping the job.",
+  "before": [
+    "You are logged in to Fullbay."
+  ],
+  "doneRight": "You get an answer from Spike or a Help & Training article without leaving the job.",
+  "wrong": [
+    "You can't find what you need: go back to the **Home** tab and start a new chat or a new search.",
+    "Spike's answer doesn't match how your shop does it: ask your Service Manager. Your shop's process comes first."
+  ],
+  "sources": [
+    {
+      "title": "Navigating Spike",
+      "url": "https://help.fullbay.com/en/articles/12564280-navigating-spike"
+    }
+  ],
+  "items": [
+    {
+      "type": "step",
+      "text": "Open **Spike**. You can open it from anywhere in Fullbay, at any time."
+    },
+    {
+      "type": "step",
+      "text": "You start on the **Home** tab. Start a new conversation with Spike, or search Help & Training."
+    },
+    {
+      "type": "step",
+      "text": "Type your question in your preferred language. Spike answers in the same language."
+    },
+    {
+      "type": "step",
+      "text": "Open the **Help** tab to see all Help & Training content in one place. Use the **search field** to find a topic."
+    },
+    {
+      "type": "step",
+      "text": "Inside an article, click the **Table of Contents** to jump to a section, or click a **numbered bubble** to open a related article."
+    },
+    {
+      "type": "step",
+      "text": "Open the **Messages** tab to see your past conversations and pick up where you left off."
+    },
+    {
+      "type": "quiz",
+      "q": "When is Spike available?",
+      "options": [
+        "Only during shop hours",
+        "Only on weekends",
+        "Only for managers",
+        "24/7"
+      ],
+      "answer": 3
+    },
+    {
+      "type": "quiz",
+      "q": "Which tab does Spike open on?",
+      "options": [
+        "Home",
+        "Messages",
+        "Help",
+        "Details"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "quiz",
+      "q": "You type your question in Spanish. How does Spike answer?",
+      "options": [
+        "In English only",
+        "In Spanish",
+        "It can't answer",
+        "By email"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "Where do you find your past conversations with Spike?",
+      "options": [
+        "The Help tab",
+        "The Home tab",
+        "The Messages tab",
+        "The Stats tab"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "What does a numbered bubble in an article do?",
+      "options": [
+        "Closes Spike",
+        "Opens the related article in the Help tab",
+        "Rates the article",
+        "Prints the article"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "signoff",
+      "text": "You use Spike to answer a question your Service Manager gives you, then show where that conversation is saved in **Messages**."
+    }
+  ]
 }
 );
