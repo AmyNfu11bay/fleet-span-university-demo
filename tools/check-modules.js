@@ -26,6 +26,7 @@ for (const m of ctx.FSU_MODULES) {
   if (!['Published', 'Draft'].includes(m.status)) err('status must be Published or Draft');
   if (!Number.isInteger(m.days) || m.days < 1) err('days must be a whole number of days to complete');
   if (!Number.isInteger(m.version) || m.version < 1) err('version must be a whole number');
+  if (m.soCount !== undefined && !(Number.isInteger(m.soCount) && m.soCount >= 1 && m.soCount <= 20)) err('soCount must be a whole number from 1 to 20');
   const items = m.items || [];
   const steps = items.filter(i => i.type === 'step');
   const quiz = items.filter(i => i.type === 'quiz');
@@ -33,7 +34,7 @@ for (const m of ctx.FSU_MODULES) {
   if (!steps.length) err('needs at least one step');
   if (m.status === 'Published' && !m.sample) {
     if (quiz.length !== 5) err(`published modules need exactly 5 quiz questions (has ${quiz.length})`);
-    if (signoff.length !== 1) err(`published modules need exactly 1 sign-off check (has ${signoff.length})`);
+    if (signoff.length > 1) err(`a module can have at most 1 sign-off check (has ${signoff.length})`);
   }
   items.forEach((it, n) => {
     if (!['step', 'quiz', 'signoff'].includes(it.type)) err(`item ${n + 1} has unknown type "${it.type}"`);

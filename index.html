@@ -207,7 +207,10 @@ ul.guide{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap
 .q select{width:100%;max-width:600px;padding:10px 34px 10px 12px}
 .ql{display:block}
 .sobox{border:2px solid var(--black);padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--white)}
-.sobox label b{text-transform:uppercase;letter-spacing:.1em;font-size:12.5px}
+.sobox .sohead{text-transform:uppercase;letter-spacing:.1em;font-size:12.5px}
+.sogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.soin{display:flex;flex-direction:column;gap:3px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g600)}
+.soin input{width:100%;font-size:14px;letter-spacing:0;text-transform:none;color:var(--ink)}
 .callout{padding:12px 14px;display:flex;flex-direction:column;gap:3px;font-size:14px;border-left:6px solid;background:var(--white)}
 .callout > b{text-transform:uppercase;letter-spacing:.08em;font-size:12px}
 .callout.info{border-color:var(--black);background:var(--g50)}
@@ -342,9 +345,12 @@ function log(what, internal){ DB.audit.unshift({date:TODAY, who:me().name, what,
 const phaseAtt = (e,ph) => e.attempts.filter(a => a.phase === ph);
 const stepsTotal = e => M(e.mod).items.filter(i => i.type === 'step').length;
 const stepsComplete = e => e.stepsDone.length >= stepsTotal(e);
-const soReady = e => !!(e.so && e.so.trim());
+const soList = e => (e.so || '').split(',').map(x => x.trim()).filter(Boolean);
+const soNeed = e => M(e.mod).soCount || 1;
+const soReady = e => soList(e).length >= soNeed(e);
+const hasSignoff = e => M(e.mod).items.some(i => i.type === 'signoff');
 const quizPassed = e => phaseAtt(e, e.ip).some(a => a.score >= 80);
-const signoffOk = e => e.ip === 0 ? e.handsOn : e.smSign >= e.ip;
+const signoffOk = e => e.ip === 0 ? (e.handsOn || !hasSignoff(e)) : e.smSign >= e.ip;
 const bestScore = e => e.attempts.length ? Math.max(...e.attempts.map(a => a.score)) : null;
 function status(e){
   if (e.done) return e.done <= e.due ? 'completed' : 'late';
@@ -404,7 +410,7 @@ function queueItems(){
   return DB.enr.filter(e => {
     if (e.done) return false;
     const st = status(e);
-    if (e.ip === 0 && st !== 'needsIP' && quizPassed(e) && !e.handsOn) {
+    if (e.ip === 0 && st !== 'needsIP' && quizPassed(e) && !e.handsOn && hasSignoff(e)) {
       return e.reviewer === S.viewer || (lvl() !== 'Reviewer' && sc.includes(e.emp));
     }
     if (e.ip > 0 && e.smSign < e.ip && !['final','needsIP'].includes(st)) {
@@ -471,7 +477,7 @@ function vPlayer(){
   } else if (!stepsComplete(e)) {
     quizBlock = `<p class="muted">Finish every step to unlock the quiz. You need 80% to pass. You get ${e.ip === 0 ? '2 attempts' : '1 fresh attempt after in-person training'}.</p>`;
   } else if (!soReady(e)) {
-    quizBlock = `<p class="muted">Enter the SO number you completed the steps on to unlock the quiz.</p>`;
+    quizBlock = `<p class="muted">Enter ${soNeed(e) === 1 ? 'the SO number' : 'all ' + soNeed(e) + ' SO numbers'} you completed the steps on to unlock the quiz.</p>`;
   } else if (canQuiz) {
     quizBlock = `<p class="small muted">Attempt ${cur.length + 1} of ${limit}${e.ip ? ' (after in-person training)' : ''}. You need 80% to pass.</p>
       <form id="quizForm" data-id="${e.id}">${quizFields(qs, e.id, false)}
@@ -481,7 +487,9 @@ function vPlayer(){
   }
 
   let signBlock;
-  if (e.ip === 0) {
+  if (e.ip === 0 && !hasSignoff(e)) {
+    signBlock = `<p class="muted">This module has no sign-off check. Passing the quiz completes it.</p>`;
+  } else if (e.ip === 0) {
     signBlock = e.handsOn ? `<div class="callout good"><b>Hands-on check passed</b><span>Signed off by ${esc(rev ? rev.name : 'reviewer')}.</span></div>`
       : `<p>${esc(so ? so.text : '')}</p><p class="small muted">Reviewer: <b>${esc(rev ? rev.name : 'Not set')}</b>. ${quizPassed(e) ? 'Waiting for the reviewer to watch the task and sign off.' : 'Unlocks after you pass the quiz.'}</p>${e.note ? `<div class="callout warn"><b>Reviewer note</b><span>${esc(e.note)}</span></div>` : ''}`;
   } else {
@@ -500,8 +508,9 @@ function vPlayer(){
       <div class="row" style="justify-content:space-between"><h2>1. Steps</h2><span class="mono small muted">${e.stepsDone.length}/${steps.length}</span></div>
       <p class="small muted">Do the steps in order, and do them with your trainer watching the first time.</p>
       <ol class="steps">${steps.map((st2,i) => { const d = e.stepsDone.includes(i); return `<li class="${d ? 'done' : ''}"><input type="checkbox" id="st_${e.id}_${i}" data-step="${i}" data-id="${e.id}" ${d ? 'checked' : ''} ${(!mineView || locked) ? 'disabled' : ''}><span class="n">${i + 1}</span><label for="st_${e.id}_${i}"><span class="t">${rich(st2.text)}</span></label></li>`; }).join('')}</ol>
-      <div class="sobox"><label for="so_${e.id}"><b>SO number</b></label><p class="small muted">Enter the SO number you completed these steps on so your reviewer can check the work. Separate more than one with commas.</p>
-        <div class="row"><input type="text" id="so_${e.id}" value="${esc(e.so || '')}" placeholder="e.g. 48213" ${(!mineView || locked) ? 'disabled' : ''} inputmode="numeric" style="flex:1;min-width:140px">${mineView && !locked ? `<button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save</button>` : ''}</div></div>
+      <div class="sobox"><b class="sohead">SO numbers · ${soNeed(e)} required</b><p class="small muted">Type the number of ${soNeed(e) === 1 ? 'the SO' : 'each SO'} you completed these steps on. Your trainer uses ${soNeed(e) === 1 ? 'it' : 'them'} to check your work.</p>
+        <div class="sogrid">${Array.from({length: soNeed(e)}, (_, i) => `<label class="soin"><span>SO ${i + 1}</span><input type="text" id="so_${e.id}_${i}" value="${esc(soList(e)[i] || '')}" placeholder="SO number" inputmode="numeric" ${(!mineView || locked) ? 'disabled' : ''}></label>`).join('')}</div>
+        ${mineView && !locked ? `<div class="row"><button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save SO numbers</button><span class="small muted">${soList(e).length} of ${soNeed(e)} entered</span></div>` : ''}</div>
       ${m.doneRight ? `<div class="callout good"><b>Done right looks like</b><span>${rich(m.doneRight)}</span></div>` : ''}
       ${m.wrong ? `<div><h3>If something goes wrong</h3><ul class="guide">${m.wrong.map(w => `<li>${rich(w)}</li>`).join('')}</ul></div>` : ''}
       ${m.sources ? `<p class="small muted">Full article in Fullbay Help & Training: ${m.sources.map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">${esc(x.title)}</a>`).join(' · ')}</p>` : ''}
@@ -798,9 +807,13 @@ const ACT = {
     ids.forEach(id => { const sm = smOf(id); DB.enr.push({id:'e' + (DB.enr.length + 1) + '_' + id, emp:id, mod:f.mod, assigned:TODAY, due:f.due, reviewer:f.reviewer || (sm ? sm.id : S.viewer), stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null}); });
     log(`Enrolled ${ids.map(id => P(id).name).join(', ')} in ${M(f.mod).title}, due ${fmt(f.due)}`);
     S.ef.picks = []; flash(`Enrolled ${ids.length} in ${M(f.mod).title}.`); },
-  saveso: d => { const e = E(d.id), v = document.getElementById('so_' + e.id).value.trim();
-    if (!v) { flash('Enter the SO number first.'); return; }
-    e.so = v; log(`${P(e.emp).name} entered SO ${v} for ${M(e.mod).title}`); flash('SO number saved. The quiz is unlocked.'); },
+  saveso: d => { const e = E(d.id), n = soNeed(e);
+    const vals = Array.from({length: n}, (_, i) => document.getElementById('so_' + e.id + '_' + i).value.trim());
+    const filled = vals.filter(Boolean);
+    if (new Set(filled).size !== filled.length) { flash('Each SO number must be different.'); return; }
+    e.so = filled.join(', ');
+    if (filled.length < n) { flash(`Saved ${filled.length} of ${n}. Enter all ${n} SO numbers to unlock the quiz.`); return; }
+    log(`${P(e.emp).name} entered SO ${e.so} for ${M(e.mod).title}`); flash(n === 1 ? 'SO number saved. The quiz is unlocked.' : `All ${n} SO numbers saved. The quiz is unlocked.`); },
   modopen: d => { S.mod = d.id; },
   modclose: () => { S.mod = null; },
   togglepub: d => { const m = M(d.id); m.status = m.status === 'Published' ? 'Draft' : 'Published'; log(`${m.status === 'Published' ? 'Published' : 'Moved to draft'}: ${m.title}`); flash(`${m.title} is now ${m.status.toLowerCase()}.`); },

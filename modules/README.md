@@ -15,6 +15,7 @@ Run `node tools/check-modules.js` from the repository root before every push.
   "status": "Published",            // or "Draft" (drafts can't be assigned)
   "version": 2,                     // bump when the content changes
   "days": 14,                       // default days to complete
+  "soCount": 5,                     // SO numbers the employee must type in: the count in the sign-off check (1 if none)
   "why": "…",                       // the guide's "Why it matters", word for word
   "before": ["…"],                  // the guide's "Before you start" bullets
   "doneRight": "…",                 // the guide's "Done right looks like"
@@ -29,5 +30,5 @@ Run `node tools/check-modules.js` from the repository root before every push.
 ```
 
 - Steps, "why", "before", "done right", "wrong" and the sign-off text are copied **exactly** from the approved step-by-step guide. `**double asterisks**` mark words the guide shows in bold (buttons, tabs, fields).
-- A published module has exactly 5 quiz questions (one miss still passes at 80%) and exactly 1 sign-off check. Quiz questions are written only from the guide's own content, and `answer` is the 0-based position of the right option.
+- A published module has exactly 5 quiz questions (one miss still passes at 80%) and at most 1 sign-off check (only when the guide has one; without it, passing the quiz completes the module). Quiz questions are written only from the guide's own content, and `answer` is the 0-based position of the right option.
 - The SO number box, dropdown quiz, attempt limits and in-person training path are built into the app, so modules don't repeat them.

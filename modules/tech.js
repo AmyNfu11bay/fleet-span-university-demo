@@ -105,7 +105,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You clock onto the right SO and job for a full shift with no corrections from the Service Manager."
     }
-  ]
+  ],
+  "soCount": 1
 },
 {
   "id": "t2",
@@ -215,7 +216,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You complete Diagnose on 5 SOs with no corrections."
     }
-  ]
+  ],
+  "soCount": 5
 },
 {
   "id": "t3",
@@ -320,7 +322,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You complete the inspection on 10 SOs."
     }
-  ]
+  ],
+  "soCount": 10
 },
 {
   "id": "t4",
@@ -433,7 +436,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You request parts on 5 SOs, and Parts quotes and orders them without the Service Advisor stepping in."
     }
-  ]
+  ],
+  "soCount": 5
 },
 {
   "id": "t5",
@@ -477,16 +481,16 @@ FSU_MODULES.push(
       "text": "The SO moves to Review where your Service Manager takes it from here."
     },
     {
-        "type": "quiz",
-        "q": "What must be true before you can finish?",
-        "options": [
-          "Special Order parts have been priced, ordered and received",
-          "The customer has paid",
-          "The SO is invoiced",
-          "Your shift is over"
-        ],
-        "answer": 0
-      },
+      "type": "quiz",
+      "q": "What must be true before you can finish?",
+      "options": [
+        "Special Order parts have been priced, ordered and received",
+        "The customer has paid",
+        "The SO is invoiced",
+        "Your shift is over"
+      ],
+      "answer": 0
+    },
     {
       "type": "quiz",
       "q": "What do you write on the Action Item?",
@@ -499,16 +503,16 @@ FSU_MODULES.push(
       "answer": 1
     },
     {
-        "type": "quiz",
-        "q": "Which button do you click?",
-        "options": [
-          "Diagnosed",
-          "Add Part",
-          "Mark Action Item # as Corrected",
-          "Defective"
-        ],
-        "answer": 2
-      },
+      "type": "quiz",
+      "q": "Which button do you click?",
+      "options": [
+        "Diagnosed",
+        "Add Part",
+        "Mark Action Item # as Corrected",
+        "Defective"
+      ],
+      "answer": 2
+    },
     {
       "type": "quiz",
       "q": "Where does the SO move after you complete it?",
@@ -521,21 +525,22 @@ FSU_MODULES.push(
       "answer": 1
     },
     {
-        "type": "quiz",
-        "q": "You cannot finish because a part may still be waiting on Parts. Who do you ask?",
-        "options": [
-          "The Service Advisor",
-          "The customer",
-          "Nobody",
-          "Parts"
-        ],
-        "answer": 3
-      },
+      "type": "quiz",
+      "q": "You cannot finish because a part may still be waiting on Parts. Who do you ask?",
+      "options": [
+        "The Service Advisor",
+        "The customer",
+        "Nobody",
+        "Parts"
+      ],
+      "answer": 3
+    },
     {
       "type": "signoff",
       "text": "You complete 10 SOs, and the SO review passes with none sent back."
     }
-  ]
+  ],
+  "soCount": 10
 },
 {
   "id": "t6",
@@ -640,7 +645,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You complete a PM service and the unit shows it done."
     }
-  ]
+  ],
+  "soCount": 1
 },
 {
   "id": "t7",
@@ -750,7 +756,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You explain to your Service Manager how a job moves through Fullbay, from service request to invoice."
     }
-  ]
+  ],
+  "soCount": 1
 },
 {
   "id": "t8",
@@ -875,7 +882,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You show your Service Manager your updated Details tab and find one SO in each status on your SOs tab."
     }
-  ]
+  ],
+  "soCount": 1
 },
 {
   "id": "t9",
@@ -885,7 +893,7 @@ FSU_MODULES.push(
   ],
   "tier": "Module 9",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 7,
   "why": "A note on the SO is how the shop knows what happened on a job. Calls and memory get lost; a note stays on the SO for anyone who opens it later.",
   "before": [
@@ -921,11 +929,7 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Save the note."
-    },
-    {
-      "type": "step",
-      "text": "For a note about the whole SO, open the **(...)** menu to the right of the SO number and choose **Notes**."
+      "text": "Click the blue **Add Note** button"
     },
     {
       "type": "step",
@@ -955,14 +959,14 @@ FSU_MODULES.push(
     },
     {
       "type": "quiz",
-      "q": "Where is the menu with Notes for the whole SO?",
+      "q": "You wrote your note. What do you click to add it?",
       "options": [
-        "The (...) menu to the right of the SO number",
-        "The Returns tab",
-        "The Details tab",
-        "Notification Preferences"
+        "Save",
+        "Diagnosed",
+        "The blue Add Note button",
+        "Close"
       ],
-      "answer": 0
+      "answer": 2
     },
     {
       "type": "quiz",
@@ -990,7 +994,8 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You leave clear Action Item notes on 3 SOs that your Service Manager can act on without asking you."
     }
-  ]
+  ],
+  "soCount": 3
 },
 {
   "id": "t10",
@@ -1000,7 +1005,7 @@ FSU_MODULES.push(
   ],
   "tier": "Module 10",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 7,
   "why": "Global Search is the fastest way to open any SO by its number, without scrolling through lists.",
   "before": [
@@ -1015,10 +1020,6 @@ FSU_MODULES.push(
     {
       "title": "Service Order Edit Tab",
       "url": "https://help.fullbay.com/en/articles/12062010-service-order-edit-tab"
-    },
-    {
-      "title": "Service Requests",
-      "url": "https://help.fullbay.com/en/articles/12036602-service-requests"
     }
   ],
   "items": [
@@ -1028,11 +1029,11 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Type the SO number."
+      "text": "Refine the search by checking the Service Orders checkbox."
     },
     {
       "type": "step",
-      "text": "Refine the search by filtering to Service Orders only."
+      "text": "Type in the SO number that you are searching for"
     },
     {
       "type": "step",
@@ -1040,7 +1041,7 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Use the same field to find a Quick SO or a Service Request by its number."
+      "text": "Use the same field to find a Customer, Unit or a Service Request quickly."
     },
     {
       "type": "quiz",
@@ -1068,7 +1069,7 @@ FSU_MODULES.push(
       "type": "quiz",
       "q": "You get too many results. What do you do?",
       "options": [
-        "Filter to Service Orders only",
+        "Check the Service Orders checkbox",
         "Log out",
         "Close Fullbay",
         "Ask Parts"
@@ -1088,20 +1089,17 @@ FSU_MODULES.push(
     },
     {
       "type": "quiz",
-      "q": "What else can you find by number in Global Search?",
+      "q": "What else can you find quickly with Global Search?",
       "options": [
         "Your paycheck",
         "Vendor prices only",
         "Your schedule",
-        "Quick SOs and Service Requests"
+        "A Customer, Unit or Service Request"
       ],
       "answer": 3
-    },
-    {
-      "type": "signoff",
-      "text": "You find and open 5 SOs by number with Global Search, with no help."
     }
-  ]
+  ],
+  "soCount": 1
 },
 {
   "id": "t11",
@@ -1212,6 +1210,7 @@ FSU_MODULES.push(
       "type": "signoff",
       "text": "You use Spike to answer a question your Service Manager gives you, then show where that conversation is saved in **Messages**."
     }
-  ]
+  ],
+  "soCount": 1
 }
 );
