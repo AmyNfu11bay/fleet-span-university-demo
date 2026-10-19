@@ -763,8 +763,9 @@ function vEnroll(){
   const f = S.ef;
   const roles = [...new Set(sc.map(id => P(id).role))];
   if (!roles.includes(f.role)) f.role = roles[0];
-  const levels = LEVELS.filter(l => roles.some(r => levelMods(l, r).length));
+  const levels = LEVELS.filter(l => f.by === 'role' ? levelMods(l, f.role).length : roles.some(r => levelMods(l, r).length));
   const pub = DB.modules.filter(m => m.status === 'Published').sort((a, b) => (a.allEmployees ? -1 : 0) - (b.allEmployees ? -1 : 0) || roleLabel(a).localeCompare(roleLabel(b)) || modNum(a) - modNum(b));
+  if (f.what.startsWith('level:') && !levels.includes(f.what.slice(6))) f.what = levels.length ? 'level:' + levels[0] : (pub.find(m => f.by !== 'role' || m.roles.includes(f.role)) || pub[0]).id;
   const plan = enrollPlan();
   const reviewers = DB.people.filter(p => (sc.includes(p.id) || p.id === S.viewer) && ['Reviewer','Manager','Admin'].includes(p.access));
   const pool = sc.map(P).filter(p => f.by === 'role' ? p.role === f.role : true);
@@ -776,7 +777,7 @@ function vEnroll(){
       <div class="field"><label for="ef_by">Enroll by</label><select id="ef_by" data-ef="by"><option value="role" ${f.by === 'role' ? 'selected' : ''}>Job role</option><option value="people" ${f.by === 'people' ? 'selected' : ''}>Pick people</option></select></div>
       ${f.by === 'role' ? `<div class="field"><label for="ef_role">Job role</label><select id="ef_role" data-ef="role">${roles.map(r => `<option ${r === f.role ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select></div>` : ''}
       <div class="field"><label for="ef_what">What to assign</label><select id="ef_what" data-ef="what">
-        <optgroup label="Whole level">${levels.map(l => `<option value="level:${l}" ${f.what === 'level:' + l ? 'selected' : ''}>${esc(LEVEL_NAME[l])} (all modules)</option>`).join('')}</optgroup>
+        <optgroup label="Whole level">${levels.map(l => `<option value="level:${l}" ${f.what === 'level:' + l ? 'selected' : ''}>${f.by === 'role' ? `${esc(LEVEL_NAME[l])} · ${esc(f.role)} (${levelMods(l, f.role).length} modules)` : `${esc(LEVEL_NAME[l])} · each person's own role`}</option>`).join('')}</optgroup>
         <optgroup label="Single module">${pub.map(x => `<option value="${x.id}" ${x.id === f.what ? 'selected' : ''}>${esc(roleLabel(x))} · ${esc(x.tier)} · ${esc(x.title)}</option>`).join('')}</optgroup></select></div>
       ${plan.isLevel ? `<div class="field"><label for="ef_start">Start date</label><input type="date" id="ef_start" data-ef="start" value="${f.start}"></div>`
         : `<div class="field"><label for="ef_due">Due date</label><input type="date" id="ef_due" data-ef="due" value="${f.due}"></div>`}
@@ -786,7 +787,7 @@ function vEnroll(){
       return `<label><input type="checkbox" id="pk_${p.id}" data-pick="${p.id}" ${on ? 'checked' : ''} ${f.by === 'role' ? 'disabled' : ''}><span>${esc(p.name)}<span class="small muted"> · ${esc(p.role)}</span></span></label>`; }).join('') || '<span class="muted">No one matches.</span>'}</div>
   </section>
   ${plan.isLevel ? `<section class="panel"><div class="ptitle"><h2>${esc(LEVEL_NAME[plan.level])} modules</h2><span class="caps">${plan.chosen.length} of ${plan.pool.length} selected</span></div>
-    <p class="small muted">Every module in the level is checked. Uncheck any that don't apply. Due dates start out one after another from the start date, using each module's days to complete. Change any date to set it yourself; the modules after it follow on from your date${plan.people[0] ? ` (shown for ${esc(plan.people[0].name)})` : ''}.</p>
+    <p class="small muted">Only modules built for ${f.by === 'role' ? esc(f.role) + 's' : 'each person\'s own job role'}, plus any module marked for all employees, are listed. Everything listed is checked; uncheck any that don't apply. Due dates start out one after another from the start date, using each module's days to complete. Change any date to set it yourself; the modules after it follow on from your date${plan.people[0] ? ` (shown for ${esc(plan.people[0].name)})` : ''}.</p>
     ${plan.pool.length ? `<div class="tablewrap"><table><thead><tr><th></th><th>Module</th><th>For</th><th class="num">Days</th><th>Due date</th></tr></thead><tbody>
     ${plan.pool.map(m => { const on = !f.skip.includes(m.id); return `<tr><td><input type="checkbox" id="sk_${m.id}" data-skip="${m.id}" ${on ? 'checked' : ''} aria-label="Include ${esc(m.title)}"></td><td><b>${esc(m.tier)}</b> · ${esc(m.title)}</td><td>${esc(roleLabel(m))}</td><td class="num">${m.days}</td><td>${on && firstDue[m.id] ? `<input type="date" id="du_${m.id}" data-due="${m.id}" value="${firstDue[m.id]}" aria-label="Due date for ${esc(m.title)}"${(f.dueSet || {})[m.id] ? ' style="border-color:var(--yellow-deep)"' : ''}>` : '—'}</td></tr>`; }).join('')}
     </tbody></table></div>` : '<div class="empty">No modules in this level for the selected people yet.</div>'}
