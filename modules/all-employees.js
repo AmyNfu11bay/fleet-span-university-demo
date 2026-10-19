@@ -14,13 +14,13 @@ FSU_MODULES.push(
   "tier": "Module 1",
   "level": "Basic",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 7,
   "soCount": 0,
   "why": "You do your best work when you can read the screen easily. Your browser can show Fullbay in Spanish so every step is clear.",
   "before": [
     "You are logged in to Fullbay.",
-    "You know whether you use Chrome (most PCs) or Safari (Mac)."
+    "You know which device you use: Chrome on a PC, Safari on a Mac, or Chrome on an Android phone or tablet."
   ],
   "doneRight": "Fullbay shows in Spanish on every page you open, and you can find your SOs, buttons and tabs.",
   "wrong": [
@@ -31,6 +31,10 @@ FSU_MODULES.push(
     {
       "title": "Changing the Language on your PC/Mac",
       "url": "https://help.fullbay.com/en/articles/12061978-changing-the-language-on-your-pc-mac"
+    },
+    {
+      "title": "Translate pages and change Chrome languages (Android, Google Chrome Help)",
+      "url": "https://support.google.com/chrome/answer/173424?hl=en&co=GENIE.Platform%3DAndroid"
     }
   ],
   "items": [
@@ -72,6 +76,26 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
+      "text": "On your Android phone or tablet, open Chrome. Tap **More** (3 dots), then **Settings**."
+    },
+    {
+      "type": "step",
+      "text": "Tap **Languages**."
+    },
+    {
+      "type": "step",
+      "text": "Under **Chrome's language**, tap the current language and select Spanish (Español). Chrome restarts when the language downloads."
+    },
+    {
+      "type": "step",
+      "text": "Open Fullbay. In the notification at the top of the screen, tap Spanish. If no notification appears, tap **More**, then **Translate**."
+    },
+    {
+      "type": "step",
+      "text": "To keep every page in Spanish, go to **Settings** > **Languages** > **Advanced** > **Automatically translate these languages**. Tap **Add language** and select English."
+    },
+    {
+      "type": "step",
       "text": "Open Fleet Span University. Your browser translates your training the same way, so every module shows in Spanish too."
     },
     {
@@ -109,14 +133,14 @@ FSU_MODULES.push(
     },
     {
       "type": "quiz",
-      "q": "What keeps every Fullbay page in Spanish in Chrome?",
+      "q": "On an Android phone, no translate notification appears. What do you tap?",
       "options": [
-        "Always translate English",
-        "Do Not Disturb Hours",
-        "The Details tab",
-        "Show note to customer"
+        "Settings, then Details",
+        "Back, then Home",
+        "More, then Translate",
+        "Global Search"
       ],
-      "answer": 0
+      "answer": 2
     },
     {
       "type": "quiz",
