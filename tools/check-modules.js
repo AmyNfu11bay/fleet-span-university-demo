@@ -26,7 +26,8 @@ for (const m of ctx.FSU_MODULES) {
   if (!['Published', 'Draft'].includes(m.status)) err('status must be Published or Draft');
   if (!Number.isInteger(m.days) || m.days < 1) err('days must be a whole number of days to complete');
   if (!Number.isInteger(m.version) || m.version < 1) err('version must be a whole number');
-  if (m.soCount !== undefined && !(Number.isInteger(m.soCount) && m.soCount >= 1 && m.soCount <= 20)) err('soCount must be a whole number from 1 to 20');
+  if (m.soCount !== undefined && !(Number.isInteger(m.soCount) && m.soCount >= 0 && m.soCount <= 20)) err('soCount must be a whole number from 0 to 20');
+  if (m.level !== undefined && !['Basic', 'Advanced', 'Master'].includes(m.level)) err('level must be Basic, Advanced or Master');
   const items = m.items || [];
   const steps = items.filter(i => i.type === 'step');
   const quiz = items.filter(i => i.type === 'quiz');

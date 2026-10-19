@@ -106,6 +106,7 @@ tr.click{cursor:pointer} tr.click:hover td{background:var(--warn-soft)}
 .s-completed{background:var(--good);color:var(--white)}
 .s-late{background:var(--white);color:var(--good);border-color:var(--good)}
 .s-final{background:var(--black);color:var(--yellow);border:2px dashed var(--yellow)}
+.s-locked{background:var(--g100);color:var(--g500);border-color:var(--g300);border-style:dashed}
 .s-contact{background:var(--white);color:var(--ink);border-color:var(--g300)}
 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;background:var(--g100);color:var(--g600)}
 .tag.internal{background:var(--black);color:var(--yellow)}
@@ -187,6 +188,13 @@ ul.list.due li > div{flex:1}
 .bdg .got{color:var(--good);font-weight:700}
 .bdg.big{cursor:default;padding:0}
 .bdg.big svg{width:150px}
+.lvl{display:flex;flex-direction:column;gap:12px;padding-top:14px;border-top:1px solid var(--g100)}
+.ach{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.ach svg{width:220px;max-width:100%;height:auto;flex:none}
+.achtext{display:flex;flex-direction:column;gap:8px;flex:1 1 280px;min-width:0}
+.achtext h2{font-size:28px}
+details summary{cursor:pointer;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+details[open] summary{margin-bottom:12px}
 .earned{flex-direction:row;align-items:center;flex-wrap:wrap;gap:20px;border-left:6px solid var(--good)}
 .earnedtext{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 260px}
 @media (prefers-reduced-motion:no-preference){.bdg svg{transition:transform .15s}}
@@ -209,6 +217,10 @@ ul.guide{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap
 .sobox{border:2px solid var(--black);padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--white)}
 .sobox .sohead{text-transform:uppercase;letter-spacing:.1em;font-size:12.5px}
 .sogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.review{border:2px solid var(--black);background:var(--white);padding:14px;display:flex;flex-direction:column;gap:10px}
+.rv{display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid var(--g100);font-size:14px}
+.rvx{color:var(--bad);font-weight:700}
+.rvok{color:var(--good);font-weight:700}
 .soin{display:flex;flex-direction:column;gap:3px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g600)}
 .soin input{width:100%;font-size:14px;letter-spacing:0;text-transform:none;color:var(--ink)}
 .callout{padding:12px 14px;display:flex;flex-direction:column;gap:3px;font-size:14px;border-left:6px solid;background:var(--white)}
@@ -292,14 +304,19 @@ const SEED = {
   ],
   modules: window.FSU_MODULES,
   enr: [
-    {id:'e1', emp:'luis', mod:'t2', assigned:'2026-10-06', due:'2026-10-20', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
-    {id:'e2', emp:'luis', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-26'}], ip:0, smSign:0, handsOn:true, done:'2026-09-26'},
-    {id:'e17', emp:'luis', mod:'t3', assigned:'2026-10-14', due:'2026-10-28', reviewer:'gus', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
-    {id:'e19', emp:'luis', mod:'t7', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
-    {id:'e20', emp:'luis', mod:'t8', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
-    {id:'e21', emp:'luis', mod:'t9', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
-    {id:'e22', emp:'luis', mod:'t10', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
-    {id:'e23', emp:'luis', mod:'t11', assigned:'2026-10-19', due:'2026-10-26', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e19', emp:'luis', mod:'t7', assigned:'2026-09-08', due:'2026-09-15', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-09-12'}], ip:0, smSign:0, handsOn:true, done:'2026-09-12'},
+    {id:'e20', emp:'luis', mod:'t8', assigned:'2026-09-15', due:'2026-09-22', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5, 6, 7], attempts:[{phase:0,score:100,date:'2026-09-17'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
+    {id:'e2', emp:'luis', mod:'t1', assigned:'2026-09-22', due:'2026-09-29', reviewer:'gus', so:'48104', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-09-26'}], ip:0, smSign:0, handsOn:true, done:'2026-09-26'},
+    {id:'e1', emp:'luis', mod:'t2', assigned:'2026-09-29', due:'2026-10-13', reviewer:'gus', so:'48131, 48140, 48152, 48166, 48171', stepsDone:[0, 1, 2, 3, 4, 5, 6], attempts:[{phase:0,score:100,date:'2026-10-09'}], ip:0, smSign:0, handsOn:true, done:'2026-10-09'},
+    {id:'e17', emp:'luis', mod:'t3', assigned:'2026-10-01', due:'2026-10-15', reviewer:'gus', so:'48180, 48183, 48186, 48190, 48194, 48197, 48201, 48205, 48208, 48212', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:80,date:'2026-10-12'}], ip:0, smSign:0, handsOn:true, done:'2026-10-12'},
+    {id:'e21', emp:'luis', mod:'t9', assigned:'2026-10-06', due:'2026-10-14', reviewer:'gus', so:'48216, 48219, 48223', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-10-13'}], ip:0, smSign:0, handsOn:true, done:'2026-10-13'},
+    {id:'e22', emp:'luis', mod:'t10', assigned:'2026-10-07', due:'2026-10-14', reviewer:'gus', so:'48226', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-10-14'}], ip:0, smSign:0, handsOn:true, done:'2026-10-14'},
+    {id:'e23', emp:'luis', mod:'t11', assigned:'2026-10-08', due:'2026-10-15', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-10-15'}], ip:0, smSign:0, handsOn:true, done:'2026-10-15'},
+    {id:'e24', emp:'luis', mod:'t4', assigned:'2026-10-15', due:'2026-10-29', reviewer:'gus', so:'', stepsDone:[0,1,2], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e25', emp:'jake', mod:'t7', assigned:'2026-09-08', due:'2026-09-15', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-14'}], ip:0, smSign:0, handsOn:true, done:'2026-09-14'},
+    {id:'e26', emp:'jake', mod:'t8', assigned:'2026-10-06', due:'2026-10-20', reviewer:'gus', so:'', stepsDone:[0,1,2,3], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e27', emp:'jake', mod:'t3', assigned:'2026-10-15', due:'2026-10-29', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e28', emp:'jake', mod:'t4', assigned:'2026-10-15', due:'2026-10-29', reviewer:'gus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e3', so:'48213, 48227, 48240, 48251, 48266', emp:'jake', mod:'t2', assigned:'2026-10-01', due:'2026-10-18', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:80,date:'2026-10-13'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e4', so:'48190, 48204, 48219, 48233, 48245', emp:'andre', mod:'t2', assigned:'2026-09-26', due:'2026-10-10', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:60,date:'2026-10-08'},{phase:0,score:60,date:'2026-10-09'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e5', emp:'gus', mod:'t1', assigned:'2026-09-14', due:'2026-09-21', reviewer:'marcus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-16'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
@@ -346,7 +363,7 @@ const phaseAtt = (e,ph) => e.attempts.filter(a => a.phase === ph);
 const stepsTotal = e => M(e.mod).items.filter(i => i.type === 'step').length;
 const stepsComplete = e => e.stepsDone.length >= stepsTotal(e);
 const soList = e => (e.so || '').split(',').map(x => x.trim()).filter(Boolean);
-const soNeed = e => M(e.mod).soCount || 1;
+const soNeed = e => M(e.mod).soCount ?? 1;
 const soReady = e => soList(e).length >= soNeed(e);
 const hasSignoff = e => M(e.mod).items.some(i => i.type === 'signoff');
 const quizPassed = e => phaseAtt(e, e.ip).some(a => a.score >= 80);
@@ -363,9 +380,9 @@ function status(e){
   return 'notstarted';
 }
 const canSeeFinal = e => lvl() === 'Admin' || (smOf(e.emp) && smOf(e.emp).id === S.viewer);
-function shown(e){ const s = status(e); return (s === 'final' && !canSeeFinal(e)) ? 'contact' : s; }
-const LABEL = {notstarted:'Not started', progress:'In progress', awaiting:'Awaiting sign-off', needsIP:'Needs in-person training', overdue:'Overdue', completed:'Completed', late:'Completed late', final:'Final attempt failed', contact:'See your Service Manager'};
-const RANK = {final:0, needsIP:1, overdue:2, awaiting:3, progress:4, notstarted:5, contact:6, late:7, completed:8};
+function shown(e){ if (lockedFor(e)) return 'locked'; const s = status(e); return (s === 'final' && !canSeeFinal(e)) ? 'contact' : s; }
+const LABEL = {locked:'Locked', notstarted:'Not started', progress:'In progress', awaiting:'Awaiting sign-off', needsIP:'Needs in-person training', overdue:'Overdue', completed:'Completed', late:'Completed late', final:'Final attempt failed', contact:'See your Service Manager'};
+const RANK = {locked:5.5, final:0, needsIP:1, overdue:2, awaiting:3, progress:4, notstarted:5, contact:6, late:7, completed:8};
 const pill = s => `<span class="pill s-${s}">${LABEL[s]}</span>`;
 function maybeComplete(e){ if (!e.done && stepsComplete(e) && quizPassed(e) && signoffOk(e)) { e.done = TODAY; return true; } return false; }
 function quizFields(qs, key, disabled){
@@ -385,6 +402,26 @@ function badgeSvg(e, earned){
     <text x="110" y="110" text-anchor="middle" fill="${ink}" font-family="Montserrat,Arial" font-weight="800" font-size="${earned ? 22 : 17}" letter-spacing="1">${earned ? 'CERTIFIED' : 'IN TRAINING'}</text>
     <text x="110" y="131" text-anchor="middle" fill="${ink}" font-family="Montserrat,Arial" font-weight="700" font-size="10" letter-spacing="1.4">${esc(line2.toUpperCase())}</text>
     ${lines.map((l, i) => `<text x="110" y="${149 + i * 13}" text-anchor="middle" fill="${sub}" font-family="Montserrat,Arial" font-weight="600" font-size="9.5" letter-spacing=".6">${esc(l)}</text>`).join('')}
+  </svg>`;
+}
+const LEVELS = ['Basic', 'Advanced', 'Master'];
+const LEVEL_NAME = {Basic:'Fullbay Basics', Advanced:'Fullbay Advanced', Master:'Fullbay Master'};
+const levelMods = (level, role) => DB.modules.filter(m => m.level === level && m.status === 'Published' && !m.sample && m.roles.includes(role));
+function levelDone(empId, level){ const mods = levelMods(level, P(empId).role); if (!mods.length) return null; const ens = mods.map(m => DB.enr.find(e => e.emp === empId && e.mod === m.id && e.done)); return ens.every(Boolean) ? ens.map(e => e.done).sort().at(-1) : null; }
+function lockedFor(e){ const i = LEVELS.indexOf(M(e.mod).level); return i > 0 && !e.done && !levelDone(e.emp, LEVELS[i - 1]); }
+const star = (cx, cy, r, fill) => { const pts = Array.from({length: 10}, (_, k) => { const a = -Math.PI / 2 + k * Math.PI / 5, rr = k % 2 ? r * 0.45 : r; return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`; }).join(' '); return `<polygon points="${pts}" fill="${fill}"/>`; };
+function achievementSvg(level, count, key){
+  const name = LEVEL_NAME[level].split(' '), id = 'ach-' + key;
+  return `<svg viewBox="0 0 260 260" role="img" aria-label="${esc(LEVEL_NAME[level])} achievement">
+    <circle cx="130" cy="130" r="126" fill="#FFC112"/><circle cx="130" cy="130" r="116" fill="#000"/>
+    <circle cx="130" cy="130" r="106" fill="none" stroke="#FFC112" stroke-width="2"/><circle cx="130" cy="130" r="84" fill="none" stroke="#FFC112" stroke-width="1.5" stroke-dasharray="3 5"/>
+    <defs><path id="${id}-t" d="M 36 130 A 94 94 0 0 1 224 130"/><path id="${id}-b" d="M 30 130 A 100 100 0 0 0 230 130"/></defs>
+    <text fill="#FFC112" font-family="Montserrat,Arial" font-weight="700" font-size="12" letter-spacing="2.6"><textPath href="#${id}-t" startOffset="50%" text-anchor="middle">FLEET SPAN UNIVERSITY</textPath></text>
+    <text fill="#FFC112" font-family="Montserrat,Arial" font-weight="700" font-size="11" letter-spacing="3"><textPath href="#${id}-b" startOffset="50%" text-anchor="middle">ACHIEVEMENT</textPath></text>
+    ${star(100, 82, 8, '#FFC112')}${star(130, 74, 11, '#FFC112')}${star(160, 82, 8, '#FFC112')}
+    <text x="130" y="124" text-anchor="middle" fill="#fff" font-family="Montserrat,Arial" font-weight="800" font-size="22" letter-spacing="2">${esc(name[0].toUpperCase())}</text>
+    <text x="130" y="158" text-anchor="middle" fill="#FFC112" font-family="Montserrat,Arial" font-weight="800" font-size="34" letter-spacing="1">${esc((name[1] || '').toUpperCase())}</text>
+    <text x="130" y="182" text-anchor="middle" fill="#C9C9C4" font-family="Montserrat,Arial" font-weight="700" font-size="9.5" letter-spacing="1.6">ALL ${count} MODULES COMPLETE</text>
   </svg>`;
 }
 const phaseName = (ph, i) => ph === 0 ? `Online attempt ${i}` : `After in-person training ${ph}`;
@@ -436,6 +473,29 @@ function renderNav(){
 }
 
 /* ---------- views ---------- */
+function myBadges(v, mine){
+  const bdg = e => `<button type="button" class="bdg ${e.done ? '' : 'off'}" data-act="open" data-id="${e.id}">${badgeSvg(e, !!e.done)}<span class="${e.done ? 'got' : ''}">${e.done ? 'Earned ' + fmt(e.done) : lockedFor(e) ? 'Locked' : 'Not earned yet'}</span></button>`;
+  const order = list => [...list.filter(e => e.done), ...list.filter(e => !e.done)];
+  let html = '';
+  LEVELS.forEach((l, i) => {
+    const mods = levelMods(l, v.role); if (!mods.length) return;
+    const inLevel = mine.filter(e => M(e.mod).level === l), doneDate = levelDone(v.id, l);
+    const prevOk = i === 0 || levelDone(v.id, LEVELS[i - 1]);
+    if (doneDate) {
+      html += `<div class="lvl"><div class="ach">${achievementSvg(l, mods.length, v.id + l)}<div class="achtext"><span class="caps" style="color:var(--good)">Achievement earned · ${fmt(doneDate)}</span><h2>${esc(LEVEL_NAME[l])}</h2><p>You completed all ${mods.length} ${esc(LEVEL_NAME[l])} modules.${LEVELS[i + 1] && levelMods(LEVELS[i + 1], v.role).length ? ` ${esc(LEVEL_NAME[LEVELS[i + 1]])} modules are now unlocked.` : ''}</p>
+        <details><summary>Show the ${mods.length} module badges</summary><div class="badges">${order(inLevel).map(bdg).join('')}</div></details></div></div></div>`;
+    } else if (inLevel.length) {
+      const n = inLevel.filter(e => e.done).length;
+      html += `<div class="lvl"><div class="ptitle"><h3>${esc(LEVEL_NAME[l])}</h3><span class="caps">${prevOk ? `${n} of ${mods.length} modules complete` : `Unlocks after ${esc(LEVEL_NAME[LEVELS[i - 1]])}`}</span></div>
+        <div class="lbar"><i style="width:${Math.round(n / mods.length * 100)}%"></i></div><div class="badges">${order(inLevel).map(bdg).join('')}</div>
+        ${prevOk ? `<p class="small muted">Finish all ${mods.length} to earn the ${esc(LEVEL_NAME[l])} achievement badge.</p>` : ''}</div>`;
+    }
+  });
+  const other = mine.filter(e => !M(e.mod).level);
+  if (other.length) html += `<div class="lvl"><div class="ptitle"><h3>Other modules</h3></div><div class="badges">${order(other).map(bdg).join('')}</div></div>`;
+  return `<section class="panel"><div class="ptitle"><h2>My badges</h2><span class="caps">${mine.filter(e => e.done).length} of ${mine.length} modules earned</span></div>${html}
+    <p class="small muted">You earn a badge when you pass the quiz and the sign-off check. Finish every module in a level to earn its achievement badge and unlock the next level.</p></section>`;
+}
 function vMyTraining(){
   const mine = DB.enr.filter(e => e.emp === S.viewer).sort((a,b) => (!!a.done - !!b.done) || a.due.localeCompare(b.due));
   const v = me();
@@ -447,9 +507,7 @@ function vMyTraining(){
       <div class="meta small muted"><span>${e.done ? 'Finished ' + fmt(e.done) : 'Due <span class="mono">' + fmt(e.due) + '</span>'}</span><span>${b !== null ? 'Best score <span class="mono">' + b + '%</span>' : e.stepsDone.length + ' of ' + stepsTotal(e) + ' steps'}</span></div>
     </button>`; };
   return `<div class="head"><div><h1>My Training</h1><p>${esc(v.name)} · ${esc(v.role)}</p></div></div>
-    ${mine.length ? `<section class="panel"><div class="ptitle"><h2>My badges</h2><span class="caps">${done.length} of ${mine.length} earned</span></div>
-      <div class="badges">${[...done, ...open].map(e => `<button type="button" class="bdg ${e.done ? '' : 'off'}" data-act="open" data-id="${e.id}">${badgeSvg(e, !!e.done)}<span class="${e.done ? 'got' : ''}">${e.done ? 'Earned ' + fmt(e.done) : 'Not earned yet'}</span></button>`).join('')}</div>
-      <p class="small muted">You earn a badge when you pass the quiz and the sign-off check. Gray badges are modules you're still working on.</p></section>` : ''}
+    ${mine.length ? myBadges(v, mine) : ''}
     ${open.length ? `<div class="cards">${open.map(card).join('')}</div>` : `<div class="empty">Nothing assigned to you right now.</div>`}
     ${done.length ? `<h2>Finished</h2><div class="cards">${done.map(card).join('')}</div>` : ''}`;
 }
@@ -459,15 +517,19 @@ function vPlayer(){
   const m = M(e.mod), s = shown(e), st = status(e);
   const steps = m.items.filter(i => i.type === 'step'), qs = m.items.filter(i => i.type === 'quiz'), so = m.items.find(i => i.type === 'signoff');
   const mineView = e.emp === S.viewer;
-  const locked = e.done || st === 'final' || st === 'needsIP';
+  const lk = lockedFor(e), prevName = lk ? LEVEL_NAME[LEVELS[LEVELS.indexOf(m.level) - 1]] : '';
+  const locked = e.done || st === 'final' || st === 'needsIP' || lk;
   const cur = phaseAtt(e, e.ip), limit = e.ip === 0 ? 2 : 1;
   const canQuiz = mineView && !locked && stepsComplete(e) && soReady(e) && !quizPassed(e) && cur.length < limit;
   const rev = P(e.reviewer), sm = smOf(e.emp);
 
   let quizBlock;
   const qr = S.quiz && S.quiz.id === e.id ? S.quiz : null;
-  const result = qr ? `<div class="callout ${qr.pass ? 'good' : 'bad'}"><b>${qr.pass ? 'Passed' : 'Not passed'}: ${qr.score}%</b><span>${esc(qr.msg)}</span></div>` : '';
-  if (st === 'final' || s === 'contact') {
+  const review = qr && qr.missed.length ? `<div class="review"><b class="sohead">Review what you missed</b>${qr.missed.map(x => `<div class="rv"><b>${x.n}. ${esc(x.q)}</b><span>Your answer: <span class="rvx">${esc(x.pick)}</span></span>${qr.reveal ? `<span>Correct answer: <span class="rvok">${esc(x.right)}</span></span>` : ''}</div>`).join('')}<p class="small muted">${qr.reveal ? 'Not sure why? Ask your trainer or Service Manager to walk you through it.' : 'Review the steps, then try again. The correct answers show after you pass or use your last attempt. Questions? Ask your trainer or Service Manager.'}</p></div>` : '';
+  const result = qr ? `<div class="callout ${qr.pass ? 'good' : 'bad'}"><b>${qr.pass ? 'Passed' : 'Not passed'}: ${qr.score}%</b><span>${esc(qr.msg)}</span></div>${review}` : '';
+  if (lk) {
+    quizBlock = `<p class="muted">Locked until you earn ${esc(prevName)}.</p>`;
+  } else if (st === 'final' || s === 'contact') {
     quizBlock = mineView ? `<div class="callout warn"><b>Please see your Service Manager.</b><span>${esc(sm ? sm.name : 'Your Service Manager')} will talk with you about next steps.</span></div>` : '';
   } else if (st === 'needsIP') {
     quizBlock = `<div class="callout warn"><b>In-person training is next.</b><span>${esc(sm ? sm.name : 'Your Service Manager')} will schedule ${e.ip === 0 ? 'an in-person session' : 'another in-person session'}. After it, you get a fresh quiz and a sign-off from your Service Manager.</span></div>`;
@@ -501,6 +563,7 @@ function vPlayer(){
   <div class="hero"><div class="eyebrow"><span class="dashes"><i></i><i></i><i></i></span><span>${esc(m.roles.join(', '))}</span><span>•</span><span>${m.tier}</span><span>•</span><span class="y">Due ${fmt(e.due)}</span><span>•</span><span>Assigned ${fmt(e.assigned)}</span></div>
     <div class="herorow"><h1>${esc(m.title)}</h1>${pill(s)}</div>
     ${m.why ? `<p class="lead"><b>Why it matters:</b> ${rich(m.why)}</p>` : ''}</div>
+  ${lk ? `<div class="callout warn"><b>Locked</b><span>This is a ${esc(LEVEL_NAME[m.level])} module. It unlocks when you finish every ${esc(prevName)} module.</span></div>` : ''}
   ${e.done ? `<section class="panel earned"><div class="bdg big">${badgeSvg(e, true)}</div><div class="earnedtext"><span class="caps" style="color:var(--good)">Badge earned</span><h2>${esc(m.title)}</h2><p>Completed ${fmt(e.done)}${e.done > e.due ? ' (after the ' + fmt(e.due) + ' due date)' : ''} · best quiz score ${bestScore(e)}%.</p><p class="small muted">${mineView ? 'This badge now shows in My badges on your My Training page.' : 'This badge shows in My badges on the employee\'s My Training page.'}</p></div></section>` : ''}
   <div class="split">
     <section class="panel">
@@ -508,9 +571,9 @@ function vPlayer(){
       <div class="row" style="justify-content:space-between"><h2>1. Steps</h2><span class="mono small muted">${e.stepsDone.length}/${steps.length}</span></div>
       <p class="small muted">Do the steps in order, and do them with your trainer watching the first time.</p>
       <ol class="steps">${steps.map((st2,i) => { const d = e.stepsDone.includes(i); return `<li class="${d ? 'done' : ''}"><input type="checkbox" id="st_${e.id}_${i}" data-step="${i}" data-id="${e.id}" ${d ? 'checked' : ''} ${(!mineView || locked) ? 'disabled' : ''}><span class="n">${i + 1}</span><label for="st_${e.id}_${i}"><span class="t">${rich(st2.text)}</span></label></li>`; }).join('')}</ol>
-      <div class="sobox"><b class="sohead">SO numbers · ${soNeed(e)} required</b><p class="small muted">Type the number of ${soNeed(e) === 1 ? 'the SO' : 'each SO'} you completed these steps on. Your trainer uses ${soNeed(e) === 1 ? 'it' : 'them'} to check your work.</p>
+      ${soNeed(e) ? `<div class="sobox"><b class="sohead">SO numbers · ${soNeed(e)} required</b><p class="small muted">Type the number of ${soNeed(e) === 1 ? 'the SO' : 'each SO'} you completed these steps on. Your trainer uses ${soNeed(e) === 1 ? 'it' : 'them'} to check your work.</p>
         <div class="sogrid">${Array.from({length: soNeed(e)}, (_, i) => `<label class="soin"><span>SO ${i + 1}</span><input type="text" id="so_${e.id}_${i}" value="${esc(soList(e)[i] || '')}" placeholder="SO number" inputmode="numeric" ${(!mineView || locked) ? 'disabled' : ''}></label>`).join('')}</div>
-        ${mineView && !locked ? `<div class="row"><button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save SO numbers</button><span class="small muted">${soList(e).length} of ${soNeed(e)} entered</span></div>` : ''}</div>
+        ${mineView && !locked ? `<div class="row"><button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save SO numbers</button><span class="small muted">${soList(e).length} of ${soNeed(e)} entered</span></div>` : ''}</div>` : ''}
       ${m.doneRight ? `<div class="callout good"><b>Done right looks like</b><span>${rich(m.doneRight)}</span></div>` : ''}
       ${m.wrong ? `<div><h3>If something goes wrong</h3><ul class="guide">${m.wrong.map(w => `<li>${rich(w)}</li>`).join('')}</ul></div>` : ''}
       ${m.sources ? `<p class="small muted">Full article in Fullbay Help & Training: ${m.sources.map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">${esc(x.title)}</a>`).join(' · ')}</p>` : ''}
@@ -554,7 +617,7 @@ function vDashboard(){
 
   // results by module
   const CAT = [['c','Completed','#1F7A45'],['a','Awaiting sign-off','#000000'],['p','In progress','#8A8A85'],['n','Not started','#DCDCD7'],['f','Needs in-person or failed','#FFC112'],['o','Overdue','#C2321F']];
-  const catOf = e => { const s = status(e); return {completed:'c', late:'c', awaiting:'a', progress:'p', notstarted:'n', needsIP:'f', final:'f', overdue:'o'}[s]; };
+  const catOf = e => { const s = status(e); return lockedFor(e) ? 'n' : {completed:'c', late:'c', awaiting:'a', progress:'p', notstarted:'n', needsIP:'f', final:'f', overdue:'o'}[s]; };
   const mods = DB.modules.filter(m => en.some(e => e.mod === m.id));
   const max = Math.max(1, ...mods.map(m => en.filter(e => e.mod === m.id).length));
   const modRows = mods.map(m => { const me2 = en.filter(e => e.mod === m.id);
@@ -631,7 +694,7 @@ function vDetail(){
   const p = P(e.emp), m = M(e.mod), st = status(e), s = shown(e), sm = smOf(e.emp), rev = P(e.reviewer);
   const isSM = sm && sm.id === S.viewer, admin = lvl() === 'Admin';
   let n0 = 0;
-  const hist = e.attempts.map(a => { const label = a.phase === 0 ? phaseName(0, ++n0) : phaseName(a.phase); return `<tr><td>${label}</td><td class="mono">${fmt(a.date)}</td><td class="num">${a.score}%</td><td>${a.score >= 80 ? '<span class="pill s-completed">Pass</span>' : '<span class="pill s-overdue">Below 80%</span>'}</td></tr>`; }).join('');
+  const hist = e.attempts.map(a => { const label = a.phase === 0 ? phaseName(0, ++n0) : phaseName(a.phase); return `<tr><td>${label}</td><td class="mono">${fmt(a.date)}</td><td class="num">${a.score}%</td><td>${a.score >= 80 ? '<span class="pill s-completed">Pass</span>' : '<span class="pill s-overdue">Below 80%</span>'}</td><td>${a.missed ? (a.missed.length ? a.missed.map(([i]) => 'Q' + (i + 1)).join(', ') : 'None') : '—'}</td></tr>`; }).join('');
   const actions = [];
   if (!e.done && st === 'needsIP') actions.push(`<button class="btn primary" type="button" data-act="logip" data-id="${e.id}">Log in-person training #${e.ip + 1} attended</button>`);
   if (!e.done && e.ip > 0 && e.smSign < e.ip && st !== 'needsIP' && st !== 'final' && (isSM || admin)) actions.push(`<button class="btn good" type="button" data-act="smsign" data-id="${e.id}">Sign off: works without assistance</button>`);
@@ -651,7 +714,7 @@ function vDetail(){
   ${actions.length ? `<div class="row">${actions.join('')}</div>` : ''}</section>
   ${e.done ? `<section class="panel earned"><div class="bdg big">${badgeSvg(e, true)}</div><div class="earnedtext"><span class="caps" style="color:var(--good)">Badge earned</span><h2>${esc(p.name)}</h2><p>Earned ${fmt(e.done)} · best quiz score ${bestScore(e)}%.</p><p class="small muted">Shows in My badges on ${esc(p.name.split(' ')[0])}'s My Training page.</p></div></section>` : ''}
   <div class="split">
-    <section class="panel"><h2>Quiz attempts</h2>${e.attempts.length ? `<div class="tablewrap"><table><thead><tr><th>Attempt</th><th>Date</th><th class="num">Score</th><th>Result</th></tr></thead><tbody>${hist}</tbody></table></div>` : '<div class="empty">No attempts yet.</div>'}
+    <section class="panel"><h2>Quiz attempts</h2>${e.attempts.length ? `<div class="tablewrap"><table><thead><tr><th>Attempt</th><th>Date</th><th class="num">Score</th><th>Result</th><th>Missed</th></tr></thead><tbody>${hist}</tbody></table></div>` : '<div class="empty">No attempts yet.</div>'}
       <p class="small muted">Rules: 2 online attempts at 80%. Below that, in-person training, then a Service Manager sign-off and 1 fresh quiz. One more round if needed.</p>
       ${related.length ? `<h3>History</h3><div class="tablewrap"><table><tbody>${related.map(a => `<tr><td class="mono small">${fmt(a.date)}</td><td class="small">${esc(a.what)} ${a.internal ? '<span class="tag internal">Internal</span>' : ''}</td></tr>`).join('')}</tbody></table></div>` : ''}
     </section>
@@ -768,7 +831,7 @@ const VIEWS = {mytraining:vMyTraining, player:vPlayer, queue:vQueue, dashboard:v
 function render(){
   if (!allowed(S.view)) { S.view = homeFor(); }
   const sel = document.getElementById('viewer');
-  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech']];
+  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech'],['jake','Tech']];
   sel.innerHTML = opts.map(([id,t]) => `<option value="${id}" ${id === S.viewer ? 'selected' : ''}>${t} · ${esc(P(id).name)}</option>`).join('');
   renderNav();
   document.getElementById('main').innerHTML = `<div class="wrap">${VIEWS[S.view]()}</div>`;
@@ -851,7 +914,8 @@ document.addEventListener('submit', ev => {
   if (qs.some((q,i) => !fd.get('q' + i))) { flash('Answer every question before submitting.'); return; }
   const right = qs.filter((q,i) => +fd.get('q' + i) === q.answer).length;
   const score = Math.round(right / qs.length * 100), pass = score >= 80;
-  e.attempts.push({phase:e.ip, score, date:TODAY});
+  const missed = qs.map((q,i) => [i, +fd.get('q' + i)]).filter(([i, pick]) => pick !== qs[i].answer);
+  e.attempts.push({phase:e.ip, score, date:TODAY, missed});
   const sm = smOf(e.emp), smName = sm ? sm.name : 'your Service Manager', p = P(e.emp);
   const used = phaseAtt(e, e.ip).length, limit = e.ip === 0 ? 2 : 1;
   let msg;
@@ -867,7 +931,8 @@ document.addEventListener('submit', ev => {
     msg = `Please see ${smName} about next steps.`;
     log(`${p.name} failed the quiz after the second in-person training (${score}%). Status set to Final attempt failed. ${smName} and admins notified.`, true);
   }
-  S.quiz = {id:e.id, score, pass, msg};
+  const reveal = pass || used >= limit;
+  S.quiz = {id:e.id, score, pass, msg, reveal, missed: missed.map(([i, pick]) => ({n: i + 1, q: qs[i].q, pick: qs[i].options[pick], right: qs[i].options[qs[i].answer]}))};
   render(); window.scrollTo(0,0);
 });
 

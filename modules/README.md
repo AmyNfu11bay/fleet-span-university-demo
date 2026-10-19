@@ -15,7 +15,8 @@ Run `node tools/check-modules.js` from the repository root before every push.
   "status": "Published",            // or "Draft" (drafts can't be assigned)
   "version": 2,                     // bump when the content changes
   "days": 14,                       // default days to complete
-  "soCount": 5,                     // SO numbers the employee must type in: the count in the sign-off check (1 if none)
+  "soCount": 5,                     // SO numbers the employee hand-keys for the trainer: the count in the sign-off check; 0 = no SO box (e.g. before they've worked an SO)
+  "level": "Basic",                // Basic, Advanced or Master; finishing every module in a level earns its achievement badge and unlocks the next
   "why": "…",                       // the guide's "Why it matters", word for word
   "before": ["…"],                  // the guide's "Before you start" bullets
   "doneRight": "…",                 // the guide's "Done right looks like"
