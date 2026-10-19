@@ -1015,7 +1015,7 @@ FSU_MODULES.push(
     }
   ],
   "soCount": 5,
-  "level": "Advanced"
+  "level": "Basic"
 },
 {
   "id": "t5",
@@ -1119,7 +1119,7 @@ FSU_MODULES.push(
     }
   ],
   "soCount": 10,
-  "level": "Advanced"
+  "level": "Basic"
 },
 {
   "id": "t6",
@@ -1226,6 +1226,6 @@ FSU_MODULES.push(
     }
   ],
   "soCount": 1,
-  "level": "Advanced"
+  "level": "Basic"
 }
 );
