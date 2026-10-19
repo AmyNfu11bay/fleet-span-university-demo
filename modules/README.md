@@ -22,9 +22,10 @@ Run `node tools/check-modules.js` from the repository root before every push.
   "before": ["…"],                  // the guide's "Before you start" bullets
   "doneRight": "…",                 // the guide's "Done right looks like"
   "wrong": ["…"],                   // the guide's "If something goes wrong" bullets
+  "devices": [{ "id": "pc", "label": "Chrome on a PC" }],  // optional: show a "Which device do you use?" picker; steps with a matching "device" only show for that device
   "sources": [{ "title": "…", "url": "https://help.fullbay.com/…" }],  // optional: Help Center articles a module was written from
   "items": [
-    { "type": "step", "text": "Click **Diagnosed** on the Action Item. …" },
+    { "type": "step", "text": "Click **Diagnosed** on the Action Item. …" },   // add "device": "pc" to show a step only for that device
     { "type": "quiz", "q": "…?", "options": ["…", "…", "…", "…"], "answer": 1 },
     { "type": "signoff", "text": "You complete Diagnose on 5 SOs with no corrections." }
   ]

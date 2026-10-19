@@ -217,6 +217,8 @@ ul.guide{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap
 .sobox{border:2px solid var(--black);padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--white)}
 .sobox .sohead{text-transform:uppercase;letter-spacing:.1em;font-size:12.5px}
 .sogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.devpick{display:flex;flex-direction:column;gap:8px;padding:12px;border:2px solid var(--black);background:var(--white)}
+.devpick .btn{padding:8px 12px;font-size:11px}
 .review{border:2px solid var(--black);background:var(--white);padding:14px;display:flex;flex-direction:column;gap:10px}
 .rv{display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid var(--g100);font-size:14px}
 .rvx{color:var(--bad);font-weight:700}
@@ -305,8 +307,8 @@ const SEED = {
   ],
   modules: window.FSU_MODULES,
   enr: [
-    {id:'e29', emp:'luis', mod:'all1', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14], attempts:[{phase:0,score:100,date:'2026-09-03'}], ip:0, smSign:0, handsOn:true, done:'2026-09-03'},
-    {id:'e30', emp:'jake', mod:'all1', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14], attempts:[{phase:0,score:100,date:'2026-09-04'}], ip:0, smSign:0, handsOn:true, done:'2026-09-04'},
+    {id:'e29', emp:'luis', mod:'all1', device:'android', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], attempts:[{phase:0,score:100,date:'2026-09-03'}], ip:0, smSign:0, handsOn:true, done:'2026-09-03'},
+    {id:'e30', emp:'jake', mod:'all1', device:'android', assigned:'2026-09-01', due:'2026-09-08', reviewer:'gus', so:'', stepsDone:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], attempts:[{phase:0,score:100,date:'2026-09-04'}], ip:0, smSign:0, handsOn:true, done:'2026-09-04'},
     {id:'e31', emp:'kelly', mod:'all1', assigned:'2026-10-12', due:'2026-10-19', reviewer:'marcus', so:'', stepsDone:[0,1,2], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e19', emp:'luis', mod:'t7', assigned:'2026-09-08', due:'2026-09-15', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5], attempts:[{phase:0,score:100,date:'2026-09-12'}], ip:0, smSign:0, handsOn:true, done:'2026-09-12'},
     {id:'e20', emp:'luis', mod:'t8', assigned:'2026-09-15', due:'2026-09-22', reviewer:'gus', so:'', stepsDone:[0, 1, 2, 3, 4, 5, 6, 7], attempts:[{phase:0,score:100,date:'2026-09-17'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
@@ -364,8 +366,10 @@ function log(what, internal){ DB.audit.unshift({date:TODAY, who:me().name, what,
 
 /* ---------- status rules ---------- */
 const phaseAtt = (e,ph) => e.attempts.filter(a => a.phase === ph);
-const stepsTotal = e => M(e.mod).items.filter(i => i.type === 'step').length;
-const stepsComplete = e => e.stepsDone.length >= stepsTotal(e);
+const appSteps = e => { const m = M(e.mod), st = m.items.filter(i => i.type === 'step').map((s, i) => ({s, i})); if (!m.devices) return st; return st.filter(x => !x.s.device || x.s.device === e.device); };
+const stepsTotal = e => appSteps(e).length;
+const stepsDoneN = e => appSteps(e).filter(x => e.stepsDone.includes(x.i)).length;
+const stepsComplete = e => (!M(e.mod).devices || !!e.device) && stepsDoneN(e) >= stepsTotal(e);
 const soList = e => (e.so || '').split(',').map(x => x.trim()).filter(Boolean);
 const soNeed = e => M(e.mod).soCount ?? 1;
 const soReady = e => soList(e).length >= soNeed(e);
@@ -510,7 +514,7 @@ function vMyTraining(){
     return `<button class="card" type="button" data-act="open" data-id="${e.id}">
       <div class="meta"><span class="tag">${esc(roleLabel(m))} · ${m.tier}</span>${pill(s)}</div>
       <h3>${esc(m.title)}</h3>
-      <div class="meta small muted"><span>${e.done ? 'Finished ' + fmt(e.done) : 'Due <span class="mono">' + fmt(e.due) + '</span>'}</span><span>${b !== null ? 'Best score <span class="mono">' + b + '%</span>' : e.stepsDone.length + ' of ' + stepsTotal(e) + ' steps'}</span></div>
+      <div class="meta small muted"><span>${e.done ? 'Finished ' + fmt(e.done) : 'Due <span class="mono">' + fmt(e.due) + '</span>'}</span><span>${b !== null ? 'Best score <span class="mono">' + b + '%</span>' : stepsDoneN(e) + ' of ' + stepsTotal(e) + ' steps'}</span></div>
     </button>`; };
   return `<div class="head"><div><h1>My Training</h1><p>${esc(v.name)} · ${esc(v.role)}</p></div></div>
     ${mine.length ? myBadges(v, mine) : ''}
@@ -574,9 +578,10 @@ function vPlayer(){
   <div class="split">
     <section class="panel">
       ${m.before ? `<div><h3>Before you start</h3><ul class="guide">${m.before.map(b => `<li>${rich(b)}</li>`).join('')}</ul></div>` : ''}
-      <div class="row" style="justify-content:space-between"><h2>1. Steps</h2><span class="mono small muted">${e.stepsDone.length}/${steps.length}</span></div>
+      <div class="row" style="justify-content:space-between"><h2>1. Steps</h2><span class="mono small muted">${stepsDoneN(e)}/${stepsTotal(e)}</span></div>
+      ${m.devices ? `<div class="devpick"><b class="sohead">Which device do you use?</b><div class="row">${m.devices.map(d => `<button type="button" class="btn ${e.device === d.id ? 'primary' : ''}" data-act="device" data-id="${e.id}" data-dev="${d.id}" ${(!mineView || locked) ? 'disabled' : ''}>${esc(d.label)}</button>`).join('')}</div>${e.device ? '' : '<p class="small muted">Pick your device to see your steps.</p>'}</div>` : ''}
       <p class="small muted">Do the steps in order, and do them with your trainer watching the first time.</p>
-      <ol class="steps">${steps.map((st2,i) => { const d = e.stepsDone.includes(i); return `<li class="${d ? 'done' : ''}"><input type="checkbox" id="st_${e.id}_${i}" data-step="${i}" data-id="${e.id}" ${d ? 'checked' : ''} ${(!mineView || locked) ? 'disabled' : ''}><span class="n">${i + 1}</span><label for="st_${e.id}_${i}"><span class="t">${rich(st2.text)}</span></label></li>`; }).join('')}</ol>
+      <ol class="steps">${(m.devices && !e.device ? [] : appSteps(e)).map(({s: st2, i}, k) => { const d = e.stepsDone.includes(i); return `<li class="${d ? 'done' : ''}"><input type="checkbox" id="st_${e.id}_${i}" data-step="${i}" data-id="${e.id}" ${d ? 'checked' : ''} ${(!mineView || locked) ? 'disabled' : ''}><span class="n">${k + 1}</span><label for="st_${e.id}_${i}"><span class="t">${rich(st2.text)}</span></label></li>`; }).join('')}</ol>
       ${soNeed(e) ? `<div class="sobox"><b class="sohead">SO numbers · ${soNeed(e)} required</b><p class="small muted">Type the number of ${soNeed(e) === 1 ? 'the SO' : 'each SO'} you completed these steps on. Your trainer uses ${soNeed(e) === 1 ? 'it' : 'them'} to check your work.</p>
         <div class="sogrid">${Array.from({length: soNeed(e)}, (_, i) => `<label class="soin"><span>SO ${i + 1}</span><input type="text" id="so_${e.id}_${i}" value="${esc(soList(e)[i] || '')}" placeholder="SO number" inputmode="numeric" ${(!mineView || locked) ? 'disabled' : ''}></label>`).join('')}</div>
         ${mineView && !locked ? `<div class="row"><button class="btn" type="button" data-act="saveso" data-id="${e.id}">Save SO numbers</button><span class="small muted">${soList(e).length} of ${soNeed(e)} entered</span></div>` : ''}</div>` : ''}
@@ -711,7 +716,7 @@ function vDetail(){
   <section class="panel"><div class="facts">
     <div><span class="k">Assigned</span><span class="mono">${fmt(e.assigned)}</span></div>
     <div><span class="k">Due</span><span class="mono">${fmt(e.due)}</span></div>
-    <div><span class="k">Steps</span><span class="mono">${e.stepsDone.length} of ${stepsTotal(e)}</span></div>
+    <div><span class="k">Steps</span><span class="mono">${stepsDoneN(e)} of ${stepsTotal(e)}</span></div>
     <div><span class="k">Best score</span><span class="mono">${bestScore(e) ?? '—'}${bestScore(e) !== null ? '%' : ''}</span></div>
     <div><span class="k">In-person sessions</span><span class="mono">${e.ip} of 2</span></div>
     <div><span class="k">Reviewer</span><span>${esc(rev ? rev.name : '—')}</span></div>
@@ -876,6 +881,7 @@ const ACT = {
     ids.forEach(id => { const sm = smOf(id); DB.enr.push({id:'e' + (DB.enr.length + 1) + '_' + id, emp:id, mod:f.mod, assigned:TODAY, due:f.due, reviewer:f.reviewer || (sm ? sm.id : S.viewer), stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null}); });
     log(`Enrolled ${ids.map(id => P(id).name).join(', ')} in ${M(f.mod).title}, due ${fmt(f.due)}`);
     S.ef.picks = []; flash(`Enrolled ${ids.length} in ${M(f.mod).title}.`); },
+  device: d => { const e = E(d.id); e.device = d.dev; },
   saveso: d => { const e = E(d.id), n = soNeed(e);
     const vals = Array.from({length: n}, (_, i) => document.getElementById('so_' + e.id + '_' + i).value.trim());
     const filled = vals.filter(Boolean);
