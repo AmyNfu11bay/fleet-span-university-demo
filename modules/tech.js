@@ -1025,22 +1025,43 @@ FSU_MODULES.push(
   ],
   "tier": "Module 11",
   "status": "Published",
-  "version": 2,
+  "version": 3,
   "days": 14,
   "why": "Completing the job is what lets the SO move to invoicing. A job that is finished in the bay but not in Fullbay is revenue that has not been billed.",
   "before": [
-    "The work is done and the parts are on the job.",
+    "The SO shows under **Repair** on your **Tech Home**. That means it has been quoted, authorized, and its parts ordered.",
     "Special Order parts have been priced, ordered and received. You cannot finish until they are."
   ],
   "doneRight": "The cause and correction are written so the customer can understand them, and the SO is no longer waiting on you.",
   "wrong": [
+    "The SO isn't under Repair yet: it may still be in **Waiting On Parts Pricing & Authorization**. You can't clock in until it moves to Repair.",
     "You cannot finish: a part may still be waiting on Parts. Ask Parts, not the Service Advisor.",
     "The SO comes back from review: fix what the Service Manager notes and complete it again."
   ],
   "items": [
     {
       "type": "step",
-      "text": "Open the Action Item."
+      "text": "Open **Tech Home** and click the SO under **Repair**."
+    },
+    {
+      "type": "step",
+      "text": "Click the Action Item that needs the repair. It turns green to show it's tracking your time."
+    },
+    {
+      "type": "step",
+      "text": "If some parts are still on order, start the work that doesn't need them. The parts status on the Action Item updates when Parts receives them."
+    },
+    {
+      "type": "step",
+      "text": "Do only the repair the customer approved. No free adds."
+    },
+    {
+      "type": "step",
+      "text": "Fill in **Actual Service** with what you did, or click **Copy Recommendation** to copy what you wrote in **Recommended Service**."
+    },
+    {
+      "type": "step",
+      "text": "If the unit is tracked by mileage, enter it in the **Mileage** field. It's required. You can also click the red link to open **Virtual Unit**, enter **Current Miles**, and click **Save**."
     },
     {
       "type": "step",
@@ -1052,7 +1073,11 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Click **Mark Action Item # as Corrected**."
+      "text": "Click **Mark Action Item # as Corrected**. The SO leaves your Tech Home."
+    },
+    {
+      "type": "step",
+      "text": "Move to your next Action Item and repeat until every repair is corrected."
     },
     {
       "type": "step",
@@ -1060,25 +1085,36 @@ FSU_MODULES.push(
     },
     {
       "type": "quiz",
-      "q": "What must be true before you can finish?",
+      "q": "Where do you find an SO that is ready for repair?",
       "options": [
-        "Special Order parts have been priced, ordered and received",
-        "The customer has paid",
-        "The SO is invoiced",
-        "Your shift is over"
+        "In the Stats tab",
+        "Under Repair on your Tech Home",
+        "In Global Search only",
+        "On the invoice"
       ],
-      "answer": 0
+      "answer": 1
     },
     {
       "type": "quiz",
-      "q": "What do you write on the Action Item?",
+      "q": "You click the Action Item. How do you know it's tracking your time?",
       "options": [
-        "Only the part numbers",
-        "The complaint, the cause and the correction in plain words",
-        "Your clock times",
-        "Nothing"
+        "You get an email",
+        "The SO moves to Review",
+        "It turns green",
+        "Parts calls you"
       ],
-      "answer": 1
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "What goes in the Actual Service field?",
+      "options": [
+        "The service you completed",
+        "The part prices",
+        "The customer phone number",
+        "Your clock-out time"
+      ],
+      "answer": 0
     },
     {
       "type": "quiz",
@@ -1086,32 +1122,21 @@ FSU_MODULES.push(
       "options": [
         "Diagnosed",
         "Add Part",
-        "Mark Action Item # as Corrected",
-        "Defective"
+        "Defective",
+        "Mark Action Item # as Corrected"
       ],
-      "answer": 2
-    },
-    {
-      "type": "quiz",
-      "q": "Where does the SO move after you complete it?",
-      "options": [
-        "Straight to the customer",
-        "Review",
-        "Back to Diagnose",
-        "Parts"
-      ],
-      "answer": 1
+      "answer": 3
     },
     {
       "type": "quiz",
       "q": "You cannot finish because a part may still be waiting on Parts. Who do you ask?",
       "options": [
+        "Parts",
         "The Service Advisor",
         "The customer",
-        "Nobody",
-        "Parts"
+        "Nobody"
       ],
-      "answer": 3
+      "answer": 0
     },
     {
       "type": "signoff",
@@ -1119,7 +1144,13 @@ FSU_MODULES.push(
     }
   ],
   "soCount": 10,
-  "level": "Basic"
+  "level": "Basic",
+  "sources": [
+    {
+      "title": "6 | Repair",
+      "url": "https://help.fullbay.com/en/articles/12036689-6-repair"
+    }
+  ]
 },
 {
   "id": "t6",
