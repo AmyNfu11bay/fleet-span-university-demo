@@ -348,7 +348,21 @@ const SEED = {
     {id:'e4', so:'48190, 48204, 48219, 48233, 48245', emp:'andre', mod:'t2', assigned:'2026-09-26', due:'2026-10-10', reviewer:'gus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:60,date:'2026-10-08'},{phase:0,score:60,date:'2026-10-09'}], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e5', emp:'gus', mod:'t1', assigned:'2026-09-14', due:'2026-09-21', reviewer:'marcus', stepsDone:[0,1,2,3,4,5], attempts:[{phase:0,score:100,date:'2026-09-16'}], ip:0, smSign:0, handsOn:true, done:'2026-09-17'},
     {id:'e18', emp:'gus', mod:'t2', assigned:'2026-09-21', due:'2026-10-05', reviewer:'marcus', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:100,date:'2026-09-30'}], ip:0, smSign:0, handsOn:true, done:'2026-10-01'},
-    {id:'e7', emp:'ray', mod:'m4', assigned:'2026-10-02', due:'2026-10-16', reviewer:'marcus', stepsDone:[0,1], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'e32', emp:'ray', mod:'all1', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep2', emp:'ray', mod:'p2', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep3', emp:'ray', mod:'p3', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep4', emp:'ray', mod:'p4', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep5', emp:'ray', mod:'p5', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep6', emp:'ray', mod:'p6', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep7', emp:'ray', mod:'p7', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep8', emp:'ray', mod:'p8', assigned:'2026-10-21', due:'2026-11-04', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep9', emp:'ray', mod:'p9', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep10', emp:'ray', mod:'p10', assigned:'2026-10-21', due:'2026-11-04', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep11', emp:'ray', mod:'p11', assigned:'2026-10-21', due:'2026-11-04', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep12', emp:'ray', mod:'p12', assigned:'2026-10-21', due:'2026-11-04', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep13', emp:'ray', mod:'p13', assigned:'2026-10-21', due:'2026-11-04', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep14', emp:'ray', mod:'p14', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
+    {id:'ep15', emp:'ray', mod:'p15', assigned:'2026-10-21', due:'2026-10-28', reviewer:'marcus', so:'', stepsDone:[], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e8', so:'51022, 51040, 51057, 51063, 51079', emp:'sam', mod:'t2', assigned:'2026-09-28', due:'2026-10-12', reviewer:'priya', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:100,date:'2026-10-07'}], ip:0, smSign:0, handsOn:true, done:'2026-10-08'},
     {id:'e9', emp:'tony', mod:'t2', assigned:'2026-09-29', due:'2026-10-13', reviewer:'priya', stepsDone:[0,1], attempts:[], ip:0, smSign:0, handsOn:false, done:null},
     {id:'e10', so:'50877, 50902, 50914, 50931, 50948', emp:'eli', mod:'t2', assigned:'2026-09-01', due:'2026-09-15', reviewer:'priya', stepsDone:[0,1,2,3,4,5,6], attempts:[{phase:0,score:40,date:'2026-09-10'},{phase:0,score:60,date:'2026-09-11'},{phase:1,score:60,date:'2026-09-22'},{phase:2,score:60,date:'2026-10-06'}], ip:2, smSign:0, handsOn:false, done:null},
@@ -587,7 +601,7 @@ function vPlayer(){
     signBlock = `<p class="muted">This module has no sign-off check. Passing the quiz completes it.</p>`;
   } else if (e.ip === 0) {
     signBlock = e.handsOn ? `<div class="callout good"><b>Hands-on check passed</b><span>Signed off by ${esc(rev ? rev.name : 'reviewer')}.</span></div>`
-      : `<p>${esc(so ? so.text : '')}</p><p class="small muted">Reviewer: <b>${esc(rev ? rev.name : 'Not set')}</b>. ${quizPassed(e) ? 'Waiting for the reviewer to watch the task and sign off.' : 'Unlocks after you pass the quiz.'}</p>${e.note ? `<div class="callout warn"><b>Reviewer note</b><span>${esc(e.note)}</span></div>` : ''}`;
+      : `<p>${rich(so ? so.text : '')}</p><p class="small muted">Reviewer: <b>${esc(rev ? rev.name : 'Not set')}</b>. ${quizPassed(e) ? 'Waiting for the reviewer to watch the task and sign off.' : 'Unlocks after you pass the quiz.'}</p>${e.note ? `<div class="callout warn"><b>Reviewer note</b><span>${esc(e.note)}</span></div>` : ''}`;
   } else {
     signBlock = e.smSign >= e.ip ? `<div class="callout good"><b>Service Manager sign-off recorded</b><span>${esc(sm ? sm.name : '')} confirmed you can complete all tasks without assistance.</span></div>`
       : `<p>After in-person training, ${esc(sm ? sm.name : 'your Service Manager')} signs off that you can complete all tasks without assistance.</p>`;
@@ -630,7 +644,7 @@ function vQueue(){
     const smType = e.ip > 0;
     return `<section class="panel">
       <div class="row" style="justify-content:space-between"><div><h3>${esc(p.name)} · ${esc(m.title)}</h3><p class="small muted">${esc(p.role)} · Due <span class="mono">${fmt(e.due)}</span> · Quiz ${bestScore(e)}%</p><p class="small">${esc(recLabel(e))}: <b class="mono">${esc(e.so || 'Not entered')}</b></p></div>${smType ? '<span class="tag">After in-person training</span>' : '<span class="tag">Hands-on check</span>'}</div>
-      <p><b>${smType ? 'Confirm the employee can complete all tasks without assistance.' : esc(so ? so.text : '')}</b></p>
+      <p><b>${smType ? 'Confirm the employee can complete all tasks without assistance.' : rich(so ? so.text : '')}</b></p>
       <div class="field"><label for="note_${e.id}">Notes</label><textarea id="note_${e.id}" rows="2" placeholder="What you watched, anything to coach on"></textarea></div>
       <div class="row"><button class="btn good" type="button" data-act="${smType ? 'smsign' : 'pass'}" data-id="${e.id}">${smType ? 'Sign off' : 'Pass'}</button>${smType ? '' : `<button class="btn" type="button" data-act="needswork" data-id="${e.id}">Needs work</button>`}</div>
     </section>`; };
@@ -902,7 +916,7 @@ const VIEWS = {mytraining:vMyTraining, player:vPlayer, queue:vQueue, dashboard:v
 function render(){
   if (!allowed(S.view)) { S.view = homeFor(); }
   const sel = document.getElementById('viewer');
-  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech'],['jake','Tech'],['kelly','Service Advisor']];
+  const opts = [['dana','Admin'],['marcus','Service Manager'],['priya','Service Manager'],['gus','Reviewer'],['luis','Tech'],['jake','Tech'],['kelly','Service Advisor'],['ray','Parts']];
   sel.innerHTML = opts.map(([id,t]) => `<option value="${id}" ${id === S.viewer ? 'selected' : ''}>${t} · ${esc(P(id).name)}</option>`).join('');
   renderNav();
   document.getElementById('main').innerHTML = `<div class="wrap">${VIEWS[S.view]()}</div>`;
