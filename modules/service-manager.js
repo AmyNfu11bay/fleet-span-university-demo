@@ -908,7 +908,7 @@ FSU_MODULES.push(
       "q": "What are the site's cost and margin benchmarks?",
       "options": [
         "Cost at or above targets, margin at or below targets",
-        "Cost is low and margins are high",
+        "Cost doesn't matter as long as revenue is up",
         "Cost at or below targets, margin at or above targets",
         "Cost is high and margins are low"
       ],
@@ -1141,7 +1141,7 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Next week, run the same two reports (the **Work In Progress Report** and Efficiency) and check each item off. Anything still open gets a conversation, not just a new due date."
+      "text": "Next week, run the same two reports (the **Work In Progress Report** and the **Employee Statistics Report**) and check each item off. Anything still open gets a conversation, not just a new due date."
     },
     {
       "type": "quiz",
