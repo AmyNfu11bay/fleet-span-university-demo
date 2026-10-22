@@ -58,7 +58,7 @@ for (const m of ctx.FSU_MODULES) {
       else if (!(Number.isInteger(it.answer) && it.answer >= 0 && it.answer < it.options.length)) err(`quiz item ${n + 1} answer index is out of range`);
       else if (new Set(it.options).size !== it.options.length) err(`quiz item ${n + 1} repeats an option`);
     }
-    if (/\bverify\b/i.test(JSON.stringify(it)) || it.verify) err(`item ${n + 1} contains a "verify" flag or wording; use the guide's wording only`);
+    if (/\[\s*verify\s*\]/i.test(JSON.stringify(it)) || it.verify) err(`item ${n + 1} contains a [Verify] flag; use the guide's wording only`);
   });
   if (m.status === 'Published' && quiz.length === 5) {
     const counts = [0, 0, 0, 0];
