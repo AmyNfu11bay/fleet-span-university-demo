@@ -1,4 +1,4 @@
-// Fleet Span University — modules every employee takes. One object per module; see modules/README.md for the format.
+// Fleetspan University — modules every employee takes. One object per module; see modules/README.md for the format.
 FSU_MODULES.push(
 {
   "id": "all1",
@@ -14,7 +14,7 @@ FSU_MODULES.push(
   "tier": "Module 1",
   "level": "Basic",
   "status": "Published",
-  "version": 3,
+  "version": 4,
   "days": 7,
   "soCount": 0,
   "why": "You do your best work when you can read the screen easily. Your browser can show Fullbay in Spanish so every step is clear.",
@@ -24,7 +24,7 @@ FSU_MODULES.push(
   ],
   "doneRight": "Fullbay shows in Spanish on every page you open, and you can find your SOs, buttons and tabs.",
   "wrong": [
-    "A word looks wrong: browser translation isn't always 100% accurate. Ask your Service Manager or Spike (Module 9) what it means.",
+    "A word looks wrong: browser translation isn't always 100% accurate. Ask your Service Manager or Spike (Tech Module 10) what it means.",
     "Safari on your iPhone or iPad stops translating when you go to a new page: tap **aA** > **Translate to Spanish** again.",
     "You need English again: repeat the steps and pick English."
   ],
@@ -149,7 +149,7 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Open Fleet Span University. Your browser translates your training the same way, so every module shows in Spanish too."
+      "text": "Open Fleetspan University. Your browser translates your training the same way, so every module shows in Spanish too."
     },
     {
       "type": "quiz",
@@ -186,7 +186,7 @@ FSU_MODULES.push(
     },
     {
       "type": "quiz",
-      "q": "After you translate Fullbay, what happens to Fleet Span University?",
+      "q": "After you translate Fullbay, what happens to Fleetspan University?",
       "options": [
         "Nothing, it stays in English",
         "It stops working",

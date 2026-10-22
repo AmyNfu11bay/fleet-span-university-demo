@@ -1,4 +1,4 @@
-// Fleetspan University — Service Manager track. Basic modules from Amy's Service Manager step-by-step guide (cleaned-up draft, Oct 2026), Help Center modules carried over from the Service Advisor track, and Module 14 from Amy's DIR desk guide. One object per module; see modules/README.md for the format.
+// Fleetspan University — Service Manager track. Basic modules from Amy's Service Manager step-by-step guide (cleaned-up draft, Oct 2026), Help Center modules carried over from the Service Advisor track, and Module 15 from Amy's DIR desk guide. One object per module; see modules/README.md for the format.
 FSU_MODULES.push(
 {
   "id": "sm2",
@@ -9,7 +9,7 @@ FSU_MODULES.push(
   "tier": "Module 2",
   "level": "Basic",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 7,
   "soCount": 0,
   "why": "Fullbay is the system the whole shop runs on. When you know what it does, and what it doesn't, you see why every click you make matters.",
@@ -18,7 +18,7 @@ FSU_MODULES.push(
   ],
   "doneRight": "You can explain in your own words what Fullbay does for the shop and for the customer.",
   "wrong": [
-    "Something in Fullbay doesn't look right: ask the VP, or ask Spike (Module 16)."
+    "Something in Fullbay doesn't look right: ask the VP, or ask Spike (Module 17)."
   ],
   "sources": [
     {
@@ -459,15 +459,200 @@ FSU_MODULES.push(
   ]
 },
 {
+  "id": "sm17",
+  "title": "Complete the SO: Complaint, Cause, Correction",
+  "roles": [
+    "Service Manager"
+  ],
+  "tier": "Module 6",
+  "status": "Published",
+  "version": 1,
+  "days": 7,
+  "soCount": 1,
+  "level": "Basic",
+  "customers": true,
+  "why": "The SO is the shop's legal and financial record of the job. The customer reads the 3 Cs on the invoice to decide whether to pay it, a warranty claim lives or dies on them, and the next tech who touches the unit reads them to know what was already done. No clear Complaint: the tech chases the wrong problem. No Cause: the customer sees parts and hours with no reason and payment slows down. No Correction: nobody can prove the work was done. Three short, specific lines per Action Item protect the revenue, the customer relationship and the tech.",
+  "before": [
+    "You can log in to Fullbay and open a Service Order.",
+    "You know your role's part of the SO workflow (Create → Diagnose → Price Parts → Authorize → Order Parts → Repair → Invoice).",
+    "One complaint = one Action Item. If the customer reports three problems, the SO gets three Action Items, each with its own 3 Cs."
+  ],
+  "doneRight": "Every Action Item has a Complaint, a Cause, a Recommended Service and an Actual Service before it is marked Corrected. One complaint per Action Item; extra findings are their own Action Items. The Cause names a test or inspection; the Correction names the fix and how it was verified. A customer can read the invoice and understand what was wrong, why, and what was done, with no phone call.",
+  "wrong": [
+    "Complaint is vague (\"check truck\"): the tech asks the Service Advisor to call the customer or driver and rewrite it before diagnosing.",
+    "Tech finds a different problem than the complaint: write what you found in the Cause; add a new Action Item for any extra work. The Service Advisor gets approval before it's done.",
+    "Customer declines the repair: the Service Advisor moves it to **Pending Repairs** so it isn't lost. Don't delete it.",
+    "Action Item already marked Corrected with no Correction: the Service Manager rolls it back with the **Service Status** drop-down on the Action Item header (needs the permission) so the tech can fix **Actual Service** before invoicing.",
+    "Parts landed on the wrong Action Item: Parts moves them to the right line before the invoice is created."
+  ],
+  "sources": [
+    {
+      "title": "1 | Create a new Service Order",
+      "url": "https://help.fullbay.com/en/articles/12061994-1-create-a-new-service-order"
+    },
+    {
+      "title": "2 | Diagnose and Add Parts",
+      "url": "https://help.fullbay.com/en/articles/12036616-2-diagnose-and-add-parts"
+    },
+    {
+      "title": "6 | Repair",
+      "url": "https://help.fullbay.com/en/articles/12036689-6-repair"
+    },
+    {
+      "title": "Pending Repairs",
+      "url": "https://help.fullbay.com/en/articles/12036252-pending-repairs"
+    }
+  ],
+  "items": [
+    {
+      "type": "step",
+      "text": "**Complaint**: what the customer or driver is reporting, in their words, about the symptom, not the fix. It goes in the **Complaint** section of the new SO. The Service Advisor writes it when the SO is created; the tech verifies it. Weak: \"Check truck.\" Strong: \"Driver reports air pressure drops overnight; unit won't build air above 90 psi at idle.\""
+    },
+    {
+      "type": "step",
+      "text": "**Cause**: why it is happening, and the test or inspection that proved it. No guess-and-replace. The tech types it in the **Cause** field at Diagnose, plus **Cause Type** if it has a red asterisk. Weak: \"Bad part.\" Strong: \"Performed leak-down test. Found air leak at primary tank drain valve; valve cracked at threads.\""
+    },
+    {
+      "type": "step",
+      "text": "**Correction**: what will be done, then what was done and how it was verified. The tech writes the plan in **Recommended Service** at Diagnose (what the customer approves), then what was really done in **Actual Service** at Repair. Weak: \"Fixed.\" Strong: \"Replaced primary tank drain valve. Built air to 120 psi, 15-minute leak-down test, no leaks.\""
+    },
+    {
+      "type": "step",
+      "text": "The 3 Cs go in their fields, never in the Action Item **Notes** icon. Notes are shop-only and never print on the estimate or invoice. Add proof with the **Photos** icon; check **For Customer** on a photo to show it in the Customer Portal."
+    },
+    {
+      "type": "step",
+      "text": "Write so a customer who has never seen the truck understands it. Spell out abbreviations the first time. PM and Global Service Action Items skip Diagnose by default, but still get an **Actual Service** entry: what was performed and any findings."
+    },
+    {
+      "type": "step",
+      "text": "Service Advisor: click the **+** icon at the top of the screen and select **Service Order**. Fill in **Who is the customer?**, **Who is Requesting Service?** and **Which unit needs service?**, then the unit's **Mileage**."
+    },
+    {
+      "type": "step",
+      "text": "Service Advisor: click the **Complaint** section. Type each complaint in the customer's words. Each one becomes its own Action Item. You can also pick from the **Add Access/Return Item**, **Unit PM**, **Pending Repair** or **Global Service** drop-down."
+    },
+    {
+      "type": "step",
+      "text": "Service Advisor: for each complaint, select a **Component & System**, assign the **SOAI Technician**, and enter **Invoiced Hours** and the **Labor Rate**."
+    },
+    {
+      "type": "step",
+      "text": "Service Advisor: check **Pre-authorized** only if the customer has already approved that work. Use **Skip-diagnosis** only for standard work that needs no diagnosis (Global Services and PMs default to it). Click **Create** or **Create & Capture Signature**."
+    },
+    {
+      "type": "step",
+      "text": "Service Advisor: customer calls with a new problem mid-job? Add it as a new complaint on the same SO. It lands as its own Action Item below the last complaint. Never bury it in an existing one."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Diagnose: on **Tech Home**, under **Diagnose**, click the SO, then click the Action Item. It turns green when it is tracking your time. Read the Complaint and confirm it. If it's wrong or vague, tell the Service Advisor before you diagnose."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Diagnose: type what you found, and the test that proved it, in the **Cause** field. If **Cause Type** has a red asterisk, pick one from the drop-down. If you see a **Procedures** button, complete the procedures. Anything in orange is incomplete."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Diagnose: choose the **Component** and **System**, then type the planned fix in **Recommended Service**. Add the parts the repair needs, then click **Mark Action Item # As Diagnosed**."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Diagnose: found something else during inspection? It gets its own Action Item. An inspection procedure marked **Defective** creates one automatically. Never add unrelated work to the original complaint."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Repair: once the work is authorized and parts are in, the SO shows on **Tech Home** under **Repair**. Click the SO, then the Action Item, so it tracks your time."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Repair: type what you actually did, and how you verified it, in **Actual Service**. **Copy Recommendation** copies your Recommended Service. Use it only if that is exactly what you did, then add the verification. Enter **Mileage** if the field is required."
+    },
+    {
+      "type": "step",
+      "text": "Tech, Repair: check that every part you used is on this Action Item, then click **Mark Action Item # as Corrected**. When every Action Item is corrected (and reviewed, if your shop uses the Review step), the SO shows as **Ready To Invoice** under **Recent Completed Services** on the Service home page."
+    },
+    {
+      "type": "step",
+      "text": "Service Manager: open each SO in **Ready To Invoice** and read every Action Item's Complaint → Cause → Actual Service as if you were the customer. Anything vague goes back to the tech: use the **Service Status** drop-down on the Action Item header to roll it back (needs the permission), and tell the tech what to fix."
+    },
+    {
+      "type": "step",
+      "text": "Parts and Parts Runners: attach parts to the Action Item they belong to, never a different line. A part on the wrong line makes that line's Cause and Correction look wrong on the invoice."
+    },
+    {
+      "type": "step",
+      "text": "Biller: preview the invoice before **Create Invoice**. If any line is missing a Cause or Actual Service, or reads as \"fixed,\" send it back to the Service Manager. Don't invoice an incomplete story."
+    },
+    {
+      "type": "quiz",
+      "q": "A customer reports three separate problems. How many Action Items should the SO have?",
+      "options": [
+        "One, with all three listed",
+        "Three, one per complaint",
+        "Two, grouped by system",
+        "Whatever the tech decides"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "quiz",
+      "q": "Which is the best Complaint?",
+      "options": [
+        "\"Replace brake pads\"",
+        "\"Check truck\"",
+        "\"Driver reports brakes squeal when stopping\""
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "What must a strong Cause include?",
+      "options": [
+        "The test or inspection that proved the problem",
+        "The part number ordered",
+        "The customer's PO number",
+        "The tech's estimated hours"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "quiz",
+      "q": "During inspection you find a cracked air line unrelated to the complaint. What do you do?",
+      "options": [
+        "Fix it under the original Action Item",
+        "Ignore it, it wasn't requested",
+        "Write it up as its own Action Item for approval"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "quiz",
+      "q": "Where does the tech write what was actually done to fix the unit?",
+      "options": [
+        "The Action Item Notes icon",
+        "The Actual Service field, before clicking Mark Action Item # as Corrected",
+        "The Recommended Service field, after the invoice is sent",
+        "The Complaint section"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "signoff",
+      "text": "You review 1 SO with no help: every Action Item has a clear Complaint, Cause, Recommended Service and Actual Service before it goes to invoice."
+    }
+  ]
+},
+{
   "id": "sm6",
   "title": "SO review",
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 6",
+  "tier": "Module 7",
   "level": "Basic",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 14,
   "soCount": 10,
   "why": "this is the last check before money goes out the door. A bad SO that gets invoiced costs you a credit memo and a customer call.",
@@ -476,7 +661,7 @@ FSU_MODULES.push(
   ],
   "doneRight": "an SO moves on only when all six checks pass, and any SO you fail has a note naming the problem and next steps.",
   "wrong": [
-    "Hours billed don't match clocked time: check the tech's timesheet first (Module 10), then decide whether the hours or the clock entry is wrong.",
+    "Hours billed don't match clocked time: check the tech's timesheet first (Module 11), then decide whether the hours or the clock entry is wrong.",
     "A part is still unpriced: send it to Parts; don't price it yourself.",
     "The tech failed to complete any repairs or action items, do not complete them for them. Contact the tech and have him complete his tasks."
   ],
@@ -580,7 +765,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 7",
+  "tier": "Module 8",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -710,7 +895,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 8",
+  "tier": "Module 9",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -822,7 +1007,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 9",
+  "tier": "Module 10",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -959,7 +1144,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 10",
+  "tier": "Module 11",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -1089,7 +1274,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 11",
+  "tier": "Module 12",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -1210,7 +1395,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 12",
+  "tier": "Module 13",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -1343,10 +1528,10 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 13",
+  "tier": "Module 14",
   "level": "Basic",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 14,
   "entry": {
     "title": "PM due list",
@@ -1387,11 +1572,11 @@ FSU_MODULES.push(
     },
     {
       "type": "step",
-      "text": "Hand each new SO to the advisor to schedule (Service Advisor Module 8)."
+      "text": "Hand each new SO to the advisor to schedule (Service Advisor Module 9)."
     },
     {
       "type": "step",
-      "text": "Check for units with no tracking: open the unit, then the **Components & PMs** tab, and confirm the PM is tracked by mileage or hours. If it isn't, turn it on (Service Advisor Module 15)."
+      "text": "Check for units with no tracking: open the unit, then the **Components & PMs** tab, and confirm the PM is tracked by mileage or hours. If it isn't, turn it on (Service Advisor Module 16)."
     },
     {
       "type": "step",
@@ -1472,15 +1657,15 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 14",
+  "tier": "Module 15",
   "level": "Basic",
   "status": "Published",
-  "version": 1,
+  "version": 2,
   "days": 14,
   "soCount": 10,
   "why": "DIR — Diagnose, Inspect, Repair — this is the core of who we are. Customers count on us to inspect their vehicles and keep them safe, and a thorough inspection surfaces the legitimate work a truck actually needs.",
   "before": [
-    "You can review SOs on the Service page (Module 6)."
+    "You can review SOs on the Service page (Module 7)."
   ],
   "doneRight": "Every SO had an inspection · every inspection had a call · every approval is in writing on the SO.",
   "wrong": [
@@ -1596,7 +1781,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 15",
+  "tier": "Module 16",
   "level": "Basic",
   "status": "Published",
   "version": 1,
@@ -1709,7 +1894,7 @@ FSU_MODULES.push(
   "roles": [
     "Service Manager"
   ],
-  "tier": "Module 16",
+  "tier": "Module 17",
   "level": "Basic",
   "status": "Published",
   "version": 1,

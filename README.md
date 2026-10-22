@@ -1,4 +1,4 @@
-# Fleet Span University — demo
+# Fleetspan University — demo
 
 A clickable demo of a custom training app with sample people and data. It has no real sign-in, no database and no emails; everything resets on reload.
 
